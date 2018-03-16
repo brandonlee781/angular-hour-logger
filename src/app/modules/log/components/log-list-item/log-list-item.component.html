@@ -1,0 +1,38 @@
+<mat-list-item class="list-item">
+  <div class="log-entry">
+    <div class="log-data">
+      <div class="log-note">{{ log.note }}</div>
+      <div class="log-details">
+        <div>
+          <mat-icon [style.color]="log.project.color">folder_open</mat-icon>
+          <span>{{ log.project.name }}</span>
+        </div>
+  
+        <div>
+          <mat-icon>event</mat-icon>
+          <span>{{ log.date | date:'mediumDate' }}</span>
+        </div>
+  
+        <div>
+          <mat-icon>access_time</mat-icon>
+          <span>{{ formatTime(log.startTime) }}</span>
+        </div>
+  
+        <div>
+          <mat-icon>access_time</mat-icon>
+          <span>{{ formatTime(log.endTime) }}</span>
+        </div>
+  
+        <div>
+          <mat-icon>timelapse</mat-icon>
+          <span>{{ log.duration }}</span>
+        </div>
+      </div>
+    </div>
+  
+    <div>
+      <button mat-icon-button color="primary"><mat-icon>mode_edit</mat-icon></button>
+      <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+</mat-list-item>

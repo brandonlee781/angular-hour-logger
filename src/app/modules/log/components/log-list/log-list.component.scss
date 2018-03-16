@@ -1,0 +1,11 @@
+.list-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.more-btn {
+  margin: 2rem auto;
+  width: 80%;
+}

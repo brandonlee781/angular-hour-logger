@@ -1,0 +1,14 @@
+<div class="list-wrapper">
+  <mat-list>
+    <bl-log-list-item 
+      *ngFor="let log of logs"
+      [log]="log"
+    ></bl-log-list-item>
+  </mat-list>
+  <button 
+    mat-flat-button
+    color="primary"
+    class="more-btn"
+    (click)="loadMore()"
+  >More Logs</button>
+</div>

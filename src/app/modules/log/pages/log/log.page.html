@@ -1,0 +1,18 @@
+<div class="log-wrapper">
+  <bl-nav-drawer 
+    [links]="links" 
+    (selected)="onLinkSelected($event)"
+    #drawer
+  >
+    <div class="log-content">
+      <div class="log-header">
+        <div class="log-header__title">{{ headerTitle }}</div>
+        <button mat-fab color="primary"><span>+</span></button>
+      </div>
+      <!-- <button type="button" mat-icon-button (click)="drawer.toggleDrawer()">
+        <mat-icon svgIcon="hamburger"></mat-icon>
+      </button> -->
+      <bl-log-list [selectedProject]="selectedProject"></bl-log-list>
+    </div>
+  </bl-nav-drawer>
+</div>

@@ -1,0 +1,21 @@
+@import '../../../../../assets/_variables.scss';
+@import '../../../../../assets/_mixins.scss';
+
+.sidenav {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: $sidenav-width;
+  height: 100vh;
+  position: fixed;
+  background-color: $dark-grey;
+  z-index: 1501;
+  @include tablet-and-down {
+    border-right: 2px solid #2196F3;
+  }
+}
+
+.setting-button {
+  margin-top: auto;
+}

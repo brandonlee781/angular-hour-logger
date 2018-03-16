@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/_variables.scss';
+@import './assets/_mixins.scss';
+/* Application-wide Styles */
+h1 {
+  color: #369;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0;
+}
+
+body, input[text], button {
+  color: #888;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+/* everywhere else */
+* {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}

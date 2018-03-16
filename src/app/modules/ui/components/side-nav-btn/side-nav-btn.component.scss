@@ -1,0 +1,42 @@
+@import '../../../../../assets/_variables.scss';
+
+.sidenav-btn {
+  width: $sidenav-width;
+  min-width: $sidenav-width;
+  height: $sidenav-width;
+  border-radius: 0;
+  margin: 0;
+  background-color: $dark-grey;
+  color: $text-color;
+  span {
+    display: flex !important;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  &.active {
+    color: map-get($logger-blue, 500) !important;
+    &:after {
+      content: "";
+      position: absolute; 
+      right: 0;
+      top: calc(50% - 10px);
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid map-get($logger-blue, 500);
+    }
+  }
+}
+
+.sidenav-btn-icon {
+  font-size: 2.5em;
+  height: 1em;
+  width: 1em;
+}
+
+.sidenav-btn-label {
+  font-size: 1em;
+  height: 18px;
+  margin-top: -12px;
+  font-weight: 400;
+}

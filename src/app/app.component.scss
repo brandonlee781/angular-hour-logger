@@ -1,0 +1,7 @@
+@import '../assets/_mixins.scss';
+
+.router {
+  @include tablet-and-up {
+    margin-left: $sidenav-width;
+  }
+}

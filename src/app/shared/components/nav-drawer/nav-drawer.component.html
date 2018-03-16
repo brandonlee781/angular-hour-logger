@@ -1,0 +1,20 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="isOpened" class="base-drawer">
+    <div class="drawer-header">
+      Log Entries
+    </div>
+    <mat-list class="link-list">
+      <bl-nav-drawer-item
+        *ngFor="let link of links"
+        icon="{{ link.icon }}"
+        text="{{ link.text }}"
+        [isSelected]="link.isSelected"
+        (click)="changeSelected(link)"
+      ></bl-nav-drawer-item>
+    </mat-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+      <ng-content></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>
