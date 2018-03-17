@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NavDrawerComponent } from './components/nav-drawer/nav-drawer.component';
 import { NavDrawerItemComponent } from 'shared/components/nav-drawer-item/nav-drawer-item.component';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from 'core/material.module';
 
 
 @NgModule({

@@ -19,7 +19,8 @@
     "paths":{
       "modules/*": ["app/modules/*"],
       "shared/*": ["app/shared/*"],
-      "assets/*": ["assets/*"]
+      "assets/*": ["assets/*"],
+      "core/*": ["app/core/*"]
     }
   }
 }

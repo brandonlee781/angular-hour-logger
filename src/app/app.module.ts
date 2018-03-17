@@ -3,29 +3,23 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { UIModule } from 'modules/ui/ui.module';
-import { HeroModule } from 'modules/hero/hero.module';
 
-import { AppRoutingModule } from './app-routing.module';
-import { GraphqlModule } from './graphql.module';
-import { MaterialModule } from './material.module';
+import { AppRoutingModule } from 'core/app-routing.module';
+import { GraphqlModule } from 'core/graphql.module';
+import { MaterialModule } from 'core/material.module';
 
 import { AppComponent } from './app.component';
-import { MessagesComponent } from './shared/components/messages/messages.component';
-
-import { MessageService } from './shared/services/message.service';
-import { LogModule } from './modules/log/log.module';
+import { LogModule } from 'modules/log/log.module';
 import { SharedModule } from 'shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessagesComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
 
-    HeroModule,
     SharedModule,
     LogModule,
     UIModule,
@@ -34,7 +28,7 @@ import { SharedModule } from 'shared/shared.module';
     GraphqlModule,
     MaterialModule,
   ],
-  providers: [MessageService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
