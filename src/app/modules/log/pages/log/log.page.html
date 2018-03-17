@@ -1,6 +1,6 @@
 <div class="log-wrapper">
   <bl-nav-drawer 
-    [links]="links" 
+    [links]="links$ | async"
     (selected)="onLinkSelected($event)"
     #drawer
   >
