@@ -54,7 +54,6 @@
   }
 }
 
-
 @mixin desktop-large {
   @media (min-width: #{$large-width}) and (max-width: #{$xlarge-width - 1px}) {
     @content;

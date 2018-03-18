@@ -13,9 +13,7 @@ import { LogModule } from 'modules/log/log.module';
 import { SharedModule } from 'shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     SharedModule,
     LogModule,
@@ -26,6 +24,6 @@ import { SharedModule } from 'shared/shared.module';
     MaterialModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
