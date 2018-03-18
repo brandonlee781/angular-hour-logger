@@ -56,4 +56,31 @@ describe('LogPage', () => {
       });
     });
   });
+
+  it('should change the selected link', () => {
+    const mockLinks = [
+      { id: 1, text: '1', isSelected: true, icon: '' },
+      { id: 2, text: '2', isSelected: false, icon: '' },
+      { id: 3, text: '3', isSelected: false, icon: '' },
+      { id: 4, text: '4', isSelected: false, icon: '' },
+    ];
+    fixture.whenStable().then(() => {
+      jest.spyOn(component, 'onLinkSelected')
+        .mockImplementation(link => {
+          return mockLinks.map(l => {
+              return Object.assign({}, l, {
+                isSelected: l.id === link.id ? true : false,
+              });
+            });
+        });
+
+      expect(component.onLinkSelected(mockLinks[2])).toEqual(
+        expect.arrayContaining([
+          { id: 1, text: '1', isSelected: false, icon: '' },
+          { id: 3, text: '3', isSelected: true, icon: '' },
+        ]),
+      );
+
+    });
+  });
 });
