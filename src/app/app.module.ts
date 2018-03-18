@@ -17,9 +17,6 @@ import { SharedModule } from 'shared/shared.module';
     AppComponent,
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-
     SharedModule,
     LogModule,
     UIModule,
