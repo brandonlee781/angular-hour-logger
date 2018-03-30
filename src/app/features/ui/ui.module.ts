@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'core/material.module';
@@ -7,7 +8,7 @@ import { SideNavBtnComponent } from './components/side-nav-btn/side-nav-btn.comp
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 @NgModule({
-  imports: [MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule],
   declarations: [
     SideNavComponent,
     SideNavBtnComponent,

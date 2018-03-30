@@ -1,6 +1,7 @@
 <div class="sidenav">
-  <bl-side-nav-btn icon="home" label="Home" link="/"></bl-side-nav-btn>
+  <bl-side-nav-btn icon="home" label="Home" link="/home"></bl-side-nav-btn>
   <bl-side-nav-btn icon="assignment" label="Projects" link="/projects"></bl-side-nav-btn>
   <bl-side-nav-btn icon="receipt" label="Invoices" link="/invoices" ></bl-side-nav-btn>
-  <bl-side-nav-btn icon="person" label="Profile" link="/profile" class="setting-button"></bl-side-nav-btn>
+  <bl-side-nav-btn *ngIf="user?.email" icon="person" label="Profile" link="/profile" class="setting-button"></bl-side-nav-btn>
+  <bl-side-nav-btn *ngIf="!user?.email" icon="lock_open" label="Login" link="/login" class="setting-button"></bl-side-nav-btn>
 </div>

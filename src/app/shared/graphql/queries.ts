@@ -1,5 +1,6 @@
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
+import { User } from 'features/User';
 import gql from 'graphql-tag';
 
 export const getAllLogs = gql`
@@ -53,4 +54,16 @@ export interface LogListQuery {
   allLogsByProjectId: {
     logs: Log[];
   };
+}
+
+export const GET_USER = gql`
+  query GetUser {
+    getUser {
+      id
+      email
+    }
+  }
+`;
+export interface GetUserQuery {
+  getUser: User;
 }
