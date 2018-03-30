@@ -7,7 +7,8 @@ h1 {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
-h2, h3 {
+h2,
+h3 {
   color: #444;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-weight: lighter;
@@ -16,9 +17,12 @@ body {
   display: flex;
   flex-flow: row nowrap;
   margin: 0;
+  height: 100vh;
 }
 
-body, input[text], button {
+body,
+input[text],
+button {
   color: #888;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
