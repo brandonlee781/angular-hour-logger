@@ -6,12 +6,13 @@ describe('NavDrawerComponent', () => {
   let component: NavDrawerComponent;
   let fixture: ComponentFixture<NavDrawerComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavDrawerComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [NavDrawerComponent],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NavDrawerComponent);

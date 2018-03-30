@@ -5,27 +5,27 @@
       <div class="log-details">
         <div>
           <mat-icon [style.color]="log.project.color">folder_open</mat-icon>
-          <span>{{ log.project.name }}</span>
+          <span class="detail-value">{{ log.project.name }}</span>
         </div>
   
         <div>
           <mat-icon>event</mat-icon>
-          <span>{{ log.date | date:'mediumDate' }}</span>
+          <span class="detail-value">{{ log.date | date:'mediumDate' }}</span>
         </div>
   
         <div>
           <mat-icon>access_time</mat-icon>
-          <span>{{ formatTime(log.startTime) }}</span>
+          <span class="detail-value">{{ formatTime(log.startTime) }}</span>
         </div>
   
         <div>
           <mat-icon>access_time</mat-icon>
-          <span>{{ formatTime(log.endTime) }}</span>
+          <span class="detail-value">{{ formatTime(log.endTime) }}</span>
         </div>
   
         <div>
           <mat-icon>timelapse</mat-icon>
-          <span>{{ log.duration }}</span>
+          <span class="detail-value">{{ log.duration }}</span>
         </div>
       </div>
     </div>

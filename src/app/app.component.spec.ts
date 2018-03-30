@@ -1,12 +1,13 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
-import { AppComponent } from './app.component';
-import { SharedModule } from 'shared/shared.module';
-import { LogModule } from 'modules/log/log.module';
-import { UIModule } from 'modules/ui/ui.module';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppRoutingModule } from 'core/app-routing.module';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
+import { LogModule } from 'modules/log/log.module';
+import { UIModule } from 'modules/ui/ui.module';
+import { SharedModule } from 'shared/shared.module';
+
+import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   let app: AppComponent;

@@ -1,9 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener, ContentChildren } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'bl-nav-drawer',
   templateUrl: './nav-drawer.component.html',
-  styleUrls: ['./nav-drawer.component.scss']
+  styleUrls: ['./nav-drawer.component.scss'],
 })
 export class NavDrawerComponent implements OnInit {
   @Input() links;
@@ -39,5 +46,4 @@ export class NavDrawerComponent implements OnInit {
   changeSelected(link) {
     this.selected.emit(link);
   }
-
 }
