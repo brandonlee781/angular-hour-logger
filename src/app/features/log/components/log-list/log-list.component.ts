@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
-import Log from 'modules/log/Log';
+import Log from 'features/log/Log';
 import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
 
 @Component({

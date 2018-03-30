@@ -17,8 +17,8 @@
   &.active {
     color: map-get($logger-blue, 500) !important;
     &:after {
-      content: "";
-      position: absolute; 
+      content: '';
+      position: absolute;
       right: 0;
       top: calc(50% - 10px);
       border-top: 10px solid transparent;

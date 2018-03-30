@@ -1,6 +1,6 @@
+import Log from 'features/log/Log';
+import Project from 'features/project/Project';
 import gql from 'graphql-tag';
-import Log from 'modules/log/Log';
-import Project from 'modules/project/Project';
 
 export const getAllLogs = gql`
   query AllLogs {

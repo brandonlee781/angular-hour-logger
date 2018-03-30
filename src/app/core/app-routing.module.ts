@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: 'app/modules/log/log.module#LogModule',
+    loadChildren: 'app/features/log/log.module#LogModule',
   },
   {
     path: 'projects',
-    loadChildren: 'app/modules/project/project.module#ProjectModule',
+    loadChildren: 'app/features/project/project.module#ProjectModule',
   },
   {
     path: '',

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { format, parse } from 'date-fns';
-import Log from 'modules/log/Log';
+import Log from 'features/log/Log';
 
 @Component({
   selector: 'bl-log-list-item',

@@ -17,7 +17,7 @@
     ],
     "baseUrl": "src",
     "paths":{
-      "modules/*": ["app/modules/*"],
+      "features/*": ["app/features/*"],
       "shared/*": ["app/shared/*"],
       "assets/*": ["assets/*"],
       "core/*": ["app/core/*"]

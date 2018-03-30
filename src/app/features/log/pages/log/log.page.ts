@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { format } from 'date-fns';
-import { NewLogDialogComponent } from 'modules/log/components/new-log-dialog/new-log-dialog.component';
-import Log from 'modules/log/Log';
-import Project from 'modules/project/Project';
+import { NewLogDialogComponent } from 'features/log/components/new-log-dialog/new-log-dialog.component';
+import Log from 'features/log/Log';
+import Project from 'features/project/Project';
 import { Observable } from 'rxjs/Observable';
 import { GET_PROJECT_NAMES, LOG_LIST_QUERY } from 'shared/graphql/queries';
 
