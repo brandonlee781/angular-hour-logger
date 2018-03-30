@@ -13,4 +13,8 @@ export class NavDrawerItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  changeSelected() {
+    //
+  }
 }
