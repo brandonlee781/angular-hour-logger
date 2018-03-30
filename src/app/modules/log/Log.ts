@@ -1,7 +1,7 @@
 import Project from '../project/Project';
 
 export default class Log {
-  id: string;
+  id?: string;
   date: string;
   startTime: string;
   endTime: string;
@@ -9,6 +9,6 @@ export default class Log {
   note: string;
   project: Project;
   // user: User;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
