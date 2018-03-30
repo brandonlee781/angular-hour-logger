@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from 'features/login/login.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadChildren: 'app/features/log/log.module#LogModule',
   },
   {
@@ -11,8 +12,12 @@ const routes: Routes = [
     loadChildren: 'app/features/project/project.module#ProjectModule',
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: '',
-    redirectTo: '',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
 ];
