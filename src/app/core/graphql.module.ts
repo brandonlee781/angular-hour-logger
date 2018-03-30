@@ -7,15 +7,17 @@ import { setContext } from 'apollo-link-context';
 
 import { environment } from '../../environments/environment';
 
+const storage = window.localStorage;
+
 @NgModule({
   exports: [HttpClientModule, ApolloModule, HttpLinkModule],
 })
 export class GraphqlModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
-    const http = httpLink.create({ uri: environment.apiUrl });
+    const http = httpLink.create({ uri: environment.apiUrl + '/graphql' });
 
     const auth = setContext((_, { headers }) => {
-      const token = environment.tempToken;
+      const token = storage.getItem('token');
       if (!token) {
         return {};
       } else {
