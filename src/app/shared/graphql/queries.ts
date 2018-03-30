@@ -1,8 +1,10 @@
 import gql from 'graphql-tag';
+import Log from 'modules/log/Log';
+import Project from 'modules/project/Project';
 
 export const getAllLogs = gql`
-  query AllLogs{
-    allLogs{
+  query AllLogs {
+    allLogs {
       logs {
         id
       }
@@ -20,11 +22,16 @@ export const GET_PROJECT_NAMES = gql`
     }
   }
 `;
+export interface GetProjectNameQuery {
+  allProjects: {
+    projects: Project[];
+  };
+}
 
 export const LOG_LIST_QUERY = gql`
   query LogListQuery($project: String, $offset: Int, $limit: Int) {
     allLogsByProjectId(
-      input:{ id: $project }
+      input: { id: $project }
       options: { limit: $limit, offset: $offset }
     ) {
       logs {
@@ -42,3 +49,8 @@ export const LOG_LIST_QUERY = gql`
     }
   }
 `;
+export interface LogListQuery {
+  allLogsByProjectId: {
+    logs: Log[];
+  };
+}
