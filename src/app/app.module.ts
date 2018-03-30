@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { UIModule } from 'modules/ui/ui.module';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'core/app-routing.module';
 import { GraphqlModule } from 'core/graphql.module';
-import { MaterialModule } from 'core/material.module';
+import { UIModule } from 'modules/ui/ui.module';
+import { SharedModule } from 'shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { LogModule } from 'modules/log/log.module';
-import { SharedModule } from 'shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+
     SharedModule,
-    LogModule,
+    // LogModule,
+    // ProjectModule,
     UIModule,
 
     AppRoutingModule,
     GraphqlModule,
-    MaterialModule,
+    // MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,32 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LogPage } from './log.page';
-
-import { SharedModule } from 'shared/shared.module';
-import { MaterialModule } from 'core/material.module';
-import { LogListComponent } from '../../components/log-list/log-list.component';
-import { LogListItemComponent } from '../../components/log-list-item/log-list-item.component';
-import { GraphqlModule } from 'core/graphql.module';
-import { Apollo } from 'apollo-angular';
 import { MatIconRegistry } from '@angular/material';
+import { Apollo } from 'apollo-angular';
+import { GraphqlModule } from 'core/graphql.module';
+import { MaterialModule } from 'core/material.module';
+import { SharedModule } from 'shared/shared.module';
+
+import { LogListItemComponent } from '../../components/log-list-item/log-list-item.component';
+import { LogListComponent } from '../../components/log-list/log-list.component';
+import { LogPage } from './log.page';
 
 describe('LogPage', () => {
   let component: LogPage;
   let fixture: ComponentFixture<LogPage>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LogPage, LogListComponent, LogListItemComponent ],
-      imports: [ SharedModule, MaterialModule, GraphqlModule ],
-      providers: [Apollo, MatIconRegistry]
-    })
-    .compileComponents()
-    .then(() => {
-      fixture = TestBed.createComponent(LogPage);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [LogPage, LogListComponent, LogListItemComponent],
+        imports: [SharedModule, MaterialModule, GraphqlModule],
+        providers: [Apollo, MatIconRegistry],
+      })
+        .compileComponents()
+        .then(() => {
+          fixture = TestBed.createComponent(LogPage);
+          component = fixture.componentInstance;
+          fixture.detectChanges();
+        });
+    }),
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -46,12 +47,14 @@ describe('LogPage', () => {
     fixture.whenStable().then(() => {
       component.links$.subscribe(links => {
         expect(links).toEqual(
-          expect.arrayContaining([{
-            text: 'Recent Log Entries',
-            id: 'recent',
-            icon: '',
-            isSelected: true,
-          }])
+          expect.arrayContaining([
+            {
+              text: 'Recent Log Entries',
+              id: 'recent',
+              icon: '',
+              isSelected: true,
+            },
+          ]),
         );
       });
     });
@@ -65,14 +68,13 @@ describe('LogPage', () => {
       { id: 4, text: '4', isSelected: false, icon: '' },
     ];
     fixture.whenStable().then(() => {
-      jest.spyOn(component, 'onLinkSelected')
-        .mockImplementation(link => {
-          return mockLinks.map(l => {
-              return Object.assign({}, l, {
-                isSelected: l.id === link.id ? true : false,
-              });
-            });
+      jest.spyOn(component, 'onLinkSelected').mockImplementation(link => {
+        return mockLinks.map(l => {
+          return Object.assign({}, l, {
+            isSelected: l.id === link.id ? true : false,
+          });
         });
+      });
 
       expect(component.onLinkSelected(mockLinks[2])).toEqual(
         expect.arrayContaining([
@@ -80,7 +82,6 @@ describe('LogPage', () => {
           { id: 3, text: '3', isSelected: true, icon: '' },
         ]),
       );
-
     });
   });
 });

@@ -1,13 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { logRoutes } from 'modules/log/log.routes';
 
 const routes: Routes = [
-  ...logRoutes,
+  {
+    path: '',
+    loadChildren: 'app/modules/log/log.module#LogModule',
+  },
+  {
+    path: 'projects',
+    loadChildren: 'app/modules/project/project.module#ProjectModule',
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,24 +1,51 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+} from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {
+  MatDatetimepickerModule,
+  MatNativeDatetimeModule,
+} from '@mat-datetimepicker/core';
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDatetimeModule,
+    MatDatetimepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
   ],
   exports: [
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-  ]
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDatetimeModule,
+    MatDatetimepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+  ],
 })
-export class MaterialModule { }
+export class MaterialModule {}
