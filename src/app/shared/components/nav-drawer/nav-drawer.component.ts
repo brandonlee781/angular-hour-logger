@@ -1,4 +1,9 @@
 import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState,
+} from '@angular/cdk/layout';
+import {
   Component,
   EventEmitter,
   HostListener,
@@ -6,6 +11,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
   selector: 'bl-nav-drawer',
@@ -15,35 +21,41 @@ import {
 export class NavDrawerComponent implements OnInit {
   @Input() links;
   @Output() selected: EventEmitter<any> = new EventEmitter();
-  innerWidth: number;
+  isDesktop: boolean;
   isOpened: boolean;
 
-  constructor() {}
-
-  ngOnInit() {
-    this.innerWidth = window.innerWidth;
-    if (this.innerWidth >= 960) {
-      this.isOpened = true;
-    } else {
-      this.isOpened = false;
-    }
+  constructor(
+    public breakpointObserver: BreakpointObserver,
+    private navDrawerService: NavDrawerService,
+  ) {
+    navDrawerService.isNavDrawerOpen$.subscribe(isOpened => {
+      this.isOpened = isOpened;
+    });
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = window.innerWidth;
-    if (this.innerWidth >= 960) {
-      this.isOpened = true;
-    } else {
-      this.isOpened = false;
-    }
+  ngOnInit() {
+    this.breakpointObserver
+      .observe([Breakpoints.Large])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isDesktop = true;
+          this.isOpened = true;
+        } else {
+          this.isDesktop = false;
+          this.isOpened = false;
+        }
+        this.navDrawerService.setValue(this.isDesktop);
+      });
   }
 
   toggleDrawer() {
-    this.isOpened = !this.isOpened;
+    this.navDrawerService.setValue(!this.isOpened);
   }
 
   changeSelected(link) {
     this.selected.emit(link);
+    if (!this.isDesktop) {
+      this.toggleDrawer();
+    }
   }
 }

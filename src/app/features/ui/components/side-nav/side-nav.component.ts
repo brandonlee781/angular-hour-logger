@@ -1,4 +1,10 @@
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState,
+} from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
+import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
   selector: 'bl-side-nav',
@@ -7,7 +13,32 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
   @Input() user;
-  constructor() {}
+  isDesktop: boolean;
+  isNavDrawerOpen: boolean;
 
-  ngOnInit() {}
+  constructor(
+    public breakpointObserver: BreakpointObserver,
+    private navDrawerService: NavDrawerService,
+  ) {}
+
+  ngOnInit() {
+    this.breakpointObserver
+      .observe([Breakpoints.Large])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isDesktop = true;
+          this.navDrawerService.setValue(true);
+        } else {
+          this.isDesktop = false;
+          this.navDrawerService.setValue(false);
+        }
+      });
+    this.navDrawerService.isNavDrawerOpen$.subscribe(isOpened => {
+      this.isNavDrawerOpen = isOpened;
+    });
+  }
+
+  toggleMenu() {
+    this.navDrawerService.setValue(!this.isNavDrawerOpen);
+  }
 }

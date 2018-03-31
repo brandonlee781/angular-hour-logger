@@ -6,6 +6,7 @@ import { AppRoutingModule } from 'core/app-routing.module';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
 import { UIModule } from 'features/ui/ui.module';
+import { NavDrawerService } from 'shared/services/nav-drawer.service';
 import { UserService } from 'shared/services/user.service';
 import { SharedModule } from 'shared/shared.module';
 
@@ -28,7 +29,7 @@ import { LoginComponent } from './features/login/login.component';
     GraphqlModule,
     MaterialModule,
   ],
-  providers: [UserService],
+  providers: [UserService, NavDrawerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,5 +1,9 @@
-<mat-drawer-container>
-  <mat-drawer mode="side" [opened]="isOpened" class="base-drawer">
+<mat-drawer-container (backdropClick)="toggleDrawer()">
+  <mat-drawer 
+    [mode]="isDesktop ? 'side' : 'over' " 
+    [opened]="isOpened"
+    class="base-drawer"
+  >
     <div class="drawer-header">
       Log Entries
     </div>

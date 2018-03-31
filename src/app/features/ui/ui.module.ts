@@ -1,3 +1,4 @@
+import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -8,13 +9,12 @@ import { SideNavBtnComponent } from './components/side-nav-btn/side-nav-btn.comp
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 @NgModule({
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule, LayoutModule],
   declarations: [
     SideNavComponent,
     SideNavBtnComponent,
     MenuToggleButtonComponent,
   ],
   exports: [SideNavComponent, SideNavBtnComponent, MenuToggleButtonComponent],
-  // providers: [ MatIconRegistry ]
 })
 export class UIModule {}

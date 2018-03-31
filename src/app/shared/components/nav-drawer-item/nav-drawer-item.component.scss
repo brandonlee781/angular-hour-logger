@@ -3,18 +3,37 @@
   display: flex;
   align-items: center;
   height: 5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.3) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
   color: #fff;
   cursor: pointer;
   &.selected {
     &:after {
-      content:"";
-      position:absolute; 
-      right: 0;
-      top: calc(2.5rem - 10px);
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-right: 10px solid #fff;
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: calc(2.5rem - 5px);
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      background: #fff;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    &.selected {
+      &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: calc(2.5rem - 10px);
+        height: 0px;
+        width: 0px;
+        border-radius: 0;
+        background: transparent;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid #fff;
+      }
     }
   }
 }
