@@ -100,13 +100,13 @@ export class NewLogDialogComponent implements OnInit {
         .subscribe(project => (projectName = project.name));
 
       this.dialogRef.close(
-        Object.assign({}, this.newLogForm.value, { duration: this.duration }),
-        {
+        Object.assign({}, this.newLogForm.value, {
+          duration: this.duration,
           project: {
             id: this.newLogForm.value.project,
             name: projectName,
           },
-        },
+        }),
       );
     }
   }
