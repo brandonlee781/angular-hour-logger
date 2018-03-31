@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import Log from 'features/log/Log';
 import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
@@ -19,8 +25,10 @@ export class LogListComponent implements OnInit, OnChanges {
     this.getLogs(this.selectedProject);
   }
 
-  ngOnChanges() {
-    this.getLogs(this.selectedProject);
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.selectedProject.firstChange) {
+      this.getLogs(this.selectedProject);
+    }
   }
 
   getLogs(project) {
