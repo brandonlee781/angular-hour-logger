@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { addSeconds } from 'date-fns';
 import { UserService } from 'shared/services/user.service';
+import { AuthResponse } from 'shared/types';
 
 import { environment } from '../../../environments/environment';
 
@@ -34,8 +36,15 @@ export class LoginComponent implements OnInit {
         'Content-Type': 'application/json',
       },
     });
-    const response = await data.json();
-    storage.setItem('token', response.access_token);
+    const response: AuthResponse = await data.json();
+    const expiresAt = addSeconds(new Date(), response.expires_in);
+    storage.setItem(
+      'token',
+      JSON.stringify({
+        access_token: response.access_token,
+        expiresAt,
+      }),
+    );
     this.userService.getUser();
     this.router.navigate(['home']);
   }
