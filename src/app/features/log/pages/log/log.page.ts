@@ -11,7 +11,12 @@ import { NewLogDialogComponent } from 'features/log/components/new-log-dialog/ne
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
 import { Observable } from 'rxjs/Observable';
-import { GET_PROJECT_NAMES, LOG_LIST_QUERY } from 'shared/graphql/queries';
+import { NEW_LOG } from 'shared/graphql/mutations';
+import {
+  GET_PROJECT_NAMES,
+  LOG_LIST_QUERY,
+  LogListQuery,
+} from 'shared/graphql/queries';
 
 interface ProjectQuery {
   allProjects: {
@@ -78,6 +83,11 @@ export class LogPage implements OnInit {
     });
   }
 
+  /**
+   * Method controls the opening of the New Log Dialog and sets
+   * an event on close. If a valid log is passed back when dialog
+   * closes perform a mutation on the log list
+   */
   openDialog(): void {
     const dialogRef = this.dialog.open(NewLogDialogComponent, {
       width: '500px',
@@ -91,55 +101,56 @@ export class LogPage implements OnInit {
     dialogRef.afterClosed().subscribe((result: Log) => {
       if (result) {
         const self = this;
-        const newLog = result;
-        let projectName;
-        self.projects$
-          .map(projects => projects.find(p => p.id === newLog.project.id))
-          .subscribe(proj => (projectName = proj.name));
+        const { startTime, endTime, date, duration, project, note } = result;
 
-        // this.apollo.mutate({
-        //     mutation: NEW_LOG,
-        //     variables: {
-        //       startTime: format(newLog.startTime, 'H:mm:ss'),
-        //       endTime: format(newLog.endTime, 'H:mm:ss'),
-        //       date: format(newLog.date, 'YYYY-MM-DD'),
-        //       duration,
-        //       project: newLog.project,
-        //       note: newLog.note,
-        //     },
-        //     optimisticResponse: {
-        //       __typename: 'Mutation',
-        //       createLog: {
-        //         __typename: 'createLog',
-        //         log: {
-        //           __typename: 'Log',
-        //           id: 'tempid',
-        //           startTime: format(newLog.startTime, 'H:mm:ss'),
-        //           endTime: format(newLog.endTime, 'H:mm:ss'),
-        //           date: format(newLog.date, 'YYYY-MM-DD'),
-        //           duration,
-        //           project: {
-        //             __typename: 'Project',
-        //             id: newLog.project,
-        //             name: projectName,
-        //             color: '',
-        //           },
-        //           note: newLog.note,
-        //         },
-        //       },
-        //     },
-        //     update: (proxy, { data: { createLog } }) => {
-        //       const data: LogListQuery = proxy.readQuery({
-        //         query: LOG_LIST_QUERY,
-        //         variables: {
-        //           project: null,
-        //         },
-        //       });
-        //       data.allLogsByProjectId.logs.unshift(createLog.log);
-        //       proxy.writeQuery({ query: LOG_LIST_QUERY, data });
-        //     },
-        //   }).subscribe();
-        // }
+        this.apollo
+          .mutate({
+            mutation: NEW_LOG,
+            variables: {
+              startTime: format(startTime, 'H:mm:ss'),
+              endTime: format(endTime, 'H:mm:ss'),
+              date: format(date, 'YYYY-MM-DD'),
+              duration,
+              project: project.id,
+              note,
+            },
+            optimisticResponse: {
+              __typename: 'Mutation',
+              createLog: {
+                __typename: 'createLog',
+                log: {
+                  __typename: 'Log',
+                  id: 'tempid',
+                  startTime: format(startTime, 'H:mm:ss'),
+                  endTime: format(endTime, 'H:mm:ss'),
+                  date: format(date, 'YYYY-MM-DD'),
+                  duration,
+                  project: {
+                    __typename: 'Project',
+                    id: project.id,
+                    name: project.name,
+                    color: '',
+                  },
+                  note,
+                },
+              },
+            },
+            update: (proxy, { data: { createLog } }) => {
+              const listQuery = {
+                query: LOG_LIST_QUERY,
+                variables: {
+                  project:
+                    this.selectedProject !== 'recent'
+                      ? this.selectedProject
+                      : null,
+                },
+              };
+              const data: LogListQuery = proxy.readQuery(listQuery);
+              data.allLogsByProjectId.logs.unshift(createLog.log);
+              proxy.writeQuery({ ...listQuery, data });
+            },
+          })
+          .subscribe();
       }
     });
   }
