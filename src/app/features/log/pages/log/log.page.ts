@@ -39,12 +39,9 @@ interface Link {
 export class LogPage implements OnInit {
   links$: Observable<Link[]>;
   projects$: Observable<Project[]>;
-  innerWidth: number;
   headerTitle: string;
   selectedProject: string;
-
-  name = 'brandon';
-  animal = 'dog';
+  currentView = 'list';
 
   constructor(private apollo: Apollo, public dialog: MatDialog) {}
 
@@ -81,6 +78,14 @@ export class LogPage implements OnInit {
         });
       });
     });
+  }
+
+  onToggleCalendar(event) {
+    if (this.currentView === 'list') {
+      this.currentView = 'calendar';
+    } else {
+      this.currentView = 'list';
+    }
   }
 
   /**

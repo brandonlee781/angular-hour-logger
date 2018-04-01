@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/_variables.scss';
 @import './assets/_mixins.scss';
+@import '~angular-calendar/css/angular-calendar.css';
 /* Application-wide Styles */
 h1 {
   color: #369;
@@ -30,3 +31,5 @@ button {
 * {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
+
+/* calendar styles */
