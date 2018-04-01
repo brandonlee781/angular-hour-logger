@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
@@ -16,6 +18,7 @@ import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
 })
 export class LogListComponent implements OnInit, OnChanges {
   @Input() selectedProject: string;
+  @Output() editLog = new EventEmitter<Log>();
   logQuery: QueryRef<any>;
   logs: Log[];
 

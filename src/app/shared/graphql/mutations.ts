@@ -37,3 +37,58 @@ export const NEW_LOG = gql`
     }
   }
 `;
+
+export const UPDATE_LOG = gql`
+  mutation UpdateLog(
+    $id: ID!
+    $startTime: String
+    $endTime: String
+    $date: String
+    $duration: Int
+    $project: String
+    $note: String
+  ) {
+    updateLog(
+      input: {
+        id: $id
+        patch: {
+          startTime: $startTime
+          endTime: $endTime
+          date: $date
+          duration: $duration
+          project: $project
+          note: $note
+        }
+      }
+    ) {
+      log {
+        id
+        startTime
+        endTime
+        date
+        duration
+        project {
+          id
+          name
+          color
+        }
+        note
+      }
+    }
+  }
+`;
+
+export const DELETE_LOG = gql`
+  mutation DeleteLog($logId: ID!) {
+    deleteLog(input: { id: $logId }) {
+      log {
+        note
+        date
+        project {
+          id
+          name
+        }
+      }
+    }
+  }
+`;

@@ -1,6 +1,8 @@
-<h2 mat-dialog-title class="dialog-header">New Log Entry</h2>
+<h2 mat-dialog-title class="dialog-header">{{ data.header }}</h2>
 <div mat-dialog-content>
   <form [formGroup]="newLogForm" class="log-form">
+    <input type="hidden" formControlName="id">
+    
     <mat-form-field class="project-field">
       <mat-placeholder>Select Project</mat-placeholder>
       <mat-select #projectSelect formControlName="project" required>
@@ -14,14 +16,14 @@
       <mat-placeholder>Date</mat-placeholder>
       <mat-datetimepicker-toggle [for]="datePicker" matSuffix></mat-datetimepicker-toggle>
       <mat-datetimepicker #datePicker type="date" openOnFocus="true"></mat-datetimepicker>
-      <input matInput formControlName="date" [matDatetimepicker]="datePicker" required autocomplete="false">
+      <input formControlName="date" [matDatetimepicker]="datePicker" matInput  required autocomplete="false">
     </mat-form-field>
   
     <mat-form-field class="startTime-field">
       <mat-placeholder>Start Time</mat-placeholder>
-      <mat-datetimepicker-toggle [for]="startTimePicker" matSuffix></mat-datetimepicker-toggle>
-      <mat-datetimepicker #startTimePicker type="time" openOnFocus="true" timeInterval="15"></mat-datetimepicker>
-      <input matInput formControlName="startTime" [matDatetimepicker]="startTimePicker" required autocomplete="false">
+      <mat-datetimepicker-toggle [for]="startTime" matSuffix></mat-datetimepicker-toggle>
+      <mat-datetimepicker #startTime type="time" openOnFocus="true" timeInterval="15"></mat-datetimepicker>
+      <input formControlName="startTime" [matDatetimepicker]="startTime" matInput required autocomplete="false">
     </mat-form-field>
   
     <mat-form-field class="endTime-field">

@@ -31,8 +31,8 @@
     </div>
   
     <div>
-      <button mat-icon-button color="primary"><mat-icon>mode_edit</mat-icon></button>
-      <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button color="primary" (click)="onEditClick()"><mat-icon>mode_edit</mat-icon></button>
+      <button mat-icon-button color="warn" (click)="deleteLog(log.id)"><mat-icon>delete</mat-icon></button>
     </div>
   </div>
 </mat-list-item>

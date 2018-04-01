@@ -12,7 +12,7 @@
       <!-- <button type="button" mat-icon-button (click)="drawer.toggleDrawer()">
         <mat-icon svgIcon="hamburger"></mat-icon>
       </button> -->
-      <bl-log-list [selectedProject]="selectedProject"></bl-log-list>
+      <bl-log-list [selectedProject]="selectedProject" (editLog)="editLog($event)"></bl-log-list>
     </div>
   </bl-nav-drawer>
 </div>

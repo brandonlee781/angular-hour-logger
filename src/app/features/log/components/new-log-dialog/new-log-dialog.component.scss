@@ -3,7 +3,7 @@
 .dialog-header {
   background: map-get($logger-blue, 500);
   color: #fff;
-  width: 500px;
+  width: calc(500px - 48px);
   height: 20px;
   padding: 24px;
   margin: -24px 0 0 -24px;

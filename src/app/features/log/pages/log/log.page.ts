@@ -6,12 +6,12 @@ import 'rxjs/add/operator/map';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { format } from 'date-fns';
+import { differenceInMinutes, format } from 'date-fns';
 import { NewLogDialogComponent } from 'features/log/components/new-log-dialog/new-log-dialog.component';
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
 import { Observable } from 'rxjs/Observable';
-import { NEW_LOG } from 'shared/graphql/mutations';
+import { NEW_LOG, UPDATE_LOG } from 'shared/graphql/mutations';
 import {
   GET_PROJECT_NAMES,
   LOG_LIST_QUERY,
@@ -91,7 +91,7 @@ export class LogPage implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(NewLogDialogComponent, {
       width: '500px',
-      data: { name: this.name, animal: this.animal },
+      data: { header: 'New Log Entry' },
       position: {
         top: '16px',
         right: '16px',
@@ -147,6 +147,85 @@ export class LogPage implements OnInit {
               };
               const data: LogListQuery = proxy.readQuery(listQuery);
               data.allLogsByProjectId.logs.unshift(createLog.log);
+              proxy.writeQuery({ ...listQuery, data });
+            },
+          })
+          .subscribe();
+      }
+    });
+  }
+
+  editLog(log: Log): void {
+    const editLogDialog = this.dialog.open(NewLogDialogComponent, {
+      width: '500px',
+      data: { header: 'Edit Log Entry', ...log },
+      position: {
+        top: '16px',
+        right: '16px',
+      },
+    });
+
+    editLogDialog.afterClosed().subscribe((result: Log) => {
+      if (result) {
+        const self = this;
+        const { id, startTime, endTime, date, project, note } = result;
+        const duration = differenceInMinutes(endTime, startTime) / 60;
+
+        this.apollo
+          .mutate({
+            mutation: UPDATE_LOG,
+            variables: {
+              id,
+              startTime: format(startTime, 'H:mm:ss'),
+              endTime: format(endTime, 'H:mm:ss'),
+              date: format(date, 'YYYY-MM-DD'),
+              duration,
+              project: project.id,
+              note,
+            },
+            optimisticResponse: {
+              __typename: 'Mutation',
+              updateLog: {
+                __typename: 'updateLog',
+                log: {
+                  __typename: 'Log',
+                  id,
+                  startTime: format(startTime, 'H:mm:ss'),
+                  endTime: format(endTime, 'H:mm:ss'),
+                  date: format(date, 'YYYY-MM-DD'),
+                  duration,
+                  project: {
+                    __typename: 'Project',
+                    id: project.id,
+                    name: project.name,
+                    color: '',
+                  },
+                  note,
+                },
+              },
+            },
+            update: (proxy, { data: { updateLog } }) => {
+              const listQuery = {
+                query: LOG_LIST_QUERY,
+                variables: {
+                  project:
+                    this.selectedProject !== 'recent'
+                      ? this.selectedProject
+                      : null,
+                },
+              };
+              const data: LogListQuery = proxy.readQuery(listQuery);
+              const index = data.allLogsByProjectId.logs
+                .map(l => l.id)
+                .indexOf(updateLog.log.id);
+              const logs = data.allLogsByProjectId.logs;
+
+              data.allLogsByProjectId.logs = [
+                ...logs.slice(0, index),
+                updateLog.log,
+                ...logs.slice(index + 1),
+              ];
+
               proxy.writeQuery({ ...listQuery, data });
             },
           })

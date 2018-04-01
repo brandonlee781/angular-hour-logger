@@ -5,21 +5,18 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { differenceInMinutes, format } from 'date-fns';
+import { differenceInMinutes, parse } from 'date-fns';
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
 import { Observable } from 'rxjs/Observable';
 import { logTimeValidator } from 'shared/directives/log-time-validator.directive';
-import { NEW_LOG } from 'shared/graphql/mutations';
-import {
-  GET_PROJECT_NAMES,
-  GetProjectNameQuery,
-  LOG_LIST_QUERY,
-  LogListQuery,
-} from 'shared/graphql/queries';
+import { GET_PROJECT_NAMES, GetProjectNameQuery } from 'shared/graphql/queries';
 
 import { LogErrorStateMatcher } from './LogErrorStateMatcher';
 
+interface DialogData extends Log {
+  header: string;
+}
 @Component({
   selector: 'bl-new-log-dialog',
   templateUrl: './new-log-dialog.component.html',
@@ -27,23 +24,26 @@ import { LogErrorStateMatcher } from './LogErrorStateMatcher';
 })
 export class NewLogDialogComponent implements OnInit {
   projects$: Observable<Project[]>;
-  project: Project;
-  date: string;
-  startTime: string;
-  endTime: string;
-  note: string;
+  project;
+
+  id;
+  date;
+  startTime;
+  endTime;
+  note;
   duration = 0;
   newLogForm: FormGroup;
   endTimeMatcher = new LogErrorStateMatcher();
 
+  editProject: string;
+
   constructor(
     public dialogRef: MatDialogRef<NewLogDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public fb: FormBuilder,
     private apollo: Apollo,
   ) {
-    this.createForm();
-    this.durationChange();
+    this.createForm(data);
   }
 
   ngOnInit() {
@@ -52,15 +52,20 @@ export class NewLogDialogComponent implements OnInit {
       .valueChanges.map(p => p.data.allProjects.projects);
   }
 
-  createForm(): void {
+  createForm(data): void {
+    const startTime = data.startTime
+      ? parse('2016-08-13 ' + data.startTime)
+      : null;
+    const endTime = data.endTime ? parse('2016-08-13 ' + data.endTime) : null;
     this.newLogForm = this.fb.group(
       {
-        project: [null, Validators.required],
-        date: [null, Validators.required],
-        startTime: [null, Validators.required],
-        endTime: [null, Validators.required],
+        id: [data.id],
+        project: [data.project ? data.project.id : null, Validators.required],
+        date: [data.date ? parse(data.date) : null, Validators.required],
+        startTime: [startTime, Validators.required],
+        endTime: [endTime, Validators.required],
         note: [
-          null,
+          data.note || null,
           Validators.compose([Validators.required, Validators.maxLength(255)]),
         ],
       },
@@ -68,6 +73,7 @@ export class NewLogDialogComponent implements OnInit {
         validator: logTimeValidator(),
       },
     );
+    this.durationChange();
   }
 
   durationChange(): void {

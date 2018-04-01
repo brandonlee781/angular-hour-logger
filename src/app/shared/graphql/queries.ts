@@ -43,6 +43,7 @@ export const LOG_LIST_QUERY = gql`
         duration
         note
         project {
+          id
           name
           color
         }
