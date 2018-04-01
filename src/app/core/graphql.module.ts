@@ -33,9 +33,7 @@ export class GraphqlModule {
       }
 
       if (networkError) {
-        if (router.url !== '/login') {
-          router.navigate(['/login']);
-        }
+        console.error(networkError);
       }
     });
 
