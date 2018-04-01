@@ -12,9 +12,7 @@
     "lint": "ng lint",
     "format": "prettier src/**/*.{js,jsx,ts,tsx,css,scss,md} --write",
     "e2e": "ng e2e",
-    "precommit": "lint-staged",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "precommit": "lint-staged"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +28,7 @@
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/router": "^5.2.9",
     "@mat-datetimepicker/core": "^1.0.2",
+    "angular-calendar": "^0.23.7",
     "apollo-angular": "^1.0.1",
     "apollo-angular-link-http": "^1.0.2-beta.0",
     "apollo-cache-inmemory": "^1.1.11",
@@ -49,11 +48,6 @@
     "@angular/cli": "~1.7.3",
     "@angular/compiler-cli": "^5.2.9",
     "@angular/language-service": "^5.2.9",
-    "@storybook/addon-actions": "^3.4.0-rc.3",
-    "@storybook/addon-links": "^3.4.0-rc.3",
-    "@storybook/addon-notes": "^3.4.0-rc.3",
-    "@storybook/addons": "^3.4.0-rc.3",
-    "@storybook/angular": "^3.4.0-rc.3",
     "@types/jest": "^22.2.0",
     "@types/node": "~6.0.60",
     "babel-core": "^6.26.0",
