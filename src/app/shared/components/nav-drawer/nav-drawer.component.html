@@ -5,7 +5,10 @@
     class="base-drawer"
   >
     <div class="drawer-header">
-      Log Entries
+      <span>{{ headerTitle }}</span>
+      <button *ngIf="headerIcon" mat-icon-button (click)="headerButtonClicked()">
+        <mat-icon>{{ headerIcon }}</mat-icon>
+      </button>
     </div>
     <mat-list class="link-list">
       <bl-nav-drawer-item

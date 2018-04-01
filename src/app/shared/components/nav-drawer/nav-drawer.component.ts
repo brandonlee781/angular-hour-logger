@@ -3,14 +3,7 @@ import {
   Breakpoints,
   BreakpointState,
 } from '@angular/cdk/layout';
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
@@ -20,6 +13,9 @@ import { NavDrawerService } from 'shared/services/nav-drawer.service';
 })
 export class NavDrawerComponent implements OnInit {
   @Input() links;
+  @Input() headerTitle: string;
+  @Input() headerIcon: string;
+  @Output() headerAction: EventEmitter<any> = new EventEmitter();
   @Output() selected: EventEmitter<any> = new EventEmitter();
   isDesktop: boolean;
   isOpened: boolean;
@@ -57,5 +53,9 @@ export class NavDrawerComponent implements OnInit {
     if (!this.isDesktop) {
       this.toggleDrawer();
     }
+  }
+
+  headerButtonClicked() {
+    this.headerAction.emit();
   }
 }
