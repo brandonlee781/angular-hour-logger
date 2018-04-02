@@ -15,12 +15,12 @@
   
         <div>
           <mat-icon>access_time</mat-icon>
-          <span class="detail-value">{{ formatTime(log.start) }}</span>
+          <span class="detail-value">{{ log.start | date:'shortTime' }}</span>
         </div>
   
         <div>
           <mat-icon>access_time</mat-icon>
-          <span class="detail-value">{{ formatTime(log.end) }}</span>
+          <span class="detail-value">{{ log.end | date:'shortTime' }}</span>
         </div>
   
         <div>

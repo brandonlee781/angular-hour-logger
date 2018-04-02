@@ -19,11 +19,6 @@ export class LogListItemComponent implements OnInit {
 
   ngOnInit() {}
 
-  formatTime(time) {
-    const parsed = parse(time);
-    return format(parsed, 'h:mm a');
-  }
-
   deleteLog(log: string) {
     if (window.confirm('Are you sure you want to delete this log entry?')) {
       this.apollo
