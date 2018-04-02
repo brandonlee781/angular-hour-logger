@@ -53,17 +53,13 @@ export class NewLogDialogComponent implements OnInit {
   }
 
   createForm(data): void {
-    const startTime = data.startTime
-      ? parse('2016-08-13 ' + data.startTime)
-      : null;
-    const endTime = data.endTime ? parse('2016-08-13 ' + data.endTime) : null;
     this.newLogForm = this.fb.group(
       {
         id: [data.id],
         project: [data.project ? data.project.id : null, Validators.required],
-        date: [data.date ? parse(data.date) : null, Validators.required],
-        startTime: [startTime, Validators.required],
-        endTime: [endTime, Validators.required],
+        date: [parse(data.start), Validators.required],
+        startTime: [parse(data.start), Validators.required],
+        endTime: [parse(data.end), Validators.required],
         note: [
           data.note || null,
           Validators.compose([Validators.required, Validators.maxLength(255)]),

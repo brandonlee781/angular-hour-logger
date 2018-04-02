@@ -107,17 +107,24 @@ export class LogPage implements OnInit {
       if (result) {
         const self = this;
         const { startTime, endTime, date, duration, project, note } = result;
+        const formatDate = format(date, 'YYYY-MM-DD');
+        const formatStart = format(startTime, 'HH:mm:ss');
+        const formatEnd = format(endTime, 'HH:mm:ss');
+        const start = format(
+          `${formatDate} ${formatStart}`,
+          'YYYY-MM-DD H:mm:ss',
+        );
+        const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ss');
 
         this.apollo
           .mutate({
             mutation: NEW_LOG,
             variables: {
-              startTime: format(startTime, 'H:mm:ss'),
-              endTime: format(endTime, 'H:mm:ss'),
-              date: format(date, 'YYYY-MM-DD'),
+              start,
+              end,
               duration,
-              project: project.id,
               note,
+              project: project.id,
             },
             optimisticResponse: {
               __typename: 'Mutation',
@@ -126,9 +133,8 @@ export class LogPage implements OnInit {
                 log: {
                   __typename: 'Log',
                   id: 'tempid',
-                  startTime: format(startTime, 'H:mm:ss'),
-                  endTime: format(endTime, 'H:mm:ss'),
-                  date: format(date, 'YYYY-MM-DD'),
+                  start,
+                  end,
                   duration,
                   project: {
                     __typename: 'Project',
@@ -175,18 +181,25 @@ export class LogPage implements OnInit {
         const self = this;
         const { id, startTime, endTime, date, project, note } = result;
         const duration = differenceInMinutes(endTime, startTime) / 60;
+        const formatDate = format(date, 'YYYY-MM-DD');
+        const formatStart = format(startTime, 'HH:mm:ss');
+        const formatEnd = format(endTime, 'HH:mm:ss');
+        const start = format(
+          `${formatDate} ${formatStart}`,
+          'YYYY-MM-DD H:mm:ss',
+        );
+        const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ss');
 
         this.apollo
           .mutate({
             mutation: UPDATE_LOG,
             variables: {
               id,
-              startTime: format(startTime, 'H:mm:ss'),
-              endTime: format(endTime, 'H:mm:ss'),
-              date: format(date, 'YYYY-MM-DD'),
+              start,
+              end,
               duration,
-              project: project.id,
               note,
+              project: project.id,
             },
             optimisticResponse: {
               __typename: 'Mutation',
@@ -195,9 +208,8 @@ export class LogPage implements OnInit {
                 log: {
                   __typename: 'Log',
                   id,
-                  startTime: format(startTime, 'H:mm:ss'),
-                  endTime: format(endTime, 'H:mm:ss'),
-                  date: format(date, 'YYYY-MM-DD'),
+                  start,
+                  end,
                   duration,
                   project: {
                     __typename: 'Project',

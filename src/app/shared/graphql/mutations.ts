@@ -2,9 +2,8 @@ import gql from 'graphql-tag';
 
 export const NEW_LOG = gql`
   mutation createNewLog(
-    $startTime: String!
-    $endTime: String!
-    $date: String!
+    $start: String!
+    $end: String!
     $duration: Float!
     $project: String!
     $note: String!
@@ -12,9 +11,8 @@ export const NEW_LOG = gql`
     createLog(
       input: {
         log: {
-          startTime: $startTime
-          endTime: $endTime
-          date: $date
+          start: $start
+          end: $end
           duration: $duration
           project: $project
           note: $note
@@ -23,9 +21,8 @@ export const NEW_LOG = gql`
     ) {
       log {
         id
-        startTime
-        endTime
-        date
+        start
+        end
         duration
         project {
           id
@@ -41,9 +38,8 @@ export const NEW_LOG = gql`
 export const UPDATE_LOG = gql`
   mutation UpdateLog(
     $id: ID!
-    $startTime: String
-    $endTime: String
-    $date: String
+    $start: String
+    $end: String
     $duration: Int
     $project: String
     $note: String
@@ -52,9 +48,8 @@ export const UPDATE_LOG = gql`
       input: {
         id: $id
         patch: {
-          startTime: $startTime
-          endTime: $endTime
-          date: $date
+          start: $start
+          end: $end
           duration: $duration
           project: $project
           note: $note
@@ -63,9 +58,8 @@ export const UPDATE_LOG = gql`
     ) {
       log {
         id
-        startTime
-        endTime
-        date
+        start
+        end
         duration
         project {
           id
@@ -83,7 +77,6 @@ export const DELETE_LOG = gql`
     deleteLog(input: { id: $logId }) {
       log {
         note
-        date
         project {
           id
           name
