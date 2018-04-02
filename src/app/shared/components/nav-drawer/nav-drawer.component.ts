@@ -31,7 +31,7 @@ export class NavDrawerComponent implements OnInit {
 
   ngOnInit() {
     this.breakpointObserver
-      .observe([Breakpoints.Large])
+      .observe([Breakpoints.Large, Breakpoints.XLarge])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
           this.isDesktop = true;
