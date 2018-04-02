@@ -1,12 +1,12 @@
 <div class="list-wrapper">
-  <mat-list>
+  <div>
     <bl-log-list-item
       *ngFor="let log of logs"
       [log]="log"
       [selectedProject]="selectedProject"
       (editLog)="editLog.emit($event)"
     ></bl-log-list-item>
-  </mat-list>
+  </div>
   <button 
     mat-flat-button
     color="primary"
