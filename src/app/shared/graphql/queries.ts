@@ -37,9 +37,8 @@ export const LOG_LIST_QUERY = gql`
     ) {
       logs {
         id
-        date
-        startTime
-        endTime
+        start
+        end
         duration
         note
         project {

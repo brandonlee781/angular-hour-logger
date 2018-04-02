@@ -20,8 +20,7 @@ export class LogListItemComponent implements OnInit {
   ngOnInit() {}
 
   formatTime(time) {
-    const today = format(new Date(), 'YYYY-MM-DD');
-    const parsed = parse(`${today}T${time}`);
+    const parsed = parse(time);
     return format(parsed, 'h:mm a');
   }
 
