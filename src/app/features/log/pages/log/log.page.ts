@@ -94,7 +94,7 @@ export class LogPage implements OnInit {
    * closes perform a mutation on the log list
    */
   openDialog(): void {
-    const dialogRef = this.dialog.open(NewLogDialogComponent, {
+    const createLogDialog = this.dialog.open(NewLogDialogComponent, {
       width: '500px',
       data: { header: 'New Log Entry' },
       position: {
@@ -103,7 +103,7 @@ export class LogPage implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result: Log) => {
+    createLogDialog.afterClosed().subscribe(result => {
       if (result) {
         const self = this;
         const { startTime, endTime, date, duration, project, note } = result;
@@ -176,7 +176,7 @@ export class LogPage implements OnInit {
       },
     });
 
-    editLogDialog.afterClosed().subscribe((result: Log) => {
+    editLogDialog.afterClosed().subscribe(result => {
       if (result) {
         const self = this;
         const { id, startTime, endTime, date, project, note } = result;

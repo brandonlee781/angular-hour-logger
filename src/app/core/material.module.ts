@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
   MatCardModule,
@@ -31,6 +32,7 @@ import {
     MatInputModule,
     MatSelectModule,
     MatCardModule,
+    FlexLayoutModule,
   ],
   exports: [
     // BrowserAnimationsModule,
@@ -46,6 +48,7 @@ import {
     MatInputModule,
     MatSelectModule,
     MatCardModule,
+    FlexLayoutModule,
   ],
 })
 export class MaterialModule {}

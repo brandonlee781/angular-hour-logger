@@ -33,3 +33,22 @@ button {
 }
 
 /* calendar styles */
+.cal-month-view {
+  border: 1px solid #ddd;
+}
+.cal-month-view {
+  height: 100%;
+  .cal-header .cal-cell {
+    border-right: 1px solid #ddd;
+    // border-left: 1px solid #ddd;
+    flex-basis: 14.2857%;
+    max-width: 14.2857%;
+    padding: 0;
+  }
+  .cal-days {
+    height: 100%;
+    .cal-cell-row {
+      height: 20%;
+    }
+  }
+}
