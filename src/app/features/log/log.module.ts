@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material';
+import {
+  MatIconRegistry,
+  MatSnackBar,
+  MatSnackBarContainer,
+} from '@angular/material';
 import { CalendarModule } from 'angular-calendar';
 import { Apollo } from 'apollo-angular';
 import { GraphqlModule } from 'core/graphql.module';
@@ -33,7 +37,7 @@ import { LogPage } from './pages/log/log.page';
     NewLogDialogComponent,
     LogCalendarComponent,
   ],
-  providers: [Apollo, MatIconRegistry],
-  entryComponents: [NewLogDialogComponent],
+  providers: [Apollo, MatIconRegistry, MatSnackBar],
+  entryComponents: [NewLogDialogComponent, MatSnackBarContainer],
 })
 export class LogModule {}

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { format, parse } from 'date-fns';
 import Log from 'features/log/Log';
 import { DELETE_LOG } from 'shared/graphql/mutations';
 import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
@@ -14,39 +14,47 @@ export class LogListItemComponent implements OnInit {
   @Input() log: Log;
   @Input() selectedProject: string;
   @Output() editLog = new EventEmitter<Log>();
+  confirmDelete = false;
+  confirmDeleteTimeout;
 
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, public snackBar: MatSnackBar) {}
 
   ngOnInit() {}
 
+  handleDelete() {
+    this.confirmDelete = true;
+    this.confirmDeleteTimeout = setTimeout(() => {
+      this.confirmDelete = false;
+    }, 5000);
+  }
+
   deleteLog(log: string) {
-    if (window.confirm('Are you sure you want to delete this log entry?')) {
-      this.apollo
-        .mutate({
-          mutation: DELETE_LOG,
-          variables: {
-            logId: log,
-          },
-          update: (proxy, { data: { deleteLog } }) => {
-            const listQuery = {
-              query: LOG_LIST_QUERY,
-              variables: {
-                project:
-                  this.selectedProject !== 'recent'
-                    ? this.selectedProject
-                    : null,
-              },
-            };
-            const data: LogListQuery = proxy.readQuery(listQuery);
-            const filtered = data.allLogsByProjectId.logs.filter(
-              l => l.id !== log,
-            );
-            data.allLogsByProjectId.logs = filtered;
-            proxy.writeQuery({ ...listQuery, data });
-          },
-        })
-        .subscribe();
-    }
+    clearTimeout(this.confirmDeleteTimeout);
+    this.apollo
+      .mutate({
+        mutation: DELETE_LOG,
+        variables: {
+          logId: log,
+        },
+        update: (proxy, { data: { deleteLog } }) => {
+          const listQuery = {
+            query: LOG_LIST_QUERY,
+            variables: {
+              project:
+                this.selectedProject !== 'recent' ? this.selectedProject : null,
+            },
+          };
+          const data: LogListQuery = proxy.readQuery(listQuery);
+          const filtered = data.allLogsByProjectId.logs.filter(
+            l => l.id !== log,
+          );
+          data.allLogsByProjectId.logs = filtered;
+          proxy.writeQuery({ ...listQuery, data });
+          this.confirmDelete = false;
+          this.snackBar.open('Log Entry Deleted', null, { duration: 3000 });
+        },
+      })
+      .subscribe();
   }
 
   onEditClick() {

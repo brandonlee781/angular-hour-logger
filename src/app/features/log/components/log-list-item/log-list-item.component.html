@@ -30,9 +30,14 @@
       </div>
     </div>
   
-    <div>
+    <div *ngIf="!confirmDelete" class="list-item-buttons">
       <button mat-icon-button color="primary" (click)="onEditClick()"><mat-icon>mode_edit</mat-icon></button>
-      <button mat-icon-button color="warn" (click)="deleteLog(log.id)"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button color="warn" (click)="handleDelete()">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
+    <button *ngIf="confirmDelete" mat-button color="warn" (click)="deleteLog(log.id)">
+      Confirm? <mat-icon color="white">delete</mat-icon>
+    </button>
   </div>
 </div>
