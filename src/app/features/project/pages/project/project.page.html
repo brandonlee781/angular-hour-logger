@@ -1,3 +1,15 @@
-<p>
-  project works!
-</p>
+<div class="project-wrapper">
+  <bl-nav-drawer 
+    [links]="links$ | async"
+    headerTitle="Projects"
+    headerIcon="add"
+    (headerAction)="showNewProject = true"
+    (selected)="onLinkSelected($event)"
+    #drawer>
+  </bl-nav-drawer>
+  <bl-new-project
+    #newProject
+    [hidden]="!showNewProject"
+    (createSuccess)="showNewProject = false">
+  </bl-new-project>
+</div>
