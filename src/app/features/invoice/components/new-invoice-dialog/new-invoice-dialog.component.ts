@@ -1,3 +1,5 @@
+import 'rxjs/add/operator/map';
+
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -12,8 +14,9 @@ import {
   GetLogsByDatesQuery,
   GetProjectNameQuery,
 } from 'shared/graphql/queries';
+
 export interface FilterLogForm {
-  project: string;
+  projects: string;
   startDate: string;
   endDate: string;
   rate: number;
@@ -30,6 +33,7 @@ interface DialogData extends FilterLogForm {
 })
 export class NewInvoiceDialogComponent implements OnInit {
   projects$: Observable<Project[]>;
+  projectIds: string[];
   filterLogsForm: FormGroup;
   @Output() filteredLogs = new EventEmitter<FilteredLogsEvent>();
 
@@ -46,11 +50,16 @@ export class NewInvoiceDialogComponent implements OnInit {
     this.projects$ = this.apollo
       .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
       .valueChanges.map(p => p.data.allProjects.projects);
+    this.projects$.subscribe(project => {
+      this.filterLogsForm.patchValue({
+        projects: project.map(p => p.id),
+      });
+    });
   }
 
   createForm(data): void {
     this.filterLogsForm = this.fb.group({
-      project: [data.project ? data.project : null],
+      projects: [data.project ? data.project : null],
       rate: [data.rate ? data.rate : 25, Validators.required],
       startDate: [parse(data.startDate), Validators.required],
       endDate: [parse(data.endDate), Validators.required],
@@ -63,7 +72,7 @@ export class NewInvoiceDialogComponent implements OnInit {
           .watchQuery<GetLogsByDatesQuery>({
             query: GET_LOGS_BY_DATES,
             variables: {
-              project: inputs.project || null,
+              project: inputs.projects || null,
               start: isValid(start)
                 ? format(start, 'YYYY-MM-DD')
                 : new Date('1970-01-01'),
@@ -94,7 +103,7 @@ export class NewInvoiceDialogComponent implements OnInit {
 
   clearForm(): void {
     const inputs = {
-      project: null,
+      projects: null,
       startDate: null,
       endDate: null,
       rate: 25,

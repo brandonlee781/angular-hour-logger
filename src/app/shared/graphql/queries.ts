@@ -138,7 +138,7 @@ export interface GetInvoiceQuery {
 
 export const GET_LOGS_BY_DATES = gql`
   query GetLogsByDates(
-    $project: String
+    $project: [String]
     $start: String
     $end: String
     $limit: Int

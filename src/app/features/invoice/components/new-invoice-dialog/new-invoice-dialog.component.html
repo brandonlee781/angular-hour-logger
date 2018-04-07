@@ -4,7 +4,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <mat-form-field class="project-field">
         <mat-placeholder>Select Project</mat-placeholder>
-        <mat-select #projectSelect formControlName="project">
+        <mat-select #projectSelect formControlName="projects" multiple>
           <mat-option *ngFor="let project of projects$ | async" [value]="project.id">
             {{ project.name }}
           </mat-option>
