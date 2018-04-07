@@ -9,3 +9,9 @@
   margin: 2rem auto;
   width: 80%;
 }
+
+.empty-state {
+  height: 100%;
+  height: calc(100vh - 126.59px);
+  background: #ddd;
+}

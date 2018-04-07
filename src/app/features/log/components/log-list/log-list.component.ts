@@ -19,6 +19,7 @@ import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
 export class LogListComponent implements OnInit, OnChanges {
   @Input() selectedProject: string;
   @Output() editLog = new EventEmitter<Log>();
+  @Output() newLog = new EventEmitter<any>();
   logQuery: QueryRef<any>;
   logs: Log[];
 

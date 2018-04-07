@@ -10,7 +10,7 @@
     <div class="log-content">
       <div class="log-header">
         <div class="log-header__title">{{ headerTitle }}</div>
-        <button mat-fab color="primary" (click)="openDialog()"><span>+</span></button>
+        <button mat-fab color="primary" (click)="openDialog()"><mat-icon>add</mat-icon></button>
       </div>
       <!-- <button type="button" mat-icon-button (click)="drawer.toggleDrawer()">
         <mat-icon svgIcon="hamburger"></mat-icon>
@@ -18,7 +18,8 @@
       <bl-log-list 
         [hidden]="currentView === 'calendar'"
         [selectedProject]="selectedProject"
-        (editLog)="editLog($event)">
+        (editLog)="editLog($event)"
+        (newLog)="openDialog()">
       </bl-log-list>
       <bl-log-calendar 
         [hidden]="currentView === 'list'"
