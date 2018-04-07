@@ -1,0 +1,39 @@
+@import '~assets/_variables.scss';
+@import '~assets/_mixins.scss';
+
+.invoice-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  width: calc(100vw - 126px);
+  height: 100vh;
+}
+.invoice-content {
+  height: 100%;
+  width: 100%;
+}
+
+.invoice-header {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  height: $sidenav-width;
+  padding: 0 4em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  & .invoice-header__title {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+  & button {
+    margin-right: 12px;
+    & span {
+      font-size: 4rem;
+      font-weight: 100;
+    }
+  }
+}
+
+.save-invoice-btn {
+  background-color: #4caf50;
+}

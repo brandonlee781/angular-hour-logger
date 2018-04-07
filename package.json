@@ -28,6 +28,7 @@
     "@angular/platform-browser": "^5.2.9",
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/router": "^5.2.9",
+    "@ecodev/fab-speed-dial": "^0.0.4",
     "@mat-datetimepicker/core": "^1.0.2",
     "angular-calendar": "^0.23.7",
     "apollo-angular": "^1.0.1",

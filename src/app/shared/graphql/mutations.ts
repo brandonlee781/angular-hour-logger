@@ -97,3 +97,36 @@ export const NEW_PROJECT = gql`
     }
   }
 `;
+
+export const NEW_INVOICE = gql`
+  mutation CreateInvoice(
+    $date: String!
+    $hours: Float!
+    $rate: Int!
+    $logs: [ID!]!
+  ) {
+    createInvoice(
+      input: { date: $date, hours: $hours, rate: $rate, logs: $logs }
+    ) {
+      invoice {
+        id
+        number
+        hours
+        rate
+        date
+        logs {
+          id
+          start
+          end
+          duration
+          project {
+            id
+            name
+            color
+          }
+          note
+        }
+      }
+    }
+  }
+`;

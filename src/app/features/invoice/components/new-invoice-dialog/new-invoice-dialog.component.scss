@@ -1,0 +1,20 @@
+@import '~assets/variables';
+
+.dialog-header {
+  background: map-get($logger-blue, 500);
+  color: #fff;
+  width: calc(500px - 48px);
+  height: 20px;
+  padding: 24px;
+  margin: -24px 0 0 -24px;
+
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 300;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}

@@ -1,0 +1,50 @@
+<div class="invoice-wrapper">
+  <bl-nav-drawer 
+    [links]="links"
+    headerTitle="Invoices"
+    (selected)="onLinkSelected($event)"
+    #drawer>
+    <div class="invoice-content">
+      <div class="invoice-header">
+        <div class="invoice-header__title">{{ headerTitle }}</div>
+        <eco-fab-speed-dial
+          #invoiceFab
+          *ngIf="selectedInvoice === 'recent'"
+          [(open)]="open"
+          direction="left"
+          animationMode="fling"
+          [fixed]="true"
+          (mouseenter)="invoiceFab.open = true"
+          (mouseleave)="invoiceFab.open = false">
+          <eco-fab-speed-dial-trigger>
+            <button *ngIf="currentInvoice" mat-fab (click)="saveInvoice()" color="accent" matTooltip="Save Invoice">
+              <mat-icon>save</mat-icon>
+            </button>
+            <button *ngIf="!currentInvoice" mat-fab (click)="openDialog()" color="primary" matTooltip="Filter Logs">
+              <mat-icon>add</mat-icon>
+            </button>
+          </eco-fab-speed-dial-trigger>
+      
+          <eco-fab-speed-dial-actions>
+            <button
+              *ngIf="currentInvoice"
+              mat-mini-fab
+              color="primary"
+              (click)="openDialog()"
+              matTooltip="Edit Log Filter">
+              <mat-icon>filter_list</mat-icon>
+            </button>
+          </eco-fab-speed-dial-actions>
+        </eco-fab-speed-dial>
+      </div>
+      <bl-invoice-detail
+        *ngIf="selectedInvoice !== 'recent'"
+        [selectedInvoice]="selectedInvoice"></bl-invoice-detail>
+
+      <bl-invoice-table
+        *ngIf="selectedInvoice === 'recent' && currentInvoice"
+        [tempInvoice]='currentInvoice.logs'>
+      </bl-invoice-table>
+    </div>
+  </bl-nav-drawer>
+</div>

@@ -3,3 +3,10 @@ export interface AuthResponse {
   expiresAt?: string;
   access_token: string;
 }
+
+export interface Link {
+  icon: string;
+  text: string;
+  id: string;
+  isSelected: boolean;
+}

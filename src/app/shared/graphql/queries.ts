@@ -1,3 +1,4 @@
+import Invoice from 'features/invoice/Invoice';
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
 import { User } from 'features/User';
@@ -66,4 +67,105 @@ export const GET_USER = gql`
 `;
 export interface GetUserQuery {
   getUser: User;
+}
+
+export const GET_ALL_INVOICES = gql`
+  query AllInvoices {
+    allInvoices {
+      invoices {
+        id
+        number
+        hours
+        rate
+        date
+        logs {
+          id
+          start
+          end
+          duration
+          project {
+            id
+            name
+            color
+          }
+          note
+        }
+      }
+    }
+  }
+`;
+export interface GetAllInvoicesQuery {
+  allInvoices: {
+    invoices: Invoice[];
+  };
+}
+
+export const GET_INVOICE = gql`
+  query OneInvoice($id: ID!) {
+    oneInvoice(input: { id: $id }) {
+      invoice {
+        id
+        number
+        hours
+        rate
+        date
+        logs {
+          id
+          start
+          end
+          duration
+          project {
+            id
+            name
+            color
+          }
+          note
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+export interface GetInvoiceQuery {
+  oneInvoice: {
+    invoice: Invoice;
+  };
+}
+
+export const GET_LOGS_BY_DATES = gql`
+  query GetLogsByDates(
+    $project: String
+    $start: String
+    $end: String
+    $limit: Int
+    $offset: Int
+  ) {
+    allLogsByDates(
+      input: { project: $project, start: $start, end: $end }
+      options: { limit: $limit, offset: $offset }
+    ) {
+      logs {
+        id
+        start
+        end
+        duration
+        project {
+          id
+          color
+          name
+        }
+        note
+      }
+    }
+  }
+`;
+
+export interface GetLogsByDatesQuery {
+  allLogsByDates: {
+    logs: Log[];
+  };
 }
