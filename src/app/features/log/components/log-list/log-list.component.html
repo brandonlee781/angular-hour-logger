@@ -1,4 +1,8 @@
-<div *ngIf="logs?.length >= 1" class="list-wrapper">
+<div 
+  *ngIf="logs?.length >= 1" 
+  class="list-wrapper"
+  fxLayout="column"
+  fxLayoutAlign="flex-start center">
   <div>
     <bl-log-list-item
       *ngFor="let log of logs"
