@@ -4,6 +4,8 @@ import {
   BreakpointState,
 } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
@@ -19,7 +21,14 @@ export class SideNavComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private navDrawerService: NavDrawerService,
-  ) {}
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+  ) {
+    iconRegistry.addSvgIcon(
+      'hamburger',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/cheese-burger.svg'),
+    );
+  }
 
   ngOnInit() {
     this.breakpointObserver

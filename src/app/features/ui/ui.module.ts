@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'core/material.module';
 
 import { MenuToggleButtonComponent } from './components/menu-toggle-button/menu-toggle-button.component';
+import { NavDrawerItemComponent } from './components/nav-drawer-item/nav-drawer-item.component';
+import { NavDrawerComponent } from './components/nav-drawer/nav-drawer.component';
 import { SideNavBtnComponent } from './components/side-nav-btn/side-nav-btn.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
@@ -14,7 +16,15 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
     SideNavComponent,
     SideNavBtnComponent,
     MenuToggleButtonComponent,
+    NavDrawerComponent,
+    NavDrawerItemComponent,
   ],
-  exports: [SideNavComponent, SideNavBtnComponent, MenuToggleButtonComponent],
+  exports: [
+    SideNavComponent,
+    SideNavBtnComponent,
+    MenuToggleButtonComponent,
+    NavDrawerComponent,
+    NavDrawerItemComponent,
+  ],
 })
 export class UIModule {}

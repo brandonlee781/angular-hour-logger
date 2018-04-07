@@ -10,11 +10,31 @@
     <div class="log-content">
       <div class="log-header">
         <div class="log-header__title">{{ headerTitle }}</div>
-        <button mat-fab color="primary" (click)="openDialog()"><mat-icon>add</mat-icon></button>
+
+        <eco-fab-speed-dial
+          #logFab
+          [(open)]="open"
+          direction="left"
+          animationMode="fling"
+          [fixed]="true"
+          (mouseenter)="logFab.open = true"
+          (mouseleave)="logFab.open = false">
+          <eco-fab-speed-dial-trigger>
+            <button mat-fab (click)="openDialog()" color="primary" matTooltip="Create Log Entry">
+              <mat-icon>add</mat-icon>
+            </button>
+          </eco-fab-speed-dial-trigger>
+      
+          <eco-fab-speed-dial-actions>
+            <button
+              mat-mini-fab
+              color="accent"
+              matTooltip="Begin Recording Time">
+              <mat-icon>timelapse</mat-icon>
+            </button>
+          </eco-fab-speed-dial-actions>
+        </eco-fab-speed-dial>
       </div>
-      <!-- <button type="button" mat-icon-button (click)="drawer.toggleDrawer()">
-        <mat-icon svgIcon="hamburger"></mat-icon>
-      </button> -->
       <bl-log-list 
         [hidden]="currentView === 'calendar'"
         [selectedProject]="selectedProject"

@@ -16,19 +16,15 @@ import { LoginComponent } from './features/login/login.component';
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-
-    SharedModule,
-    // LogModule,
-    // ProjectModule,
-    UIModule,
-
-    AppRoutingModule,
     GraphqlModule,
     MaterialModule,
+    UIModule,
   ],
+  exports: [UIModule],
   providers: [UserService, NavDrawerService],
   bootstrap: [AppComponent],
 })

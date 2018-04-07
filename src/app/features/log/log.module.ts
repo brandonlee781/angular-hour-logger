@@ -6,10 +6,12 @@ import {
   MatSnackBar,
   MatSnackBarContainer,
 } from '@angular/material';
+import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { CalendarModule } from 'angular-calendar';
 import { Apollo } from 'apollo-angular';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
+import { UIModule } from 'features/ui/ui.module';
 import { SharedModule } from 'shared/shared.module';
 
 import { LogCalendarComponent } from './components/log-calendar/log-calendar.component';
@@ -23,12 +25,14 @@ import { LogPage } from './pages/log/log.page';
   imports: [
     CalendarModule.forRoot(),
     CommonModule,
+    EcoFabSpeedDialModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
     MaterialModule,
     LogRoutingModule,
     GraphqlModule,
+    UIModule,
   ],
   declarations: [
     LogListComponent,

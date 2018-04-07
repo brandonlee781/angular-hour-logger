@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
 import { ProjectRoutingModule } from 'features/project/project-routing.module';
+import { UIModule } from 'features/ui/ui.module';
 import { SharedModule } from 'shared/shared.module';
 
 import { NewProjectComponent } from './components/new-project/new-project.component';
@@ -15,6 +16,7 @@ import { ProjectPage } from './pages/project/project.page';
     MaterialModule,
     ProjectRoutingModule,
     SharedModule,
+    UIModule,
   ],
   declarations: [ProjectPage, NewProjectComponent],
 })

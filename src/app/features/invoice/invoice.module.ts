@@ -5,6 +5,7 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
 import { InvoiceRoutingModule } from 'features/invoice/invoice-routing.module';
+import { UIModule } from 'features/ui/ui.module';
 import { SharedModule } from 'shared/shared.module';
 
 import { InvoiceDetailComponent } from './components/invoice-detail/invoice-detail.component';
@@ -22,6 +23,7 @@ import { InvoicePage } from './pages/invoice/invoice.page';
     InvoiceRoutingModule,
     MaterialModule,
     SharedModule,
+    UIModule,
   ],
   entryComponents: [NewInvoiceDialogComponent],
   declarations: [

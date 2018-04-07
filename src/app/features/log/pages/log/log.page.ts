@@ -3,6 +3,11 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/map';
 
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState,
+} from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
@@ -17,6 +22,7 @@ import {
   LOG_LIST_QUERY,
   LogListQuery,
 } from 'shared/graphql/queries';
+import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 interface ProjectQuery {
   allProjects: {
@@ -42,8 +48,14 @@ export class LogPage implements OnInit {
   headerTitle: string;
   selectedProject: string;
   currentView = 'list';
+  isDesktop: boolean;
 
-  constructor(private apollo: Apollo, public dialog: MatDialog) {}
+  constructor(
+    private apollo: Apollo,
+    public dialog: MatDialog,
+    public breakpointObserver: BreakpointObserver,
+    private navDrawerService: NavDrawerService,
+  ) {}
 
   ngOnInit() {
     this.headerTitle = 'Recent Log Entries';
@@ -65,6 +77,15 @@ export class LogPage implements OnInit {
           id: proj.id,
         })),
       );
+    this.breakpointObserver
+      .observe([Breakpoints.Large, Breakpoints.XLarge])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isDesktop = true;
+        } else {
+          this.isDesktop = false;
+        }
+      });
   }
 
   onLinkSelected(link) {
@@ -85,6 +106,9 @@ export class LogPage implements OnInit {
       this.currentView = 'calendar';
     } else {
       this.currentView = 'list';
+    }
+    if (!this.isDesktop) {
+      this.navDrawerService.setValue(false);
     }
   }
 
