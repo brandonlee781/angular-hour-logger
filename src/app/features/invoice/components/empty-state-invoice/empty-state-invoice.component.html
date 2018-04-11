@@ -2,7 +2,6 @@
   <div class="invoice-header__title">{{ headerTitle }}</div>
   <eco-fab-speed-dial
     #invoiceFab
-    *ngIf="selectedInvoice === 'recent'"
     [(open)]="open"
     direction="left"
     animationMode="fling"
@@ -30,9 +29,12 @@
     </eco-fab-speed-dial-actions>
   </eco-fab-speed-dial>
 </div>
-<mat-tab-group>
+<mat-tab-group *ngIf="filterInputs">
   <mat-tab label="Hours">
-    <bl-invoice-table [selectedInvoice]="selectedInvoice"></bl-invoice-table>
+    <bl-invoice-table
+      [filterInputs]="filterInputs"
+      (currentLogs)="createInvoice($event)">
+    </bl-invoice-table>
   </mat-tab>
   <mat-tab label="Invoice"></mat-tab>
   <mat-tab label="Stats"></mat-tab>

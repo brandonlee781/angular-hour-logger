@@ -1,18 +1,21 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Apollo } from 'apollo-angular';
-import Invoice from 'features/invoice/Invoice';
 import Log from 'features/log/Log';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { catchError, finalize } from 'rxjs/operators';
-import { GET_INVOICE, GetInvoiceQuery } from 'shared/graphql/queries';
+import {
+  GET_INVOICE,
+  GET_LOGS_BY_DATES,
+  GetInvoiceQuery,
+  GetLogsByDatesQuery,
+} from 'shared/graphql/queries';
 
 export class InvoiceDataSource extends DataSource<Log> {
   private logsSubject = new BehaviorSubject<Log[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
+  public logs$ = this.logsSubject.asObservable();
 
   constructor(private apollo: Apollo) {
     super();
@@ -27,7 +30,7 @@ export class InvoiceDataSource extends DataSource<Log> {
     this.loadingSubject.complete();
   }
 
-  loadLogs(id) {
+  getInvoice(id) {
     this.loadingSubject.next(true);
     this.apollo
       .watchQuery<GetInvoiceQuery>({
@@ -39,6 +42,25 @@ export class InvoiceDataSource extends DataSource<Log> {
       .valueChanges.subscribe(q => {
         this.loadingSubject.next(false);
         return this.logsSubject.next(q.data.oneInvoice.invoice.logs);
+      });
+  }
+
+  getLogsByDates(start, end, projects) {
+    this.loadingSubject.next(true);
+    this.apollo
+      .watchQuery<GetLogsByDatesQuery>({
+        query: GET_LOGS_BY_DATES,
+        variables: {
+          project: projects || null,
+          start: start ? start : new Date('1970-01-01'),
+          end: end ? end : new Date('2100-01-01'),
+          limit: 1000,
+          offset: 0,
+        },
+      })
+      .valueChanges.subscribe(q => {
+        this.loadingSubject.next(false);
+        return this.logsSubject.next(q.data.allLogsByDates.logs);
       });
   }
 }

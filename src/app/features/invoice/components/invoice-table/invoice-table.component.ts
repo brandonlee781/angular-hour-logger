@@ -1,13 +1,16 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import Invoice from 'features/invoice/Invoice';
+import { FilterLogForm } from 'features/invoice/components/new-invoice-dialog/new-invoice-dialog.component';
 import { InvoiceDataSource } from 'features/invoice/invoice.datasource';
+import Log from 'features/log/Log';
 
 @Component({
   selector: 'bl-invoice-table',
@@ -16,22 +19,40 @@ import { InvoiceDataSource } from 'features/invoice/invoice.datasource';
 })
 export class InvoiceTableComponent implements OnInit, OnChanges {
   @Input() selectedInvoice: string;
-  @Input() tempInvoice: Invoice;
+  @Input() filterInputs: FilterLogForm;
+  @Output() currentLogs = new EventEmitter<Log[]>();
   dataSource: InvoiceDataSource;
   displayedColumns = ['date', 'start', 'end', 'duration', 'project', 'note'];
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    if (!this.tempInvoice) {
-      this.dataSource = new InvoiceDataSource(this.apollo);
-      this.dataSource.loadLogs(this.selectedInvoice);
+    this.dataSource = new InvoiceDataSource(this.apollo);
+    if (!this.filterInputs) {
+      this.dataSource.getInvoice(this.selectedInvoice);
+    } else {
+      this.dataSource.getLogsByDates(
+        this.filterInputs.startDate,
+        this.filterInputs.endDate,
+        this.filterInputs.projects,
+      );
     }
+    this.dataSource.logs$.subscribe(data => {
+      if (data.length) {
+        this.currentLogs.emit(data);
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.tempInvoice && !changes.selectedInvoice.firstChange) {
-      this.dataSource.loadLogs(this.selectedInvoice);
+    if (!this.filterInputs && !changes.selectedInvoice.firstChange) {
+      this.dataSource.getInvoice(this.selectedInvoice);
+    } else if (this.filterInputs && !changes.filterInputs.firstChange) {
+      this.dataSource.getLogsByDates(
+        this.filterInputs.startDate,
+        this.filterInputs.endDate,
+        this.filterInputs.projects,
+      );
     }
   }
 }

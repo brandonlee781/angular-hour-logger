@@ -17,6 +17,7 @@ import { GET_INVOICE, GetInvoiceQuery } from 'shared/graphql/queries';
 })
 export class InvoiceDetailComponent implements OnInit, OnChanges {
   @Input() selectedInvoice: string;
+  @Input() headerTitle: string;
   invoice: Invoice;
 
   constructor(private apollo: Apollo) {}

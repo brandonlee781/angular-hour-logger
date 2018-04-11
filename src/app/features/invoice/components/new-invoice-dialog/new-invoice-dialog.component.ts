@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { format, isValid, parse } from 'date-fns';
-import { FilteredLogsEvent } from 'features/invoice/pages/invoice/invoice.page';
 import Project from 'features/project/Project';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -35,7 +34,7 @@ export class NewInvoiceDialogComponent implements OnInit {
   projects$: Observable<Project[]>;
   projectIds: string[];
   filterLogsForm: FormGroup;
-  @Output() filteredLogs = new EventEmitter<FilteredLogsEvent>();
+  @Output() filteredLogs = new EventEmitter<FilterLogForm>();
 
   constructor(
     public dialogRef: MatDialogRef<NewInvoiceDialogComponent>,
@@ -65,31 +64,7 @@ export class NewInvoiceDialogComponent implements OnInit {
       endDate: [parse(data.endDate), Validators.required],
     });
     this.filterLogsForm.valueChanges.subscribe((inputs: FilterLogForm) => {
-      const start = parse(inputs.startDate);
-      const end = parse(inputs.endDate);
-      if (isValid(start) || isValid(end)) {
-        this.apollo
-          .watchQuery<GetLogsByDatesQuery>({
-            query: GET_LOGS_BY_DATES,
-            variables: {
-              project: inputs.projects || null,
-              start: isValid(start)
-                ? format(start, 'YYYY-MM-DD')
-                : new Date('1970-01-01'),
-              end: isValid(end)
-                ? format(end, 'YYYY-MM-DD')
-                : new Date('2100-01-01'),
-              limit: 1000,
-              offset: 0,
-            },
-          })
-          .valueChanges.subscribe(q => {
-            this.filteredLogs.emit({
-              logs: q.data.allLogsByDates.logs,
-              inputs,
-            });
-          });
-      }
+      this.filteredLogs.emit(inputs);
     });
   }
 
@@ -109,6 +84,6 @@ export class NewInvoiceDialogComponent implements OnInit {
       rate: 25,
     };
     this.filterLogsForm.reset(inputs);
-    this.filteredLogs.emit({ logs: [], inputs });
+    this.filteredLogs.emit(inputs);
   }
 }

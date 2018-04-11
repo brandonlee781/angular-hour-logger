@@ -1,6 +1,17 @@
 @import '~assets/_variables.scss';
 @import '~assets/_mixins.scss';
 
+.invoice-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  width: calc(100vw - 126px);
+  height: 100vh;
+}
+.invoice-content {
+  height: 100%;
+  width: 100%;
+}
+
 .invoice-header {
   display: flex;
   flex-flow: row;
@@ -21,4 +32,8 @@
       font-weight: 100;
     }
   }
+}
+
+.save-invoice-btn {
+  background-color: #4caf50;
 }
