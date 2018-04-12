@@ -1,6 +1,3 @@
-<div class="spinner-container" *ngIf="dataSource.loading$ | async">
-    <mat-spinner></mat-spinner>
-</div>
 
 <mat-table #table [dataSource]="dataSource">
   <!-- Date Column -->
@@ -42,3 +39,5 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+
+<mat-spinner class="spinner" *ngIf="dataSource.loading$ | async"></mat-spinner>

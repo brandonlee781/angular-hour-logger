@@ -24,12 +24,14 @@ export class InvoicePage implements OnInit {
   headerTitle: string;
   selectedInvoice: string;
   links: Link[];
+  loading: boolean;
   invoices: Invoice[];
   currentInvoice: Invoice;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
+    this.loading = true;
     this.headerTitle = 'Create New Invoice';
     this.selectedInvoice = 'recent';
     const defaultLink: Array<{ id?: string; date?: string }> = [
@@ -53,6 +55,7 @@ export class InvoicePage implements OnInit {
         }));
         this.invoices = invoices;
         this.links = links;
+        this.loading = false;
       });
   }
 

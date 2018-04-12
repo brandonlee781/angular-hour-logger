@@ -1,6 +1,7 @@
 <div class="invoice-wrapper">
   <bl-nav-drawer 
     [links]="links"
+    [loading]="loading"
     headerTitle="Invoices"
     (selected)="onLinkSelected($event)"
     #drawer>

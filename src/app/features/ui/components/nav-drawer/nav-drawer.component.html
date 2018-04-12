@@ -10,7 +10,15 @@
         <mat-icon>{{ headerIcon }}</mat-icon>
       </button>
     </div>
-    <mat-list class="link-list">
+
+    <mat-progress-spinner
+      *ngIf="loading"
+      class="spinner"
+      color="accent"
+      mode="indeterminate">
+    </mat-progress-spinner>
+
+    <mat-list *ngIf="!loading" class="link-list">
       <bl-nav-drawer-item
         *ngFor="let link of links"
         icon="{{ link.icon }}"

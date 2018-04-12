@@ -13,6 +13,7 @@ import { NavDrawerService } from 'shared/services/nav-drawer.service';
 })
 export class NavDrawerComponent implements OnInit {
   @Input() links;
+  @Input() loading: boolean;
   @Input() headerTitle: string;
   @Input() headerIcon: string;
   @Output() headerAction: EventEmitter<any> = new EventEmitter();
