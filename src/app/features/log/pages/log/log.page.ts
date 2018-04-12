@@ -49,6 +49,7 @@ export class LogPage implements OnInit {
   selectedProject: string;
   currentView = 'list';
   isDesktop: boolean;
+  open = false;
 
   constructor(
     private apollo: Apollo,

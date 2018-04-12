@@ -21,6 +21,7 @@ export class EmptyStateInvoiceComponent implements OnInit {
   @Output() invoiceCreated = new EventEmitter<Invoice>();
   filterInputs: FilterLogForm;
   currentInvoice: Invoice;
+  open = false;
 
   constructor(private apollo: Apollo, public dialog: MatDialog) {}
 

@@ -36,6 +36,7 @@ export class InvoiceDetailComponent implements OnInit, OnChanges {
   @Output() invoiceDeleted = new EventEmitter<any>();
   invoice: Invoice;
   currentTab: string;
+  open = false;
 
   constructor(private apollo: Apollo) {}
 

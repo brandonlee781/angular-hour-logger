@@ -2,12 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LineChartModule, PieChartModule } from '@swimlane/ngx-charts';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
 import { InvoiceRoutingModule } from 'features/invoice/invoice-routing.module';
 import { UIModule } from 'features/ui/ui.module';
-import { SharedModule } from 'shared/shared.module';
 
 import { EmptyStateInvoiceComponent } from './components/empty-state-invoice/empty-state-invoice.component';
 import { InvoiceDetailComponent } from './components/invoice-detail/invoice-detail.component';
@@ -26,9 +25,9 @@ import { InvoicePage } from './pages/invoice/invoice.page';
     GraphqlModule,
     InvoiceRoutingModule,
     MaterialModule,
-    SharedModule,
     UIModule,
-    NgxChartsModule,
+    PieChartModule,
+    LineChartModule,
   ],
   entryComponents: [NewInvoiceDialogComponent],
   declarations: [
