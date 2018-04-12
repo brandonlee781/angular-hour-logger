@@ -130,3 +130,16 @@ export const NEW_INVOICE = gql`
     }
   }
 `;
+
+export const DELETE_INVOICE = gql`
+  mutation DeleteInvoice($id: ID!) {
+    deleteInvoice(input: { id: $id }) {
+      invoice {
+        number
+        hours
+        rate
+        date
+      }
+    }
+  }
+`;

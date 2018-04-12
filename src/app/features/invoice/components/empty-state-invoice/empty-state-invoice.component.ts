@@ -112,10 +112,6 @@ export class EmptyStateInvoiceComponent implements OnInit {
         const inv = q.data.createInvoice.invoice;
         this.currentInvoice = null;
         this.invoiceCreated.emit(inv);
-        // this.onLinkSelected({
-        //   text: `Invoice #${inv.number} - ${inv.date}`,
-        //   id: inv.id,
-        // });
       });
   }
 }

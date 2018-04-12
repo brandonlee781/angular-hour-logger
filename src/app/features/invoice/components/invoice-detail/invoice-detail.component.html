@@ -2,7 +2,6 @@
   <div class="invoice-header__title">{{ headerTitle }}</div>
   <eco-fab-speed-dial
     #invoiceFab
-    *ngIf="selectedInvoice === 'recent'"
     [(open)]="open"
     direction="left"
     animationMode="fling"
@@ -10,27 +9,27 @@
     (mouseenter)="invoiceFab.open = true"
     (mouseleave)="invoiceFab.open = false">
     <eco-fab-speed-dial-trigger>
-      <button *ngIf="currentInvoice" mat-fab (click)="saveInvoice()" color="accent" matTooltip="Save Invoice">
-        <mat-icon>save</mat-icon>
+      <button *ngIf="currentTab === 'hours'" mat-fab (click)="downloadCSV()" color="primary" matTooltip="Download CSV">
+        <mat-icon>file_download</mat-icon>
       </button>
-      <button *ngIf="!currentInvoice" mat-fab (click)="openDialog()" color="primary" matTooltip="Filter Logs">
-        <mat-icon>add</mat-icon>
+      <button *ngIf="currentTab === 'invoice'" mat-fab (click)="downloadPDF()" color="primary" matTooltip="Download PDF">
+        <mat-icon>print</mat-icon>
       </button>
     </eco-fab-speed-dial-trigger>
 
     <eco-fab-speed-dial-actions>
       <button
-        *ngIf="currentInvoice"
+        *ngIf="currentTab !== 'stats'"
         mat-mini-fab
-        color="primary"
-        (click)="openDialog()"
-        matTooltip="Edit Log Filter">
-        <mat-icon>filter_list</mat-icon>
+        color="warn"
+        (click)="deleteInvoice()"
+        matTooltip="Delete Invoice">
+        <mat-icon>delete</mat-icon>
       </button>
     </eco-fab-speed-dial-actions>
   </eco-fab-speed-dial>
 </div>
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="tabChange($event)">
   <mat-tab label="Hours">
     <bl-invoice-table [selectedInvoice]="selectedInvoice"></bl-invoice-table>
   </mat-tab>
