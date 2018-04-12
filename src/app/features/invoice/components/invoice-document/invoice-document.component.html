@@ -3,9 +3,9 @@
     <div class="address-wrapper">
       <div class="address">
         <span class="name">Brandon Lee</span>
-        <span class="street">5582 Windy Knoll Dr</span>
-        <span class="city-st-zip">Loves Park IL, 61111</span>
-        <span class="email">brandonlee781@gmail.com</span>
+        <span class="street">{{ user?.address }}</span>
+        <span class="city-st-zip">{{ user?.city }} {{ user?.state }}, {{ user?.zip }}</span>
+        <span class="email">{{ user?.email }}</span>
       </div>
     </div>
     <div class="info-wrapper">

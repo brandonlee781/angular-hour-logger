@@ -62,6 +62,10 @@ export const GET_USER = gql`
     getUser {
       id
       email
+      address
+      city
+      state
+      zip
     }
   }
 `;

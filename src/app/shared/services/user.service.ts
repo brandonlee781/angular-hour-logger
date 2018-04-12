@@ -10,6 +10,10 @@ export class UserService {
   private _user: BehaviorSubject<User> = new BehaviorSubject({
     id: null,
     email: null,
+    address: null,
+    city: null,
+    state: null,
+    zip: null,
   });
   public user: Observable<User> = this._user.asObservable();
 

@@ -7,8 +7,10 @@ import {
 } from '@angular/core';
 import Invoice from 'features/invoice/Invoice';
 import Log from 'features/log/Log';
+import { User } from 'features/User';
+import { UserService } from 'shared/services/user.service';
 
-interface ProjectHours {
+export interface ProjectHours {
   project: string;
   hours: number;
 }
@@ -21,10 +23,12 @@ interface ProjectHours {
 export class InvoiceDocumentComponent implements OnInit, OnChanges {
   @Input() invoice: Invoice;
   projectHours: ProjectHours[];
+  user: User;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.userService.user.subscribe(user => (this.user = user));
     if (this.invoice) {
       this.projectHours = this.hoursPerProject(this.invoice.logs);
     }

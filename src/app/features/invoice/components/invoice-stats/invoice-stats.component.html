@@ -1,0 +1,39 @@
+<div fxLayout="column" fxLayoutAlign="center center" (window:resize)="onResize($event)">
+    <ngx-charts-advanced-pie-chart
+      label="Total Hours Per Project"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="projectHours"
+      [gradient]="gradient"
+      (select)="onSelect($event)">
+    </ngx-charts-advanced-pie-chart>
+  
+    <ngx-charts-advanced-pie-chart
+      label="Total Pay Per Project"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="projectPay"
+      [gradient]="gradient"
+      (select)="onSelect($event)">
+    </ngx-charts-advanced-pie-chart>
+
+  <h2 class="title">Project Hours Per Day of the Week</h2>
+  <ngx-charts-line-chart
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="dateHours"
+    [gradient]="gradient"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="true"
+    legendTitle="Projects"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    xAxisLabel="Day"
+    yAxisLabel="Hours"
+    [xAxisTickFormatting]="dateHoursXFormat"
+    [autoScale]="autoScale"
+    (select)="onSelect($event)">
+  </ngx-charts-line-chart>
+
+</div>
