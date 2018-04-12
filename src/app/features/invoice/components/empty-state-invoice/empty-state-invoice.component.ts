@@ -19,7 +19,6 @@ import { GET_ALL_INVOICES, GetAllInvoicesQuery } from 'shared/graphql/queries';
 export class EmptyStateInvoiceComponent implements OnInit {
   @Input() headerTitle: string;
   @Output() invoiceCreated = new EventEmitter<Invoice>();
-  newInvoice: Invoice;
   filterInputs: FilterLogForm;
   currentInvoice: Invoice;
 

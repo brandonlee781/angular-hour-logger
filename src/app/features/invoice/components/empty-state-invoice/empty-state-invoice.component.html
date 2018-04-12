@@ -36,6 +36,10 @@
       (currentLogs)="createInvoice($event)">
     </bl-invoice-table>
   </mat-tab>
-  <mat-tab label="Invoice"></mat-tab>
-  <mat-tab label="Stats"></mat-tab>
+  <mat-tab label="Invoice">
+    <bl-invoice-document [invoice]="currentInvoice"></bl-invoice-document>
+  </mat-tab>
+  <mat-tab label="Stats">
+    <bl-invoice-stats [invoice]="currentInvoice"></bl-invoice-stats>
+  </mat-tab>
 </mat-tab-group>
