@@ -11,6 +11,8 @@ import { MatTab } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { format } from 'date-fns';
 import Invoice from 'features/invoice/Invoice';
+import * as html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf';
 import { DELETE_INVOICE } from 'shared/graphql/mutations';
 import {
   GET_ALL_INVOICES,
@@ -89,8 +91,14 @@ export class InvoiceDetailComponent implements OnInit, OnChanges {
     hiddenEl.click();
   }
 
-  downloadPDF() {
-    //
+  async downloadPDF() {
+    const source = document.getElementById('invoicePDF');
+    const canvas = await html2canvas(source);
+    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+    const pdf = new jsPDF();
+
+    pdf.addImage(imgData, 'JPEG', 0, 0);
+    pdf.save(`${format(this.invoice.date, 'MMMDD')}_invoice.pdf`);
   }
 
   deleteInvoice() {

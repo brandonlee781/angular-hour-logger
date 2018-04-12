@@ -10,6 +10,7 @@ import { SharedModule } from 'shared/shared.module';
 
 import { EmptyStateInvoiceComponent } from './components/empty-state-invoice/empty-state-invoice.component';
 import { InvoiceDetailComponent } from './components/invoice-detail/invoice-detail.component';
+import { InvoiceDocumentComponent } from './components/invoice-document/invoice-document.component';
 import { InvoiceTableComponent } from './components/invoice-table/invoice-table.component';
 import { NewInvoiceDialogComponent } from './components/new-invoice-dialog/new-invoice-dialog.component';
 import { InvoicePage } from './pages/invoice/invoice.page';
@@ -33,6 +34,7 @@ import { InvoicePage } from './pages/invoice/invoice.page';
     NewInvoiceDialogComponent,
     InvoiceTableComponent,
     EmptyStateInvoiceComponent,
+    InvoiceDocumentComponent,
   ],
 })
 export class InvoiceModule {}

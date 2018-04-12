@@ -19,6 +19,14 @@
 
     <eco-fab-speed-dial-actions>
       <button
+        *ngIf="currentTab === 'invoice'"
+        mat-mini-fab
+        color="accent"
+        (click)="editInvoiceDetails()"
+        matTooltip="Edit Invoice Details">
+        <mat-icon>description</mat-icon>
+      </button>
+      <button
         *ngIf="currentTab !== 'stats'"
         mat-mini-fab
         color="warn"
@@ -33,6 +41,8 @@
   <mat-tab label="Hours">
     <bl-invoice-table [selectedInvoice]="selectedInvoice"></bl-invoice-table>
   </mat-tab>
-  <mat-tab label="Invoice"></mat-tab>
+  <mat-tab label="Invoice">
+    <bl-invoice-document [invoice]="invoice"></bl-invoice-document>
+  </mat-tab>
   <mat-tab label="Stats"></mat-tab>
 </mat-tab-group>

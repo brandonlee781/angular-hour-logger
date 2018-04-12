@@ -1,0 +1,61 @@
+<div id="invoicePDF">
+  <div class="invoice-header">
+    <div class="address-wrapper">
+      <div class="address">
+        <span class="name">Brandon Lee</span>
+        <span class="street">5582 Windy Knoll Dr</span>
+        <span class="city-st-zip">Loves Park IL, 61111</span>
+        <span class="email">brandonlee781@gmail.com</span>
+      </div>
+    </div>
+    <div class="info-wrapper">
+      <h3>INVOICE</h3>
+      <div class="info-box">
+        <div class="date">DATE: {{ invoice?.date }}</div>
+        <div class="number"><span>INVOICE #</span><span>{{ invoice?.number }}</span></div>
+        <div class="customer">
+          <div>
+            <span>CUSTOMER ID</span>
+            <span>1</span>
+          </div>
+          <span>STERLING DATABASES</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="view-body">
+    <h4>Sterling Databases</h4>
+    <table class="view-table">
+      <thead>
+        <tr>
+          <th>ITEM</th>
+          <th>QTY</th>
+          <th class="unit-price">UNIT PRICE</th>
+          <th class="amount">AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of projectHours">
+          <td class="project-name">{{ p.project }}</td>
+          <td class="project-hours">{{ p.hours }}</td>
+          <td class="unit-price">{{ invoice.rate }}</td>
+          <td class="amount">{{ (p.hours * invoice.rate).toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="totals">
+      <div class="subtotal">
+        <span>SUBTOTAL</span>
+        <span>{{ (invoice?.hours * invoice?.rate).toFixed(2) }}</span>
+      </div>
+      <div class="tax">
+        <span>TAX RATE</span>
+        <span>$0.00</span>
+      </div>
+      <div class="total">
+        <span>TOTAL</span>
+        <span>{{ (invoice?.hours * invoice?.rate).toFixed(2) }}</span>
+      </div>
+    </div>
+  </div>
+</div>

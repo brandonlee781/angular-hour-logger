@@ -1,0 +1,142 @@
+$lightBorder: 1px solid rgba(0, 0, 0, 0.1);
+@mixin flexRowBetween() {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+#invoicePDF {
+  width: 612px;
+  height: 792px;
+  margin: 0 auto;
+}
+
+.invoice-header {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 300px;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.address-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  .address {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.info-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 50px;
+  width: 275px;
+  h3 {
+    text-align: right;
+    font-weight: bold;
+  }
+  .date,
+  .number,
+  .customer {
+    width: 100%;
+    border: $lightBorder;
+  }
+  .date {
+    width: 100%;
+    background: #999;
+    color: #fff;
+    font-weight: bold;
+    text-align: left;
+    padding: 2px 8px;
+  }
+  .customer,
+  .number {
+    @include flexRowBetween();
+    padding: 6px 8px;
+    font-weight: bold;
+    border: $lightBorder;
+  }
+  .customer {
+    flex-flow: column nowrap;
+  }
+  .customer div {
+    @include flexRowBetween();
+  }
+  .customer span {
+    text-align: left;
+  }
+}
+
+.view-body {
+  display: flex;
+  flex-flow: column;
+  max-width: 80%;
+  margin: 0 auto;
+  h4 {
+    text-align: left;
+    margin-left: 30px;
+  }
+}
+
+.view-table {
+  width: 100%;
+  margin: 30px 24px;
+  thead {
+    background-color: #999;
+    color: #fff;
+    font-weight: bold;
+    tr th {
+      padding: 0 8px;
+      border-right: 1px solid #fff;
+    }
+  }
+  tbody {
+    tr,
+    tr td {
+      border: $lightBorder;
+    }
+    tr td {
+      padding: 6px 8px;
+    }
+  }
+  .project-name,
+  .project-hours,
+  .unit-price,
+  .amount {
+    text-align: right;
+  }
+}
+
+.totals {
+  display: flex;
+  flex-flow: column nowrap;
+  align-self: flex-end;
+  width: 30%;
+  .subtotal,
+  .tax,
+  .total {
+    @include flexRowBetween();
+    font-weight: bold;
+  }
+  .subtotal {
+    padding: 16px 4px;
+    border-bottom: $lightBorder;
+  }
+  .tax {
+    padding: 6px 4px;
+    border-bottom: $lightBorder;
+  }
+  .total {
+    padding: 6px 4px;
+  }
+}
