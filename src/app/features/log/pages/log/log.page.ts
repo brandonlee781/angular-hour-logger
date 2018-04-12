@@ -140,7 +140,7 @@ export class LogPage implements OnInit {
           'YYYY-MM-DD H:mm:ssZ',
         );
         const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ssZ');
-        console.log(start, end);
+
         this.apollo
           .mutate({
             mutation: NEW_LOG,
@@ -207,13 +207,13 @@ export class LogPage implements OnInit {
         const { id, startTime, endTime, date, project, note } = result;
         const duration = differenceInMinutes(endTime, startTime) / 60;
         const formatDate = format(date, 'YYYY-MM-DD');
-        const formatStart = format(startTime, 'HH:mm:ss');
-        const formatEnd = format(endTime, 'HH:mm:ss');
+        const formatStart = format(startTime, 'HH:mm:ssZ');
+        const formatEnd = format(endTime, 'HH:mm:ssZ');
         const start = format(
           `${formatDate} ${formatStart}`,
-          'YYYY-MM-DD H:mm:ss',
+          'YYYY-MM-DD H:mm:ssZ',
         );
-        const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ss');
+        const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ssZ');
 
         this.apollo
           .mutate({
