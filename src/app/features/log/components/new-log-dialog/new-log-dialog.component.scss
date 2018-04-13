@@ -7,7 +7,6 @@
   height: 20px;
   padding: 24px;
   margin: -24px 0 0 -24px;
-
   font-size: 20px;
   line-height: 20px;
   font-weight: 300;
@@ -22,18 +21,23 @@
     'note note';
   padding: 8px 0;
 }
+
 .project-field {
   grid-area: project;
 }
+
 .date-field {
   grid-area: date;
 }
+
 .startTime-field {
   grid-area: start;
 }
+
 .endTime-field {
   grid-area: end;
 }
+
 .notes-field {
   grid-area: note;
 }

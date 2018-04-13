@@ -3,6 +3,7 @@
 .router {
   width: calc(100vw - 125.59px);
   height: 100vh;
+
   @include tablet-and-up {
     margin-left: $sidenav-width;
   }

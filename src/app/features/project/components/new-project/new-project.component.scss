@@ -1,3 +1,4 @@
+/* stylelint-disable selector-pseudo-element-no-unknown */
 @import '~assets/mixins';
 @import '~assets/variables';
 
@@ -23,6 +24,7 @@
     border-top: 0;
     top: 0;
   }
+
   & ::ng-deep .mat-form-field-placeholder,
   & ::ng-deep .mat-focused .mat-form-field-placeholder {
     font-size: 2.15rem !important;
@@ -30,6 +32,7 @@
     color: #ddd;
     font-weight: 100 !important;
   }
+
   & ::ng-deep .mat-form-field-underline .mat-form-field-ripple,
   & ::ng-deep .mat-form-field-underline {
     background-color: #fff;

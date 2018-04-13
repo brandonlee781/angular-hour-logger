@@ -1,4 +1,4 @@
-@import '../../../../../assets/_variables.scss';
+@import '~assets/_variables.scss';
 
 .sidenav-btn {
   width: $sidenav-width;
@@ -8,15 +8,18 @@
   margin: 0;
   background-color: $dark-grey;
   color: $text-color;
+
   span {
     display: flex !important;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
   }
+
   &.active {
     color: map-get($logger-blue, 500) !important;
-    &:after {
+
+    &::after {
       content: '';
       position: absolute;
       right: 0;
