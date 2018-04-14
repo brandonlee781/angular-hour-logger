@@ -4,7 +4,7 @@ import { LoginComponent } from 'features/login/login.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'logs',
     loadChildren: 'app/features/log/log.module#LogModule',
   },
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/logs',
     pathMatch: 'full',
   },
 ];
