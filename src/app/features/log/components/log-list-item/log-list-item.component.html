@@ -4,21 +4,21 @@
       <div class="log-note">{{ log.note }}</div>
       <div class="log-details">
         <div matTooltip="Project" matTooltipShowDelay="1000">
-          <mat-icon [style.color]="log.project.color">folder_open</mat-icon>
+          <mat-icon>folder_open</mat-icon>
           <span class="detail-value">{{ log.project.name }}</span>
         </div>
 
-        <div matTooltip="Date" matTooltipShowDelay="1000">
+        <div matTooltip="Date" matTooltipShowDelay="1000" fxHide.xs>
           <mat-icon>event</mat-icon>
           <span class="detail-value">{{ log.start | date:'mediumDate' }}</span>
         </div>
 
-        <div matTooltip="Start Time" matTooltipShowDelay="1000">
+        <div matTooltip="Start Time" matTooltipShowDelay="1000" fxHide.lt-md>
           <mat-icon>access_time</mat-icon>
           <span class="detail-value">{{ log.start | date:'shortTime' }}</span>
         </div>
 
-        <div matTooltip="End Time" matTooltipShowDelay="1000">
+        <div matTooltip="End Time" matTooltipShowDelay="1000" fxHide.lt-md>
           <mat-icon>access_time</mat-icon>
           <span class="detail-value">{{ log.end | date:'shortTime' }}</span>
         </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div *ngIf="!confirmDelete" class="list-item-buttons">
+    <div *ngIf="!confirmDelete" class="list-item-buttons" fxLayout="row">
       <button mat-icon-button color="primary" (click)="onEditClick()"><mat-icon>mode_edit</mat-icon></button>
       <button mat-icon-button color="warn" (click)="handleDelete()">
         <mat-icon>delete</mat-icon>

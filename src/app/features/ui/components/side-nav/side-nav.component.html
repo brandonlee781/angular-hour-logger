@@ -1,13 +1,13 @@
 <div class="sidenav">
-  <button 
-    mat-button 
-    *ngIf="!isDesktop" 
+  <button
+    mat-button
+    *ngIf="!isDesktop"
     class="toggle-menu-btn"
     (click)="toggleMenu()"
   >
     <!-- <mat-icon>menu</mat-icon> -->
-    <mat-icon svgIcon="hamburger"></mat-icon>
-    <span>Menu</span>
+    <mat-icon class="menu-toggle-icon" svgIcon="hamburger"></mat-icon>
+    <span class="menu-toggle-label">Menu</span>
   </button>
   <bl-side-nav-btn icon="home" label="Home" link="/home"></bl-side-nav-btn>
   <bl-side-nav-btn icon="assignment" label="Projects" link="/projects"></bl-side-nav-btn>

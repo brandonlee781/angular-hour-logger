@@ -15,6 +15,16 @@
   @include tablet-and-down {
     border-right: 2px solid #2196f3;
   }
+
+  @include mobile-and-down {
+    flex-flow: row nowrap;
+    justify-content: center;
+    height: $sidenav-width * 0.5;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 .toggle-menu-btn {
@@ -23,6 +33,36 @@
   width: $sidenav-width;
   padding: 0;
   border-radius: 0;
+
+  @include mobile-and-down {
+    height: $sidenav-width * 0.5;
+    width: 20vw;
+    min-width: 20vw;
+    padding: 0;
+
+    span {
+      display: flex !important;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.menu-toggle-icon {
+  @include mobile-and-down {
+    font-size: 2em;
+    margin-top: -16px;
+  }
+}
+
+.menu-toggle-label {
+  @include mobile-and-down {
+    font-size: 1em;
+    height: 18px;
+    margin-top: -8px;
+    font-weight: 400;
+  }
 }
 
 .setting-button {

@@ -1,4 +1,5 @@
 @import '~assets/_variables.scss';
+@import '~assets/mixins';
 
 .mat-drawer-container {
   display: flex;
@@ -7,6 +8,10 @@
   width: calc(100vw - 126px);
   overflow: hidden;
   background: #fff;
+
+  @include mobile-and-down {
+    width: 100vw;
+  }
 }
 
 .base-drawer {
