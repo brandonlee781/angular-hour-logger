@@ -18,6 +18,10 @@
   width: 378px;
   min-width: 378px;
   background-color: map-get($logger-blue, 500);
+
+  @include mobile-and-down {
+    margin-bottom: 4em;
+  }
 }
 
 .drawer-header {
