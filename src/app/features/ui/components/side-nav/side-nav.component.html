@@ -1,7 +1,7 @@
 <div class="sidenav">
   <button
     mat-button
-    *ngIf="!isDesktop"
+    *ngIf="!isDesktop && router.url !== '/profile'"
     class="toggle-menu-btn"
     (click)="toggleMenu()"
   >

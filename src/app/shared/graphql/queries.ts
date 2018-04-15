@@ -1,7 +1,7 @@
 import Invoice from 'features/invoice/Invoice';
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
-import { User } from 'features/User';
+import { User } from 'features/user/User';
 import gql from 'graphql-tag';
 
 export const getAllLogs = gql`

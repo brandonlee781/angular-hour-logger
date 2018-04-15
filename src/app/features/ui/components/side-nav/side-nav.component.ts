@@ -6,6 +6,7 @@ import {
 import { Component, Input, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class SideNavComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private navDrawerService: NavDrawerService,
+    private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
   ) {

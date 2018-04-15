@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import Invoice from 'features/invoice/Invoice';
 import Log from 'features/log/Log';
-import { User } from 'features/User';
+import { User } from 'features/user/User';
 import { UserService } from 'shared/services/user.service';
 
 export interface ProjectHours {

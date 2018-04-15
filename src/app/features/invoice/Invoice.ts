@@ -1,5 +1,5 @@
 import Log from 'features/log/Log';
-import { User } from 'features/User';
+import { User } from 'features/user/User';
 
 export default class Invoice {
   id?: string;
