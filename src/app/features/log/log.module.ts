@@ -12,7 +12,6 @@ import { Apollo } from 'apollo-angular';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
 import { UIModule } from 'features/ui/ui.module';
-import { SharedModule } from 'shared/shared.module';
 
 import { LogCalendarComponent } from './components/log-calendar/log-calendar.component';
 import { LogListItemComponent } from './components/log-list-item/log-list-item.component';

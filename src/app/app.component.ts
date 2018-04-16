@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import { User } from 'features/user/User';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { GET_USER, GetUserQuery } from 'shared/graphql/queries';
 import { UserService } from 'shared/services/user.service';
 
 @Component({

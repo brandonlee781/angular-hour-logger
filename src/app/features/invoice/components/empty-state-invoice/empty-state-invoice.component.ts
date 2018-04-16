@@ -7,9 +7,12 @@ import {
   NewInvoiceDialogComponent,
 } from 'features/invoice/components/new-invoice-dialog/new-invoice-dialog.component';
 import Invoice from 'features/invoice/Invoice';
+import { NEW_INVOICE } from 'features/invoice/schema/mutations';
+import {
+  GET_ALL_INVOICES,
+  GetAllInvoicesQuery,
+} from 'features/invoice/schema/queries';
 import Log from 'features/log/Log';
-import { NEW_INVOICE } from 'shared/graphql/mutations';
-import { GET_ALL_INVOICES, GetAllInvoicesQuery } from 'shared/graphql/queries';
 
 @Component({
   selector: 'bl-empty-state-invoice',

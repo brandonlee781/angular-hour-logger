@@ -8,9 +8,12 @@ import { Apollo } from 'apollo-angular';
 import { differenceInMinutes, parse } from 'date-fns';
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
+import {
+  GET_PROJECT_NAMES,
+  GetProjectNameQuery,
+} from 'features/project/schema/queries';
 import { Observable } from 'rxjs/Observable';
 import { logTimeValidator } from 'shared/directives/log-time-validator.directive';
-import { GET_PROJECT_NAMES, GetProjectNameQuery } from 'shared/graphql/queries';
 
 import { LogErrorStateMatcher } from './LogErrorStateMatcher';
 

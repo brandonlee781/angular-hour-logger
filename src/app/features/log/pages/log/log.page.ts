@@ -15,14 +15,12 @@ import { differenceInMinutes, format } from 'date-fns';
 import { NewLogDialogComponent } from 'features/log/components/new-log-dialog/new-log-dialog.component';
 import Log from 'features/log/Log';
 import Project from 'features/project/Project';
+import { GET_PROJECT_NAMES } from 'features/project/schema/queries';
 import { Observable } from 'rxjs/Observable';
-import { NEW_LOG, UPDATE_LOG } from 'shared/graphql/mutations';
-import {
-  GET_PROJECT_NAMES,
-  LOG_LIST_QUERY,
-  LogListQuery,
-} from 'shared/graphql/queries';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
+
+import { NEW_LOG, UPDATE_LOG } from '../../schema/mutations';
+import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 
 interface ProjectQuery {
   allProjects: {

@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import Log from 'features/log/Log';
-import { DELETE_LOG } from 'shared/graphql/mutations';
-import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
+import { DELETE_LOG } from '../../schema/mutations';
+import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 
 @Component({
   selector: 'bl-log-list-item',

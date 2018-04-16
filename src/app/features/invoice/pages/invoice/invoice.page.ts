@@ -2,17 +2,12 @@
 import 'rxjs/add/operator/map';
 
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { format } from 'date-fns';
-import {
-  FilterLogForm,
-  NewInvoiceDialogComponent,
-} from 'features/invoice/components/new-invoice-dialog/new-invoice-dialog.component';
 import Invoice from 'features/invoice/Invoice';
-import Log from 'features/log/Log';
-import { NEW_INVOICE } from 'shared/graphql/mutations';
-import { GET_ALL_INVOICES, GetAllInvoicesQuery } from 'shared/graphql/queries';
+import {
+  GET_ALL_INVOICES,
+  GetAllInvoicesQuery,
+} from 'features/invoice/schema/queries';
 import { Link } from 'shared/types';
 
 @Component({

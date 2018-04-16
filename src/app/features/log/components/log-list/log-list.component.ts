@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import Log from 'features/log/Log';
-import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
+import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 
 @Component({
   selector: 'bl-log-list',

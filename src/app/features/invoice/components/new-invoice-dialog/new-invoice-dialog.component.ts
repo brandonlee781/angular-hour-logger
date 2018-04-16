@@ -4,15 +4,13 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { format, isValid, parse } from 'date-fns';
+import { parse } from 'date-fns';
 import Project from 'features/project/Project';
-import { Observable } from 'rxjs/Observable';
 import {
-  GET_LOGS_BY_DATES,
   GET_PROJECT_NAMES,
-  GetLogsByDatesQuery,
   GetProjectNameQuery,
-} from 'shared/graphql/queries';
+} from 'features/project/schema/queries';
+import { Observable } from 'rxjs/Observable';
 
 export interface FilterLogForm {
   projects: string;

@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { NEW_PROJECT } from 'shared/graphql/mutations';
-import { GET_PROJECT_NAMES, GetProjectNameQuery } from 'shared/graphql/queries';
+import { NEW_PROJECT } from 'features/project/schema/mutations';
+import {
+  GET_PROJECT_NAMES,
+  GetProjectNameQuery,
+} from 'features/project/schema/queries';
 
 @Component({
   selector: 'bl-new-project',

@@ -8,7 +8,6 @@ import { MaterialModule } from 'core/material.module';
 import { UIModule } from 'features/ui/ui.module';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 import { UserService } from 'shared/services/user.service';
-import { SharedModule } from 'shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './features/login/login.component';

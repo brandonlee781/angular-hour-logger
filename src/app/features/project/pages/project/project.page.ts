@@ -4,8 +4,11 @@ import 'rxjs/add/operator/map';
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
+import {
+  GET_PROJECT_NAMES,
+  GetProjectNameQuery,
+} from 'features/project/schema/queries';
 import { Observable } from 'rxjs/Observable';
-import { GET_PROJECT_NAMES, GetProjectNameQuery } from 'shared/graphql/queries';
 
 interface Link {
   icon: string;

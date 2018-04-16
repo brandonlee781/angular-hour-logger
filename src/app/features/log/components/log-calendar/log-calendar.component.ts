@@ -12,7 +12,7 @@ import { Apollo } from 'apollo-angular';
 import { format, isSameDay, isSameMonth, parse } from 'date-fns';
 import Log from 'features/log/Log';
 import { Subject } from 'rxjs/Subject';
-import { LOG_LIST_QUERY, LogListQuery } from 'shared/graphql/queries';
+import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 
 interface CalEvent extends CalendarEvent {
   log: Log;
