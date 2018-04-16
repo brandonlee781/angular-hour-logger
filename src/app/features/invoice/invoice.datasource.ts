@@ -1,14 +1,14 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Apollo } from 'apollo-angular';
+import { isAfter, isBefore, parse } from 'date-fns';
+import { GET_INVOICE, GetInvoiceQuery } from 'features/invoice/schema/queries';
 import Log from 'features/log/Log';
+import {
+  GET_LOGS_BY_DATES,
+  GetLogsByDatesQuery,
+} from 'features/log/schema/queries';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import {
-  GET_INVOICE,
-  GET_LOGS_BY_DATES,
-  GetInvoiceQuery,
-  GetLogsByDatesQuery,
-} from 'shared/graphql/queries';
 
 export class InvoiceDataSource extends DataSource<Log> {
   private logsSubject = new BehaviorSubject<Log[]>([]);
@@ -40,8 +40,21 @@ export class InvoiceDataSource extends DataSource<Log> {
         },
       })
       .valueChanges.subscribe(q => {
+        const logs = q.data.oneInvoice.invoice.logs.slice();
+        logs.sort((a, b) => {
+          const aDate = parse(a.start);
+          const bDate = parse(b.start);
+          if (isBefore(aDate, bDate)) {
+            return -1;
+          }
+          if (isAfter(aDate, bDate)) {
+            return 1;
+          }
+          return 0;
+        });
+
         this.loadingSubject.next(false);
-        return this.logsSubject.next(q.data.oneInvoice.invoice.logs);
+        return this.logsSubject.next(logs);
       });
   }
 
