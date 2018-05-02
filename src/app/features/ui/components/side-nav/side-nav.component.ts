@@ -22,7 +22,7 @@ export class SideNavComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private navDrawerService: NavDrawerService,
-    private router: Router,
+    public router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
   ) {
