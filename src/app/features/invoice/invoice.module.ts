@@ -8,13 +8,13 @@ import { MaterialModule } from 'core/material.module';
 import { InvoiceRoutingModule } from 'features/invoice/invoice-routing.module';
 import { UIModule } from 'features/ui/ui.module';
 
-import { EmptyStateInvoiceComponent } from './components/empty-state-invoice/empty-state-invoice.component';
-import { InvoiceDetailComponent } from './components/invoice-detail/invoice-detail.component';
 import { InvoiceDocumentComponent } from './components/invoice-document/invoice-document.component';
 import { InvoiceStatsComponent } from './components/invoice-stats/invoice-stats.component';
 import { InvoiceTableComponent } from './components/invoice-table/invoice-table.component';
 import { NewInvoiceDialogComponent } from './components/new-invoice-dialog/new-invoice-dialog.component';
-import { InvoicePage } from './pages/invoice/invoice.page';
+import { BlankInvoicePage } from './pages/blank-invoice/blank-invoice.page';
+import { InvoiceDetailPage } from './pages/invoice-detail/invoice-detail.page';
+import { InvoicesPage } from './pages/invoices/invoices.page';
 
 @NgModule({
   imports: [
@@ -31,11 +31,11 @@ import { InvoicePage } from './pages/invoice/invoice.page';
   ],
   entryComponents: [NewInvoiceDialogComponent],
   declarations: [
-    InvoicePage,
-    InvoiceDetailComponent,
+    InvoiceDetailPage,
+    BlankInvoicePage,
+    InvoicesPage,
     NewInvoiceDialogComponent,
     InvoiceTableComponent,
-    EmptyStateInvoiceComponent,
     InvoiceDocumentComponent,
     InvoiceStatsComponent,
   ],

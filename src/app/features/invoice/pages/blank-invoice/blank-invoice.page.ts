@@ -1,5 +1,7 @@
+// tslint:disable:component-class-suffix
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { format, isValid, parse } from 'date-fns';
 import {
@@ -15,18 +17,22 @@ import {
 import Log from 'features/log/Log';
 
 @Component({
-  selector: 'bl-empty-state-invoice',
-  templateUrl: './empty-state-invoice.component.html',
-  styleUrls: ['./empty-state-invoice.component.scss'],
+  selector: 'bl-blank-invoice',
+  templateUrl: './blank-invoice.page.html',
+  styleUrls: ['./blank-invoice.page.scss'],
 })
-export class EmptyStateInvoiceComponent implements OnInit {
+export class BlankInvoicePage implements OnInit {
   @Input() headerTitle: string;
   @Output() invoiceCreated = new EventEmitter<Invoice>();
   filterInputs: FilterLogForm;
   currentInvoice: Invoice;
   open = false;
 
-  constructor(private apollo: Apollo, public dialog: MatDialog) {}
+  constructor(
+    private apollo: Apollo,
+    public dialog: MatDialog,
+    private router: Router,
+  ) {}
 
   ngOnInit() {}
 
@@ -114,7 +120,7 @@ export class EmptyStateInvoiceComponent implements OnInit {
       .subscribe(q => {
         const inv = q.data.createInvoice.invoice;
         this.currentInvoice = null;
-        this.invoiceCreated.emit(inv);
+        this.router.navigate(['/invoices', inv.number]);
       });
   }
 }

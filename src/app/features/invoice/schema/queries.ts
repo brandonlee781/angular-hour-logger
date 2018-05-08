@@ -33,8 +33,8 @@ export interface GetAllInvoicesQuery {
 }
 
 export const GET_INVOICE = gql`
-  query OneInvoice($id: ID!) {
-    oneInvoice(input: { id: $id }) {
+  query OneInvoice($id: ID, $number: Int) {
+    oneInvoice(input: { id: $id, number: $number }) {
       invoice {
         id
         number

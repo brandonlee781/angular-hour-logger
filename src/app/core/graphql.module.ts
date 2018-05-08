@@ -30,6 +30,7 @@ export class GraphqlModule {
             router.navigate(['/login']);
           }
         });
+        return graphQLErrors;
       }
 
       if (networkError) {
@@ -42,6 +43,11 @@ export class GraphqlModule {
         .concat(linkError)
         .concat(http),
       cache: new InMemoryCache(),
+      defaultOptions: {
+        watchQuery: {
+          errorPolicy: 'all',
+        },
+      },
     });
   }
 

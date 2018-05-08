@@ -1,13 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+// tslint:disable:component-class-suffix
+import { Component, OnInit } from '@angular/core';
 import { MatTab } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { format } from 'date-fns';
 import Invoice from 'features/invoice/Invoice';
@@ -27,46 +21,37 @@ export interface TabEvent {
 }
 @Component({
   selector: 'bl-invoice-detail',
-  templateUrl: './invoice-detail.component.html',
-  styleUrls: ['./invoice-detail.component.scss'],
+  templateUrl: './invoice-detail.page.html',
+  styleUrls: ['./invoice-detail.page.scss'],
 })
-export class InvoiceDetailComponent implements OnInit, OnChanges {
-  @Input() selectedInvoice: string;
-  @Input() headerTitle: string;
-  @Output() invoiceDeleted = new EventEmitter<any>();
+export class InvoiceDetailPage implements OnInit {
   invoice: Invoice;
   currentTab: string;
   open = false;
 
-  constructor(private apollo: Apollo) {}
+  constructor(
+    private apollo: Apollo,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.currentTab = 'hours';
-    this.apollo
-      .watchQuery<GetInvoiceQuery>({
-        query: GET_INVOICE,
-        variables: {
-          id: this.selectedInvoice,
-        },
-      })
-      .valueChanges.subscribe(q => {
-        this.invoice = q.data.oneInvoice.invoice;
-      });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.selectedInvoice.firstChange) {
+    this.route.params.subscribe(params => {
       this.apollo
         .watchQuery<GetInvoiceQuery>({
           query: GET_INVOICE,
           variables: {
-            id: this.selectedInvoice,
+            number: params.invoice,
           },
         })
         .valueChanges.subscribe(q => {
+          if (q.errors) {
+            this.router.navigate(['/invoices']);
+          }
           this.invoice = q.data.oneInvoice.invoice;
         });
-    }
+    });
   }
 
   tabChange({ index, tab }: TabEvent) {
@@ -142,7 +127,7 @@ export class InvoiceDetailComponent implements OnInit, OnChanges {
           },
         })
         .subscribe(data => {
-          this.invoiceDeleted.emit();
+          this.router.navigate(['/invoices']);
         });
     }
   }

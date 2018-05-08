@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FilterLogForm } from 'features/invoice/components/new-invoice-dialog/new-invoice-dialog.component';
+import Invoice from 'features/invoice/Invoice';
 import { InvoiceDataSource } from 'features/invoice/invoice.datasource';
 import Log from 'features/log/Log';
 
@@ -18,7 +19,7 @@ import Log from 'features/log/Log';
   styleUrls: ['./invoice-table.component.scss'],
 })
 export class InvoiceTableComponent implements OnInit, OnChanges {
-  @Input() selectedInvoice: string;
+  @Input() invoice: Invoice;
   @Input() filterInputs: FilterLogForm;
   @Output() currentLogs = new EventEmitter<Log[]>();
   dataSource: InvoiceDataSource;
@@ -28,9 +29,9 @@ export class InvoiceTableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.dataSource = new InvoiceDataSource(this.apollo);
-    if (!this.filterInputs) {
-      this.dataSource.getInvoice(this.selectedInvoice);
-    } else {
+    if (!this.filterInputs && this.invoice) {
+      this.dataSource.getInvoice(this.invoice.id);
+    } else if (this.filterInputs) {
       this.dataSource.getLogsByDates(
         this.filterInputs.startDate,
         this.filterInputs.endDate,
@@ -45,8 +46,8 @@ export class InvoiceTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.filterInputs && !changes.selectedInvoice.firstChange) {
-      this.dataSource.getInvoice(this.selectedInvoice);
+    if (!this.filterInputs && !changes.invoice.firstChange) {
+      this.dataSource.getInvoice(this.invoice.id);
     } else if (this.filterInputs && !changes.filterInputs.firstChange) {
       this.dataSource.getLogsByDates(
         this.filterInputs.startDate,

@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmptyStateInvoiceComponent } from './empty-state-invoice.component';
+import { BlankInvoicePage } from './blank-invoice.page';
 
-describe('EmptyStateInvoiceComponent', () => {
-  let component: EmptyStateInvoiceComponent;
-  let fixture: ComponentFixture<EmptyStateInvoiceComponent>;
+describe('BlankInvoicePage', () => {
+  let component: BlankInvoicePage;
+  let fixture: ComponentFixture<BlankInvoicePage>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [EmptyStateInvoiceComponent],
+        declarations: [BlankInvoicePage],
       }).compileComponents();
     }),
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmptyStateInvoiceComponent);
+    fixture = TestBed.createComponent(BlankInvoicePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

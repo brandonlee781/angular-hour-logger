@@ -1,5 +1,5 @@
 <div class="invoice-header">
-  <div class="invoice-header__title">{{ headerTitle }}</div>
+  <div class="invoice-header__title">Invoice #{{ invoice?.number }} - {{ invoice?.date | date:'shortDate'}}</div>
   <eco-fab-speed-dial
     #invoiceFab
     [(open)]="open"
@@ -39,7 +39,7 @@
 </div>
 <mat-tab-group (selectedTabChange)="tabChange($event)">
   <mat-tab label="Hours">
-    <bl-invoice-table [selectedInvoice]="selectedInvoice"></bl-invoice-table>
+    <bl-invoice-table [invoice]="invoice"></bl-invoice-table>
   </mat-tab>
   <mat-tab label="Invoice">
     <bl-invoice-document [invoice]="invoice"></bl-invoice-document>

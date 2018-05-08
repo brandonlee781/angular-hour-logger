@@ -1,0 +1,19 @@
+<div class="invoice-wrapper">
+  <bl-nav-drawer
+    [links]="links"
+    [loading]="loading"
+    headerTitle="Invoices"
+    (selected)="onLinkSelected($event)"
+    #drawer>
+      <div class="nav-links">
+        <bl-nav-drawer-link [link]="{ path:'/invoices', text: 'Create a New Invoice', route: '' }"></bl-nav-drawer-link>
+        <bl-nav-drawer-link
+          *ngFor="let link of links"
+          [link]="link"
+        ></bl-nav-drawer-link>
+      </div>
+    <div class="invoice-content">
+      <router-outlet></router-outlet>
+    </div>
+  </bl-nav-drawer>
+</div>
