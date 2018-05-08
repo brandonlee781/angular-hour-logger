@@ -1,5 +1,14 @@
 <div class="header">
-  <div class="header__title">{{ project?.name }}</div>
+  <div class="header__title">
+    {{ project?.name }}
+    <mcc-color-picker
+      [selectedColor]="project?.color"
+      [hideUsedColors]="true"
+      (selected)="editColor($event)">
+      <mcc-color-picker-collection label="Material Design Colors" [colors]="mdColors" [size]="mdColors.length">
+      </mcc-color-picker-collection>
+    </mcc-color-picker>
+  </div>
 
   <eco-fab-speed-dial
     *ngIf="selectedProject"

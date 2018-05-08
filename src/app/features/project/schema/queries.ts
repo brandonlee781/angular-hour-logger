@@ -8,6 +8,7 @@ export const GET_PROJECT_NAMES = gql`
       projects {
         id
         name
+        color
       }
     }
   }
