@@ -6,6 +6,7 @@ import { MaterialModule } from 'core/material.module';
 
 import { MenuToggleButtonComponent } from './components/menu-toggle-button/menu-toggle-button.component';
 import { NavDrawerItemComponent } from './components/nav-drawer-item/nav-drawer-item.component';
+import { NavDrawerLinkComponent } from './components/nav-drawer-link/nav-drawer-link.component';
 import { NavDrawerComponent } from './components/nav-drawer/nav-drawer.component';
 import { SideNavBtnComponent } from './components/side-nav-btn/side-nav-btn.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
@@ -18,6 +19,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
     MenuToggleButtonComponent,
     NavDrawerComponent,
     NavDrawerItemComponent,
+    NavDrawerLinkComponent,
   ],
   exports: [
     SideNavComponent,
@@ -25,6 +27,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
     MenuToggleButtonComponent,
     NavDrawerComponent,
     NavDrawerItemComponent,
+    NavDrawerLinkComponent,
   ],
 })
 export class UIModule {}

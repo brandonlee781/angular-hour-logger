@@ -18,7 +18,8 @@
       mode="indeterminate">
     </mat-progress-spinner>
 
-    <mat-list *ngIf="!loading" class="link-list">
+    <ng-content select=".nav-links" ngProjectAs="div"></ng-content>
+    <!-- <mat-list *ngIf="!loading" class="link-list">
       <bl-nav-drawer-item
         *ngFor="let link of links"
         icon="{{ link.icon }}"
@@ -26,7 +27,7 @@
         [isSelected]="link.isSelected"
         (click)="changeSelected(link)"
       ></bl-nav-drawer-item>
-    </mat-list>
+    </mat-list> -->
   </mat-drawer>
 
   <mat-drawer-content>

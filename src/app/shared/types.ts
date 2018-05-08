@@ -8,5 +8,7 @@ export interface Link {
   icon: string;
   text: string;
   id: string;
-  isSelected: boolean;
+  isSelected?: boolean;
+  path?: string;
+  route?: string;
 }
