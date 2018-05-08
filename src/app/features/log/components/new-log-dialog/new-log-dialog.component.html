@@ -6,7 +6,7 @@
     <mat-form-field class="project-field">
       <mat-placeholder>Select Project</mat-placeholder>
       <mat-select #projectSelect formControlName="project" required>
-        <mat-option *ngFor="let project of projects$ | async" [value]="project.id">
+        <mat-option *ngFor="let project of projects" [value]="project.id">
           {{ project.name }}
         </mat-option>
       </mat-select>
@@ -50,10 +50,11 @@
       <mat-hint align="end">{{ notes.value.length}} / 255</mat-hint>
     </mat-form-field>
   </form>
-  
+
 </div>
 
 <div mat-dialog-actions class="dialog-actions">
   <button mat-button (click)="closeDialog()">Cancel</button>
-  <button mat-button color="primary" (click)="saveLog()" [disabled]="!newLogForm.valid">Save</button>
+  <button *ngIf="data.id" mat-button color="primary" (click)="editLog()" [disabled]="!newLogForm.valid">Save</button>
+  <button *ngIf="!data.id" mat-button color="primary" (click)="saveLog()" [disabled]="!newLogForm.valid">Save</button>
 </div>

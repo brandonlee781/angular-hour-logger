@@ -12,7 +12,6 @@ import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 })
 export class LogListItemComponent implements OnInit {
   @Input() log: Log;
-  @Input() selectedProject: string;
   @Output() editLog = new EventEmitter<Log>();
   confirmDelete = false;
   confirmDeleteTimeout;
@@ -28,25 +27,24 @@ export class LogListItemComponent implements OnInit {
     }, 5000);
   }
 
-  deleteLog(log: string) {
+  deleteLog() {
     clearTimeout(this.confirmDeleteTimeout);
     this.apollo
       .mutate({
         mutation: DELETE_LOG,
         variables: {
-          logId: log,
+          logId: this.log.id,
         },
         update: (proxy, { data: { deleteLog } }) => {
           const listQuery = {
             query: LOG_LIST_QUERY,
             variables: {
-              project:
-                this.selectedProject !== 'recent' ? this.selectedProject : null,
+              project: this.log.project.id,
             },
           };
           const data: LogListQuery = proxy.readQuery(listQuery);
           const filtered = data.allLogsByProjectId.logs.filter(
-            l => l.id !== log,
+            l => l.id !== this.log.id,
           );
           data.allLogsByProjectId.logs = filtered;
           proxy.writeQuery({ ...listQuery, data });

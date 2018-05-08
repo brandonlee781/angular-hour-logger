@@ -1,19 +1,18 @@
-<div 
-  *ngIf="logs?.length >= 1" 
+<div
+  *ngIf="logs?.length >= 1"
   class="list-wrapper"
   fxLayout="column"
   fxLayoutAlign="flex-start center">
   <bl-log-list-item
     *ngFor="let log of logs"
     [log]="log"
-    [selectedProject]="selectedProject"
     (editLog)="editLog.emit($event)">
   </bl-log-list-item>
-  <button 
+  <button
     mat-flat-button
     color="primary"
     class="more-btn"
-    (click)="loadMore()"
+    (click)="loadMore.emit()"
   >More Logs</button>
 </div>
 

@@ -11,6 +11,9 @@ import { CalendarModule } from 'angular-calendar';
 import { Apollo } from 'apollo-angular';
 import { GraphqlModule } from 'core/graphql.module';
 import { MaterialModule } from 'core/material.module';
+import { LogsPage } from 'features/log/pages/logs/logs.page';
+import { RecentLogsPage } from 'features/log/pages/recentLogs/recentLogs.page';
+import { LogViewService } from 'features/log/services/log-view.service';
 import { UIModule } from 'features/ui/ui.module';
 
 import { LogCalendarComponent } from './components/log-calendar/log-calendar.component';
@@ -33,13 +36,15 @@ import { LogPage } from './pages/log/log.page';
     UIModule,
   ],
   declarations: [
-    LogListComponent,
-    LogPage,
-    LogListItemComponent,
-    NewLogDialogComponent,
     LogCalendarComponent,
+    LogListComponent,
+    LogListItemComponent,
+    LogPage,
+    LogsPage,
+    NewLogDialogComponent,
+    RecentLogsPage,
   ],
-  providers: [Apollo, MatIconRegistry, MatSnackBar],
+  providers: [Apollo, MatIconRegistry, MatSnackBar, LogViewService],
   entryComponents: [NewLogDialogComponent, MatSnackBarContainer],
 })
 export class LogModule {}

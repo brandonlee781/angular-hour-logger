@@ -1,5 +1,5 @@
 <div class="log-header">
-  <div class="log-header__title">{{ project?.name }}</div>
+  <div class="log-header__title">Recent Logs</div>
 
   <eco-fab-speed-dial
     #logFab
@@ -10,7 +10,7 @@
     (mouseenter)="logFab.open = true"
     (mouseleave)="logFab.open = false">
     <eco-fab-speed-dial-trigger>
-      <button mat-fab (click)="openDialog(project?.id)" color="primary" matTooltip="Create Log Entry">
+      <button mat-fab (click)="openDialog()" color="primary" matTooltip="Create Log Entry">
         <mat-icon>add</mat-icon>
       </button>
     </eco-fab-speed-dial-trigger>

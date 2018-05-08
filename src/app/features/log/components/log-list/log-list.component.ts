@@ -16,57 +16,13 @@ import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
   templateUrl: './log-list.component.html',
   styleUrls: ['./log-list.component.scss'],
 })
-export class LogListComponent implements OnInit, OnChanges {
-  @Input() selectedProject: string;
+export class LogListComponent implements OnInit {
+  @Input() logs: Log[];
   @Output() editLog = new EventEmitter<Log>();
   @Output() newLog = new EventEmitter<any>();
-  logQuery: QueryRef<any>;
-  logs: Log[];
+  @Output() loadMore = new EventEmitter<any>();
 
-  constructor(private apollo: Apollo) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.getLogs(this.selectedProject);
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.selectedProject.firstChange) {
-      this.getLogs(this.selectedProject);
-    }
-  }
-
-  getLogs(project) {
-    this.logQuery = this.apollo.watchQuery<LogListQuery>({
-      query: LOG_LIST_QUERY,
-      variables: {
-        project: project !== 'recent' ? project : null,
-      },
-    });
-    this.logQuery.valueChanges.subscribe(q => {
-      this.logs = q.data.allLogsByProjectId.logs;
-    });
-  }
-
-  loadMore() {
-    this.logQuery.fetchMore({
-      variables: {
-        offset: this.logs.length,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-
-        return {
-          allLogsByProjectId: {
-            __typename: prev.allLogsByProjectId.__typename,
-            logs: [
-              ...prev.allLogsByProjectId.logs,
-              ...fetchMoreResult.allLogsByProjectId.logs,
-            ],
-          },
-        };
-      },
-    });
-  }
+  ngOnInit() {}
 }

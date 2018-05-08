@@ -5,8 +5,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { differenceInMinutes, parse } from 'date-fns';
+import { differenceInMinutes, format, isValid, parse } from 'date-fns';
 import Log from 'features/log/Log';
+import { NEW_LOG, UPDATE_LOG } from 'features/log/schema/mutations';
+import { LOG_LIST_QUERY, LogListQuery } from 'features/log/schema/queries';
 import Project from 'features/project/Project';
 import {
   GET_PROJECT_NAMES,
@@ -19,6 +21,7 @@ import { LogErrorStateMatcher } from './LogErrorStateMatcher';
 
 interface DialogData extends Log {
   header: string;
+  projectId?: string;
 }
 @Component({
   selector: 'bl-new-log-dialog',
@@ -26,17 +29,10 @@ interface DialogData extends Log {
   styleUrls: ['./new-log-dialog.component.scss'],
 })
 export class NewLogDialogComponent implements OnInit {
-  projects$: Observable<Project[]>;
-  project;
-
-  id;
-  date;
-  startTime;
-  endTime;
-  note;
-  duration = 0;
+  projects: Project[];
   newLogForm: FormGroup;
   endTimeMatcher = new LogErrorStateMatcher();
+  duration = 0;
 
   editProject: string;
 
@@ -50,17 +46,28 @@ export class NewLogDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projects$ = this.apollo
+    this.apollo
       .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.map(p => p.data.allProjects.projects);
+      .valueChanges.map(p => p.data.allProjects.projects)
+      .subscribe(projects => {
+        this.projects = projects;
+      });
   }
 
   createForm(data): void {
     this.newLogForm = this.fb.group(
       {
         id: [data.id],
-        project: [data.project ? data.project.id : null, Validators.required],
-        date: [parse(data.start), Validators.required],
+        project: [
+          data.project
+            ? data.project.id
+            : data.projectId ? data.projectId : null,
+          Validators.required,
+        ],
+        date: [
+          isValid(parse(data.start)) ? parse(data.start) : new Date(),
+          Validators.required,
+        ],
         startTime: [parse(data.start), Validators.required],
         endTime: [parse(data.end), Validators.required],
         note: [
@@ -97,23 +104,138 @@ export class NewLogDialogComponent implements OnInit {
   saveLog(): void {
     if (this.newLogForm.valid) {
       const self = this;
-      let projectName;
-      self.projects$
-        .map(projects =>
-          projects.find(p => p.id === this.newLogForm.value.project),
-        )
-        .subscribe(project => (projectName = project.name));
 
-      this.dialogRef.close(
-        Object.assign({}, this.newLogForm.value, {
-          duration: this.duration,
-          project: {
-            id: this.newLogForm.value.project,
-            name: projectName,
-          },
-        }),
+      const { startTime, endTime, date, project, note } = this.newLogForm.value;
+      const formatDate = format(date, 'YYYY-MM-DD');
+      const formatStart = format(startTime, 'HH:mm:ssZ');
+      const formatEnd = format(endTime, 'HH:mm:ssZ');
+      const start = format(
+        `${formatDate} ${formatStart}`,
+        'YYYY-MM-DD H:mm:ssZ',
       );
+      const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ssZ');
+
+      this.apollo
+        .mutate({
+          mutation: NEW_LOG,
+          variables: {
+            start,
+            end,
+            duration: this.duration,
+            note,
+            project,
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            createLog: {
+              __typename: 'createLog',
+              log: {
+                __typename: 'Log',
+                id: 'tempid',
+                start,
+                end,
+                duration: this.duration,
+                project: {
+                  __typename: 'Project',
+                  id: project,
+                  name: this.projects.find(p => p.id === project)['name'],
+                  color: '',
+                },
+                note,
+              },
+            },
+          },
+          update: (proxy, { data: { createLog } }) => {
+            const listQuery = {
+              query: LOG_LIST_QUERY,
+              variables: {
+                project: this.data.projectId || null,
+              },
+            };
+            const data: LogListQuery = proxy.readQuery(listQuery);
+            data.allLogsByProjectId.logs.unshift(createLog.log);
+            proxy.writeQuery({ ...listQuery, data });
+          },
+        })
+        .subscribe(q => {
+          this.dialogRef.close();
+        });
     }
+  }
+
+  editLog() {
+    const self = this;
+    const {
+      id,
+      startTime,
+      endTime,
+      date,
+      project,
+      note,
+    } = this.newLogForm.value;
+    const duration = differenceInMinutes(endTime, startTime) / 60;
+    const formatDate = format(date, 'YYYY-MM-DD');
+    const formatStart = format(startTime, 'HH:mm:ssZ');
+    const formatEnd = format(endTime, 'HH:mm:ssZ');
+    const start = format(`${formatDate} ${formatStart}`, 'YYYY-MM-DD H:mm:ssZ');
+    const end = format(`${formatDate} ${formatEnd}`, 'YYYY-MM-DD H:mm:ssZ');
+
+    this.apollo
+      .mutate({
+        mutation: UPDATE_LOG,
+        variables: {
+          id,
+          start,
+          end,
+          duration,
+          note,
+          project,
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          updateLog: {
+            __typename: 'updateLog',
+            log: {
+              __typename: 'Log',
+              id,
+              start,
+              end,
+              duration,
+              project: {
+                __typename: 'Project',
+                id: project,
+                name: this.projects.find(proj => proj.id === project)['name'],
+                color: '',
+              },
+              note,
+            },
+          },
+        },
+        update: (proxy, { data: { updateLog } }) => {
+          const listQuery = {
+            query: LOG_LIST_QUERY,
+            variables: {
+              project: this.data.projectId || null,
+            },
+          };
+          const data: LogListQuery = proxy.readQuery(listQuery);
+          const index = data.allLogsByProjectId.logs
+            .map(l => l.id)
+            .indexOf(updateLog.log.id);
+          const logs = data.allLogsByProjectId.logs;
+
+          data.allLogsByProjectId.logs = [
+            ...logs.slice(0, index),
+            updateLog.log,
+            ...logs.slice(index + 1),
+          ];
+
+          proxy.writeQuery({ ...listQuery, data });
+        },
+      })
+      .subscribe(q => {
+        this.dialogRef.close();
+      });
   }
 
   getErrorMessage() {
