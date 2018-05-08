@@ -1,39 +1,41 @@
 <div class="task-item">
   <div class="task-details">
 
-    <button mat-icon-button (click)="toggleTask()">
+    <button mat-icon-button class="task-check" (click)="toggleTask()">
       <mat-icon *ngIf="!task.completed" color="primary">check_box_outline_blank</mat-icon>
       <mat-icon *ngIf="task.completed" color="primary">check_box</mat-icon>
     </button>
 
-    <span [ngStyle]="{ 'text-decoration': task.completed ? 'line-through' : 'none' }">
+    <span class="task-text" [ngStyle]="{ 'text-decoration': task.completed ? 'line-through' : 'none' }">
       {{ task.text }}
     </span>
 
-    <div class="task-controls">
-      <span class="task-estimate" [ngStyle]="{ 'margin-right': confirmDelete ? '51px' : '80px' }">
-        <mat-icon>access_time</mat-icon>{{ getTotalEstimate() }}
-      </span>
+    <!-- <div class="task-controls"> -->
+    <span class="task-estimate">
+      <mat-icon>access_time</mat-icon>{{ getTotalEstimate() }}
+    </span>
 
-      <button
-        *ngIf="!confirmDelete && (task?.children && task?.children?.length >= 0)"
-        mat-icon-button
-        (click)="this.showNewTask = !this.showNewTask">
-        <mat-icon *ngIf="!showNewTask" color="primary">add</mat-icon>
-        <mat-icon *ngIf="showNewTask" color="primary">add_circle</mat-icon>
-      </button>
+    <button
+      *ngIf="!confirmDelete && !showCompleted && (task?.children && task?.children?.length >= 0)"
+      mat-icon-button
+      class="task-add"
+      (click)="this.showNewTask = !this.showNewTask">
+      <mat-icon *ngIf="!showNewTask" color="primary">add_circle_outline</mat-icon>
+      <mat-icon *ngIf="showNewTask" color="primary">add_circle</mat-icon>
+    </button>
 
-      <button
-        *ngIf="!confirmDelete"
-        mat-icon-button
-        (click)="handleDelete()">
-        <mat-icon color="warn">delete</mat-icon>
-      </button>
+    <button
+      *ngIf="!confirmDelete"
+      mat-icon-button
+      class="task-delete"
+      (click)="handleDelete()">
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
 
-      <button *ngIf="confirmDelete" mat-button color="warn" (click)="deleteTask()" class="delete-task">
-        Confirm? <mat-icon color="white">delete</mat-icon>
-      </button>
-    </div>
+    <button *ngIf="confirmDelete" mat-button color="warn" (click)="deleteTask()" class="task-confirm-delete">
+      Confirm? <mat-icon color="white">delete</mat-icon>
+    </button>
+    <!-- </div> -->
 
 
   </div>
@@ -43,7 +45,13 @@
   </div>
 
   <div *ngIf="task?.children" class="task-item-children">
-    <bl-task-list-item *ngFor="let child of task.children" [task]="child" [project]="project"></bl-task-list-item>
+    <bl-task-list-item
+      *ngFor="let child of task.children"
+      [task]="child"
+      [project]="project"
+      [parent]="task?.id"
+      [showCompleted]="showCompleted">
+    </bl-task-list-item>
   </div>
 
 </div>

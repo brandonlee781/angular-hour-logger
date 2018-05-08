@@ -13,13 +13,17 @@ import Task from 'features/project/Task';
 export class TaskListItemComponent implements OnInit {
   @Input() task: Task;
   @Input() project: Project;
+  @Input() parent: string;
+  @Input() showCompleted;
   showNewTask = false;
   confirmDelete = false;
   confirmDeleteTimeout;
 
   constructor(private apollo: Apollo) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.task);
+  }
 
   getTotalEstimate() {
     let estimate = 0;

@@ -3,13 +3,11 @@
     headerTitle="Projects"
     headerIcon="create"
     (headerAction)="showNewProject = true"
-    (selected)="onLinkSelected($event)"
     #drawer>
     <div class="nav-links">
       <bl-nav-drawer-link
         *ngFor="let link of links$ | async"
-        icon="{{ link.icon }}"
-        text="{{ link.text }}"
+        [link]="link"
       ></bl-nav-drawer-link>
     </div>
     <div class="project-content">

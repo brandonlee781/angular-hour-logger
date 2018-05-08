@@ -13,6 +13,7 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { TaskListItemComponent } from './components/task-list-item/task-list-item.component';
 import { ProjectPage } from './pages/project/project.page';
+import { CompletedTaskPipe } from './pipes/completed-task.pipe';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ProjectPage } from './pages/project/project.page';
     NewTaskComponent,
     ProjectsPage,
     TaskListItemComponent,
+    CompletedTaskPipe,
   ],
 })
 export class ProjectModule {}

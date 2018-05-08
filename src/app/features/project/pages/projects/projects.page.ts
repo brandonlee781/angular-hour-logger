@@ -11,13 +11,7 @@ import {
   GetProjectNameQuery,
 } from 'features/project/schema/queries';
 import { Observable } from 'rxjs/Observable';
-
-interface Link {
-  icon: string;
-  text: string;
-  id: string;
-  isSelected: boolean;
-}
+import { Link } from 'shared/types';
 
 @Component({
   selector: 'bl-projects',
@@ -46,7 +40,8 @@ export class ProjectsPage implements OnInit {
       .map((arr: Project[], index: number) =>
         arr.map((proj: Project) => ({
           icon: 'folder_open',
-          isSelected: false,
+          path: '/projects',
+          route: proj.name,
           text: proj.name,
           id: proj.id,
         })),
@@ -55,19 +50,5 @@ export class ProjectsPage implements OnInit {
 
   createNewProject(event) {
     console.log(event);
-  }
-
-  onLinkSelected(link) {
-    this.headerTitle = link.text;
-    this.selectedProject = link.id;
-    this.location.replaceState(`projects/${this.headerTitle}`);
-
-    this.links$ = this.links$.map(links => {
-      return links.map(l => {
-        return Object.assign({}, l, {
-          isSelected: l.id === link.id ? true : false,
-        });
-      });
-    });
   }
 }

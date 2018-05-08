@@ -33,8 +33,17 @@
 
 <div class="task-list">
   <bl-task-list-item
-    *ngFor="let task of tasks"
+    *ngFor="let task of tasks | completedTask:false"
     [task]="task"
     [project]="project"
+    [showCompleted]="false"
+  ></bl-task-list-item>
+
+  <div class="completed-header">Completed Tasks</div>
+  <bl-task-list-item
+    *ngFor="let task of tasks | completedTask:true"
+    [task]="task"
+    [project]="project"
+    [showCompleted]="true"
   ></bl-task-list-item>
 </div>

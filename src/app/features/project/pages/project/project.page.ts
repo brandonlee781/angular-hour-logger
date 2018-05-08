@@ -28,7 +28,7 @@ interface Link {
 })
 export class ProjectPage implements OnInit {
   project: Project;
-  tasks: Task[];
+  tasks: Task[] = [];
   open = false;
 
   taskText = new FormControl('', [Validators.required]);
@@ -60,6 +60,7 @@ export class ProjectPage implements OnInit {
       })
       .valueChanges.subscribe(data => {
         this.tasks = data.data.projectTasks.tasks;
+        console.log(this.tasks);
       });
   }
 
