@@ -1,0 +1,57 @@
+@import '~assets/_variables.scss';
+@import '~assets/_mixins.scss';
+
+.task-check {
+  cursor: pointer;
+}
+
+.task-item {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.task-details {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 16px;
+
+  .task-controls {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    height: 100%;
+  }
+
+  .delete-task {
+    margin-left: auto;
+    padding-right: 8px;
+  }
+}
+
+.task-estimate {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #333;
+
+  .material-icons {
+    margin-right: 8px;
+    color: #b3b2b3;
+  }
+}
+
+.task-item-children {
+  padding-left: 64px;
+}
+
+.new-task {
+  height: 5em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}

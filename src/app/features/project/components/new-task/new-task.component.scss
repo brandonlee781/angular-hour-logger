@@ -1,0 +1,28 @@
+.new-task-panel {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 5rem;
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 16px;
+
+  .new-task-input {
+    width: 100%;
+    margin-left: 16px;
+  }
+
+  button {
+    height: 36px;
+    margin-left: 16px;
+  }
+}
+
+/* stylelint-disable */
+/deep/ .priority-select.mat-form-field {
+  max-width: 3em;
+
+  /deep/ .mat-select {
+    padding-left: 18px;
+    width: 30px;
+  }
+}

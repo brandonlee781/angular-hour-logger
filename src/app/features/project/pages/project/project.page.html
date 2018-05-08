@@ -1,15 +1,40 @@
-<div class="project-wrapper">
-  <bl-nav-drawer 
-    [links]="links$ | async"
-    headerTitle="Projects"
-    headerIcon="create"
-    (headerAction)="showNewProject = true"
-    (selected)="onLinkSelected($event)"
-    #drawer>
-  </bl-nav-drawer>
-  <bl-new-project
-    #newProject
-    [hidden]="!showNewProject"
-    (createSuccess)="showNewProject = false">
-  </bl-new-project>
+<div class="header">
+  <div class="header__title">{{ project?.name }}</div>
+
+  <eco-fab-speed-dial
+    *ngIf="selectedProject"
+    #projectFab
+    [(open)]="open"
+    direction="left"
+    animationMode="fling"
+    [fixed]="true"
+    (mouseenter)="projectFab.open = true"
+    (mouseleave)="projectFab.open = false">
+    <eco-fab-speed-dial-trigger>
+      <button mat-fab color="primary" matTooltip="Create New Task">
+        <mat-icon>add</mat-icon>
+      </button>
+    </eco-fab-speed-dial-trigger>
+
+    <eco-fab-speed-dial-actions>
+      <button
+        mat-mini-fab
+        color="warn"
+        matTooltip="Delete Project">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </eco-fab-speed-dial-actions>
+  </eco-fab-speed-dial>
+</div>
+
+<bl-new-task
+[selectedProject]="project?.id"
+></bl-new-task>
+
+<div class="task-list">
+  <bl-task-list-item
+    *ngFor="let task of tasks"
+    [task]="task"
+    [project]="project"
+  ></bl-task-list-item>
 </div>

@@ -2,13 +2,17 @@
 import 'rxjs/add/operator/map';
 
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
 import {
   GET_PROJECT_NAMES,
+  GET_PROJECT_TASK,
   GetProjectNameQuery,
+  GetProjectTasksQuery,
 } from 'features/project/schema/queries';
-import { Observable } from 'rxjs/Observable';
+import Task from 'features/project/Task';
 
 interface Link {
   icon: string;
@@ -23,43 +27,41 @@ interface Link {
   styleUrls: ['./project.page.scss'],
 })
 export class ProjectPage implements OnInit {
-  links$: Observable<Link[]>;
-  projects$: Observable<Project[]>;
-  headerTitle: string;
-  selectedProject: string;
-  showNewProject = false;
+  project: Project;
+  tasks: Task[];
+  open = false;
 
-  constructor(private apollo: Apollo) {}
+  taskText = new FormControl('', [Validators.required]);
+  taskPriority = 0;
+  taskEstimate = 0;
 
-  ngOnInit() {
-    this.headerTitle = 'Recent Log Entries';
-    this.links$ = this.apollo
-      .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.map(p => p.data.allProjects.projects)
-      .map((arr: Project[], index: number) =>
-        arr.map((proj: Project) => ({
-          icon: 'folder_open',
-          isSelected: false,
-          text: proj.name,
-          id: proj.id,
-        })),
-      );
-  }
-
-  createNewProject(event) {
-    console.log(event);
-  }
-
-  onLinkSelected(link) {
-    this.headerTitle = link.text;
-    this.selectedProject = link.id;
-
-    this.links$ = this.links$.map(links => {
-      return links.map(l => {
-        return Object.assign({}, l, {
-          isSelected: l.id === link.id ? true : false,
+  constructor(private apollo: Apollo, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.apollo
+        .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
+        .valueChanges.map(p => p.data.allProjects.projects)
+        .subscribe((projects: Project[]) => {
+          this.project = projects.find(
+            proj => proj.name === params.project || proj.name === '',
+          );
+          this.getTasks(this.project.id);
         });
-      });
     });
   }
+
+  getTasks(id) {
+    this.apollo
+      .watchQuery<GetProjectTasksQuery>({
+        query: GET_PROJECT_TASK,
+        variables: {
+          project: id,
+          limit: 500,
+        },
+      })
+      .valueChanges.subscribe(data => {
+        this.tasks = data.data.projectTasks.tasks;
+      });
+  }
+
+  ngOnInit() {}
 }
