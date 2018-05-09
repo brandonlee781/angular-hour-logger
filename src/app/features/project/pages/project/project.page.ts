@@ -97,7 +97,6 @@ export class ProjectPage implements OnInit {
           this.project = projects.find(
             proj => proj.name === params.project || proj.name === '',
           );
-          console.log(this.project);
           this.getTasks(this.project.id);
         });
     });

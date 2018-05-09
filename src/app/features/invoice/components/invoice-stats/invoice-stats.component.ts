@@ -142,9 +142,7 @@ export class InvoiceStatsComponent implements OnInit, OnChanges {
     return sorted;
   }
 
-  onSelect(event) {
-    console.log(event);
-  }
+  onSelect(event) {}
 
   onResize(event) {
     const windowHeight = window.innerHeight;

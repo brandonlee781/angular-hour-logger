@@ -21,9 +21,7 @@ export class TaskListItemComponent implements OnInit {
 
   constructor(private apollo: Apollo) {}
 
-  ngOnInit() {
-    console.log(this.task);
-  }
+  ngOnInit() {}
 
   getTotalEstimate() {
     let estimate = 0;

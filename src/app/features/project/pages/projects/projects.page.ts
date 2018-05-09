@@ -48,7 +48,5 @@ export class ProjectsPage implements OnInit {
       );
   }
 
-  createNewProject(event) {
-    console.log(event);
-  }
+  createNewProject(event) {}
 }

@@ -29,11 +29,10 @@
   [hidden]="currentView === 'calendar'"
   [logs]="logs"
   (editLog)="editLog($event)"
-  (newLog)="openDialog()"
+  (newLog)="openDialog($event)"
   (loadMore)="loadMoreLogs()">
 </bl-log-list>
 <bl-log-calendar
   [hidden]="currentView === 'list'"
-  [selectedProject]="selectedProject"
   (editLog)="editLog($event)">
 </bl-log-calendar>
