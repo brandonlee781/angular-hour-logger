@@ -1,4 +1,4 @@
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,7 +10,7 @@ import {
   GET_PROJECT_NAMES,
   GetProjectNameQuery,
 } from 'features/project/schema/queries';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export interface FilterLogForm {
   projects: string;
@@ -46,7 +46,7 @@ export class NewInvoiceDialogComponent implements OnInit {
   ngOnInit() {
     this.projects$ = this.apollo
       .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.map(p => p.data.allProjects.projects);
+      .valueChanges.pipe(map(p => p.data.allProjects.projects));
     this.projects$.subscribe(project => {
       this.filterLogsForm.patchValue({
         projects: project.map(p => p.id),

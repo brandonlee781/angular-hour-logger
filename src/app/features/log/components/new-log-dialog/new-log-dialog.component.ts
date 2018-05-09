@@ -1,5 +1,4 @@
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +13,7 @@ import {
   GET_PROJECT_NAMES,
   GetProjectNameQuery,
 } from 'features/project/schema/queries';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { logTimeValidator } from 'shared/directives/log-time-validator.directive';
 
 import { LogErrorStateMatcher } from './LogErrorStateMatcher';
@@ -48,7 +47,7 @@ export class NewLogDialogComponent implements OnInit {
   ngOnInit() {
     this.apollo
       .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.map(p => p.data.allProjects.projects)
+      .valueChanges.pipe(map(p => p.data.allProjects.projects))
       .subscribe(projects => {
         this.projects = projects;
       });

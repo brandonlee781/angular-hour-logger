@@ -1,7 +1,4 @@
 // tslint:disable:component-class-suffix
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/map';
 
 import {
   BreakpointObserver,

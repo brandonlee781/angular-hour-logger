@@ -1,7 +1,5 @@
+import { map } from 'rxjs/operators';
 // tslint:disable:component-class-suffix
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/map';
 
 import {
   BreakpointObserver,
@@ -14,7 +12,7 @@ import { Apollo } from 'apollo-angular';
 import { LogViewService } from 'features/log/services/log-view.service';
 import Project from 'features/project/Project';
 import { GET_PROJECT_NAMES } from 'features/project/schema/queries';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 interface ProjectQuery {
@@ -55,15 +53,17 @@ export class LogsPage implements OnInit {
     });
     this.links$ = this.apollo
       .watchQuery<ProjectQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.map(p => p.data.allProjects.projects)
-      .map((arr: Project[]) =>
-        arr.map((proj: Project) => ({
-          icon: proj.id === '' ? '' : 'folder_open',
-          path: '/logs',
-          route: proj.name,
-          text: proj.name,
-          id: proj.id,
-        })),
+      .valueChanges.pipe(
+        map(p => p.data.allProjects.projects),
+        map((arr: Project[]) =>
+          arr.map((proj: Project) => ({
+            icon: proj.id === '' ? '' : 'folder_open',
+            path: '/logs',
+            route: proj.name,
+            text: proj.name,
+            id: proj.id,
+          })),
+        ),
       );
     this.breakpointObserver
       .observe([Breakpoints.Large, Breakpoints.XLarge])

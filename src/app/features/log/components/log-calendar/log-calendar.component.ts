@@ -11,7 +11,7 @@ import { CalendarEvent } from 'angular-calendar';
 import { Apollo } from 'apollo-angular';
 import { format, isSameDay, isSameMonth, parse } from 'date-fns';
 import Log from 'features/log/Log';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 
 interface CalEvent extends CalendarEvent {

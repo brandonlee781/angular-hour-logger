@@ -7,8 +7,7 @@ import {
   GET_LOGS_BY_DATES,
   GetLogsByDatesQuery,
 } from 'features/log/schema/queries';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export class InvoiceDataSource extends DataSource<Log> {
   private logsSubject = new BehaviorSubject<Log[]>([]);
