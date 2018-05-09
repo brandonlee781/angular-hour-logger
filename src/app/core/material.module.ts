@@ -18,34 +18,13 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTreeModule } from '@angular/material/tree';
 import {
   MatDatetimepickerModule,
   MatNativeDatetimeModule,
 } from '@mat-datetimepicker/core';
 
 @NgModule({
-  imports: [
-    // BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDatetimeModule,
-    MatDatetimepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTabsModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatCardModule,
-    FlexLayoutModule,
-  ],
   exports: [
     // BrowserAnimationsModule,
     MatButtonModule,
@@ -61,6 +40,7 @@ import {
     MatMenuModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTreeModule,
     MatProgressSpinnerModule,
     MatTabsModule,
     MatTableModule,

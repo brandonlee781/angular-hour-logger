@@ -1,5 +1,5 @@
+import { map } from 'rxjs/operators';
 // tslint:disable:component-class-suffix
-import 'rxjs/add/operator/map';
 
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +10,7 @@ import {
   GET_PROJECT_NAMES,
   GetProjectNameQuery,
 } from 'features/project/schema/queries';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Link } from 'shared/types';
 
 @Component({
@@ -36,15 +36,17 @@ export class ProjectsPage implements OnInit {
     this.headerTitle = 'Select a Project';
     this.links$ = this.apollo
       .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.map(p => p.data.allProjects.projects)
-      .map((arr: Project[], index: number) =>
-        arr.map((proj: Project) => ({
-          icon: 'folder_open',
-          path: '/projects',
-          route: proj.name,
-          text: proj.name,
-          id: proj.id,
-        })),
+      .valueChanges.pipe(
+        map(p => p.data.allProjects.projects),
+        map((arr: Project[], index: number) =>
+          arr.map((proj: Project) => ({
+            icon: 'folder_open',
+            path: '/projects',
+            route: proj.name,
+            text: proj.name,
+            id: proj.id,
+          })),
+        ),
       );
   }
 

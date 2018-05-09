@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GET_USER, GetUserQuery } from 'features/user/schema/queries';
 import { User } from 'features/user/User';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {

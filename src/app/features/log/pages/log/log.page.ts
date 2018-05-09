@@ -1,7 +1,5 @@
+import { map } from 'rxjs/operators';
 // tslint:disable:component-class-suffix
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/map';
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
@@ -55,7 +53,7 @@ export class LogPage implements OnInit {
     this.route.params.subscribe(params => {
       this.apollo
         .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-        .valueChanges.map(p => p.data.allProjects.projects)
+        .valueChanges.pipe(map(p => p.data.allProjects.projects))
         .subscribe((projects: Project[]) => {
           this.project = projects.find(
             proj => proj.name === params.project || proj.name === '',

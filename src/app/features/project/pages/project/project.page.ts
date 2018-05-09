@@ -1,5 +1,5 @@
+import { map } from 'rxjs/operators';
 // tslint:disable:component-class-suffix
-import 'rxjs/add/operator/map';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
@@ -92,7 +92,7 @@ export class ProjectPage implements OnInit {
     this.route.params.subscribe(params => {
       this.apollo
         .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-        .valueChanges.map(p => p.data.allProjects.projects)
+        .valueChanges.pipe(map(p => p.data.allProjects.projects))
         .subscribe((projects: Project[]) => {
           this.project = projects.find(
             proj => proj.name === params.project || proj.name === '',
