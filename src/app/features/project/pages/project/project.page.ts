@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
 import { TOGGLE_PROJECT_FAVORITE, UPDATE_PROJECT_COLOR } from 'features/project/schema/mutations';
@@ -88,7 +88,7 @@ export class ProjectPage implements OnInit {
   taskPriority = 0;
   taskEstimate = 0;
 
-  constructor(private apollo: Apollo, private route: ActivatedRoute) {
+  constructor(private apollo: Apollo, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.apollo
         .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
@@ -97,7 +97,11 @@ export class ProjectPage implements OnInit {
           this.project = projects.find(
             proj => proj.name === params.project || proj.name === '',
           );
-          this.getTasks(this.project.id);
+          if (this.project) {
+            this.getTasks(this.project.id);
+          } else {
+            this.router.navigate(['/projects']);
+          }
         });
     });
   }

@@ -13,6 +13,7 @@ import {
 })
 export class NewProjectComponent implements OnInit {
   @Output() createSuccess = new EventEmitter<any>();
+  @Output() cancel = new EventEmitter<any>();
 
   constructor(private apollo: Apollo) {}
 
@@ -38,6 +39,7 @@ export class NewProjectComponent implements OnInit {
                 id: 'tempid',
                 name,
                 color,
+                favorite: false,
               },
             },
           },

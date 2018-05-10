@@ -9,6 +9,10 @@
         *ngFor="let link of links$ | async"
         [link]="link"
       ></bl-nav-drawer-link>
+      <bl-new-project
+        *ngIf="showNewProject"
+        (cancel)="showNewProject = false">
+      </bl-new-project>
     </div>
     <div class="project-content">
       <router-outlet></router-outlet>

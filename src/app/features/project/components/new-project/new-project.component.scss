@@ -22,11 +22,10 @@
     height: 40px !important;
     padding-top: 0;
     border-top: 0;
-    top: 0;
+    // top: 0;
   }
 
-  & ::ng-deep .mat-form-field-placeholder,
-  & ::ng-deep .mat-focused .mat-form-field-placeholder {
+  & ::ng-deep .mat-form-field-label-wrapper label {
     font-size: 2.15rem !important;
     top: 0;
     color: #ddd;
@@ -49,6 +48,7 @@
   font-weight: 100;
   width: 360px;
   color: white;
+  margin-top: -30px;
 }
 
 .add-project-btn .mat-icon {
