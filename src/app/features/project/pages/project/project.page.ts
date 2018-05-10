@@ -6,7 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
-import { UPDATE_PROJECT_COLOR } from 'features/project/schema/mutations';
+import { UPDATE_PROJECT_COLOR, TOGGLE_PROJECT_FAVORITE } from 'features/project/schema/mutations';
 import {
   GET_PROJECT_NAMES,
   GET_PROJECT_TASK,
@@ -135,6 +135,7 @@ export class ProjectPage implements OnInit {
               id: this.project.id,
               name: this.project.name,
               color: event,
+              completed: this.project.favorite,
             },
           },
         },
@@ -149,5 +150,38 @@ export class ProjectPage implements OnInit {
         ],
       })
       .subscribe();
+  }
+
+  toggleFavorite() {
+    this.apollo
+      .mutate({
+        mutation: TOGGLE_PROJECT_FAVORITE,
+        variables: {
+          id: this.project.id,
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          toggleProjectFavorite: {
+            __typename: 'toggleProjectFavorite',
+            project: {
+              __typename: 'Project',
+              id: this.project.id,
+              name: this.project.name,
+              color: this.project.color,
+              completed: !this.project.favorite,
+            },
+          },
+        },
+        update: (proxy, { data: { toggleProjectFavorite } }) => {
+          const projectQuery = {
+            query: GET_PROJECT_NAMES,
+          };
+          const data: GetProjectNameQuery = proxy.readQuery(projectQuery);
+          const projectIndex = data.allProjects.projects.findIndex(p => p.id === this.project.id);
+          data.allProjects.projects[projectIndex].favorite = !data.allProjects.projects[projectIndex].favorite
+
+          proxy.writeQuery({ ...projectQuery, data });
+        },
+      }).subscribe();
   }
 }

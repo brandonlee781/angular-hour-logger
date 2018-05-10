@@ -1,3 +1,4 @@
+import Project from 'features/project/Project';
 import Task from 'features/project/Task';
 import gql from 'graphql-tag';
 
@@ -136,3 +137,28 @@ export const UPDATE_PROJECT_COLOR = gql`
     }
   }
 `;
+
+export interface UpdateProjectQuery {
+  updateProject: {
+    project: Project;
+  };
+}
+
+export const TOGGLE_PROJECT_FAVORITE = gql`
+  mutation ToggleProjectFavorite($id: ID!) {
+    toggleProjectFavorite(input: { id: $id }) {
+      project {
+        id
+        name
+        color
+        favorite
+      }
+    }
+  }
+`;
+
+export interface ToggleProjectFavoriteQuery {
+  toggleProjectFavorite: {
+    project: Project;
+  };
+}

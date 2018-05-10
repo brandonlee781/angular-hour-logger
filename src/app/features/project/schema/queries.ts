@@ -9,6 +9,7 @@ export const GET_PROJECT_NAMES = gql`
         id
         name
         color
+        favorite
       }
     }
   }

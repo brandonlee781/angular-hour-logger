@@ -19,9 +19,23 @@
     (mouseenter)="projectFab.open = true"
     (mouseleave)="projectFab.open = false">
     <eco-fab-speed-dial-trigger>
-      <button mat-fab color="primary" matTooltip="Create New Task">
-        <mat-icon>add</mat-icon>
+      <button
+        *ngIf="!project?.favorite"
+        mat-fab
+        color="primary"
+        matTooltip="Set as Favorite"
+        (click)="toggleFavorite()">
+        <mat-icon>star_border</mat-icon>
       </button>
+
+      <button
+        *ngIf="project?.favorite"
+        mat-fab
+        color="primary"
+        matTooltip="Favorited"
+        (click)="toggleFavorite()">
+          <mat-icon>star</mat-icon>
+        </button>
     </eco-fab-speed-dial-trigger>
 
     <eco-fab-speed-dial-actions>
