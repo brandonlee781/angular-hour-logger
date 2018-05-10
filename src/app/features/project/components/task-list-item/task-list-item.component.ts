@@ -16,6 +16,7 @@ export class TaskListItemComponent implements OnInit {
   @Input() parent: string;
   @Input() showCompleted;
   showNewTask = false;
+  showChildren = true;
   confirmDelete = false;
   confirmDeleteTimeout;
 

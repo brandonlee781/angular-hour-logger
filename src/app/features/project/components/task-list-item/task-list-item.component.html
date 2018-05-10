@@ -1,5 +1,13 @@
 <div class="task-item">
   <div class="task-details">
+    <button *ngIf="task?.children.length" mat-icon-button class="task-show" (click)="showChildren = !showChildren">
+      <mat-icon
+        class="toggle-children-button"
+        [ngClass]="{ 'show-children': showChildren }"
+        color="primary">
+        keyboard_arrow_right
+      </mat-icon>
+    </button>
 
     <button mat-icon-button class="task-check" (click)="toggleTask()">
       <mat-icon *ngIf="!task.completed" color="primary">check_box_outline_blank</mat-icon>
@@ -44,7 +52,7 @@
     <bl-new-task class="new-task" [selectedProject]="project?.id" [parent]="task?.id"></bl-new-task>
   </div>
 
-  <div *ngIf="task?.children" class="task-item-children">
+  <div *ngIf="task?.children && showChildren" class="task-item-children">
     <bl-task-list-item
       *ngFor="let child of task.children"
       [task]="child"
