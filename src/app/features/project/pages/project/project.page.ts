@@ -1,12 +1,9 @@
-import { map } from 'rxjs/operators';
-// tslint:disable:component-class-suffix
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
-import { UPDATE_PROJECT_COLOR, TOGGLE_PROJECT_FAVORITE } from 'features/project/schema/mutations';
+import { TOGGLE_PROJECT_FAVORITE, UPDATE_PROJECT_COLOR } from 'features/project/schema/mutations';
 import {
   GET_PROJECT_NAMES,
   GET_PROJECT_TASK,
@@ -14,6 +11,9 @@ import {
   GetProjectTasksQuery,
 } from 'features/project/schema/queries';
 import Task from 'features/project/Task';
+import { map } from 'rxjs/operators';
+
+// tslint:disable:component-class-suffix
 
 interface Link {
   icon: string;
