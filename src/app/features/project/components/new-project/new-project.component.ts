@@ -1,10 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { NEW_PROJECT } from 'features/project/schema/mutations';
-import {
-  GET_PROJECT_NAMES,
-  GetProjectNameQuery,
-} from 'features/project/schema/queries';
+import { GET_PROJECT_NAMES, GetProjectNameQuery } from 'features/project/schema/queries';
 
 @Component({
   selector: 'bl-new-project',
@@ -12,10 +10,9 @@ import {
   styleUrls: ['./new-project.component.scss'],
 })
 export class NewProjectComponent implements OnInit {
-  @Output() createSuccess = new EventEmitter<any>();
-  @Output() cancel = new EventEmitter<any>();
+  @Output() close = new EventEmitter<any>();
 
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, private router: Router) {}
 
   ngOnInit() {}
 
@@ -50,9 +47,10 @@ export class NewProjectComponent implements OnInit {
             proxy.writeQuery({ ...projectQuery, data });
           },
         })
-        .subscribe();
+        .subscribe(p => {
+          this.close.emit();
+          this.router.navigate(['/projects', name]);
+        });
     }
-
-    this.createSuccess.emit();
   }
 }
