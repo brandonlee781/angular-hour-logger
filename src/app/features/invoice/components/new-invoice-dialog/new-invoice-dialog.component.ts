@@ -49,7 +49,7 @@ export class NewInvoiceDialogComponent implements OnInit {
       .valueChanges.pipe(map(p => p.data.allProjects.projects));
     this.projects$.subscribe(project => {
       this.filterLogsForm.patchValue({
-        projects: project.map(p => p.id),
+        projects: project.filter(p => p.favorite === true).map(p => p.id),
       });
     });
   }

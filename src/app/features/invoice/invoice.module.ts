@@ -15,6 +15,7 @@ import { NewInvoiceDialogComponent } from './components/new-invoice-dialog/new-i
 import { BlankInvoicePage } from './pages/blank-invoice/blank-invoice.page';
 import { InvoiceDetailPage } from './pages/invoice-detail/invoice-detail.page';
 import { InvoicesPage } from './pages/invoices/invoices.page';
+import { FavoritesPipe } from './pipes/favorites.pipe';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { InvoicesPage } from './pages/invoices/invoices.page';
     InvoiceTableComponent,
     InvoiceDocumentComponent,
     InvoiceStatsComponent,
+    FavoritesPipe,
   ],
 })
 export class InvoiceModule {}

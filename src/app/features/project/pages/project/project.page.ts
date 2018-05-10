@@ -172,16 +172,21 @@ export class ProjectPage implements OnInit {
             },
           },
         },
-        update: (proxy, { data: { toggleProjectFavorite } }) => {
-          const projectQuery = {
+        refetchQueries: [
+          {
             query: GET_PROJECT_NAMES,
-          };
-          const data: GetProjectNameQuery = proxy.readQuery(projectQuery);
-          const projectIndex = data.allProjects.projects.findIndex(p => p.id === this.project.id);
-          data.allProjects.projects[projectIndex].favorite = !data.allProjects.projects[projectIndex].favorite
+          },
+        ],
+        // update: (proxy, { data: { toggleProjectFavorite } }) => {
+        //   const projectQuery = {
+        //     query: GET_PROJECT_NAMES,
+        //   };
+        //   const data: GetProjectNameQuery = proxy.readQuery(projectQuery);
+        //   const projectIndex = data.allProjects.projects.findIndex(p => p.id === this.project.id);
+        //   data.allProjects.projects[projectIndex].favorite = !data.allProjects.projects[projectIndex].favorite
 
-          proxy.writeQuery({ ...projectQuery, data });
-        },
+        //   proxy.writeQuery({ ...projectQuery, data });
+        // },
       }).subscribe();
   }
 }
