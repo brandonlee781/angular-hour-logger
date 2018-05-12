@@ -4,16 +4,16 @@
 @include mat-core();
 
 $logger-blue: (
-  50: #e4f2fe,
-  100: #bce0fb,
-  200: #90cbf9,
-  300: #64b6f7,
-  400: #42a6f5,
+  50: #e3f2fd,
+  100: #bbdefb,
+  200: #90caf9,
+  300: #64b5f6,
+  400: #42a5f5,
   500: #2196f3,
-  600: #1d8ef1,
-  700: #1883ef,
-  800: #1479ed,
-  900: #0b68ea,
+  600: #1e88e5,
+  700: #1976d2,
+  800: #1565c0,
+  900: #0d47a1,
   A100: #fff,
   A200: #e1ecff,
   A400: #aeccff,
@@ -24,8 +24,8 @@ $logger-blue: (
     200: #000,
     300: #000,
     400: #000,
-    500: #fff,
-    600: #fff,
+    500: #000,
+    600: #000,
     700: #fff,
     800: #fff,
     900: #fff,
@@ -36,7 +36,7 @@ $logger-blue: (
   )
 );
 
-$logger-app-primary: mat-palette($logger-blue, 500, 300, 800);
+$logger-app-primary: mat-palette($logger-blue, 700, 500, 800);
 $logger-app-accent: mat-palette($mat-blue-grey, 500);
 $logger-app-warn: mat-palette($mat-red);
 
