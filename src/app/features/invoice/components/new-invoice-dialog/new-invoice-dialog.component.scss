@@ -1,7 +1,7 @@
-@import '~assets/variables';
+@import '~sass/variables';
 
 .dialog-header {
-  background: map-get($logger-blue, 500);
+  background: $primary;
   color: #fff;
   width: calc(500px - 48px);
   height: 20px;

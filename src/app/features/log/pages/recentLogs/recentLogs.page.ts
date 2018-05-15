@@ -96,22 +96,24 @@ export class RecentLogsPage implements OnInit {
   openDialog(projectId): void {
     const createLogDialog = this.dialog.open(NewLogDialogComponent, {
       width: '500px',
+      panelClass: 'new-log-dialog',
       data: { header: 'New Log Entry' },
-      position: {
-        top: '16px',
-        right: '16px',
-      },
+      // position: {
+      //   top: '16px',
+      //   right: '16px',
+      // },
     });
   }
 
   editLog(log: Log): void {
     const editLogDialog = this.dialog.open(NewLogDialogComponent, {
       width: '500px',
+      panelClass: 'new-log-dialog',
       data: { header: 'Edit Log Entry', ...log },
-      position: {
-        top: '16px',
-        right: '16px',
-      },
+      // position: {
+      //   top: '16px',
+      //   right: '16px',
+      // },
     });
   }
 }

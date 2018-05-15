@@ -1,6 +1,6 @@
 /* stylelint-disable selector-pseudo-element-no-unknown */
-@import '~assets/mixins';
-@import '~assets/variables';
+@import '~sass/mixins';
+@import '~sass/variables';
 
 .new-project-form {
   display: flex;
@@ -13,7 +13,7 @@
   height: 126px;
   width: 314px;
   padding: 0 32px;
-  background-color: map-get($logger-blue, 500);
+  background-color: $primary
 
   & ::ng-deep .mat-input-flex.mat-form-field-flex,
   & ::ng-deep .mat-form-field-wrapper,

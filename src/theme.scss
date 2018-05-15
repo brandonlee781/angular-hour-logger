@@ -1,40 +1,8 @@
 @import '~@angular/material/theming';
 @import '~@mat-datetimepicker/core/datetimepicker/datetimepicker-theme.scss';
+@import '~sass/variables';
 
 @include mat-core();
-
-$logger-blue: (
-  50: #e3f2fd,
-  100: #bbdefb,
-  200: #90caf9,
-  300: #64b5f6,
-  400: #42a5f5,
-  500: #2196f3,
-  600: #1e88e5,
-  700: #1976d2,
-  800: #1565c0,
-  900: #0d47a1,
-  A100: #fff,
-  A200: #e1ecff,
-  A400: #aeccff,
-  A700: #95bcff,
-  contrast: (
-    50: #000,
-    100: #000,
-    200: #000,
-    300: #000,
-    400: #000,
-    500: #000,
-    600: #000,
-    700: #fff,
-    800: #fff,
-    900: #fff,
-    A100: #000,
-    A200: #000,
-    A400: #000,
-    A700: #000
-  )
-);
 
 $logger-app-primary: mat-palette($logger-blue, 700, 500, 800);
 $logger-app-accent: mat-palette($mat-blue-grey, 500);

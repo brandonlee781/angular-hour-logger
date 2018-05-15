@@ -1,5 +1,5 @@
-@import '~assets/_variables.scss';
-@import '~assets/_mixins.scss';
+@import '~sass/_variables.scss';
+@import '~sass/_mixins.scss';
 
 .sidenav {
   display: flex;
@@ -29,7 +29,7 @@
 
 .toggle-menu-btn {
   color: white;
-  background: map-get($logger-blue, 500);
+  background: $primary;
   width: $sidenav-width;
   padding: 0;
   border-radius: 0;

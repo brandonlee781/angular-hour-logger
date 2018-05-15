@@ -1,5 +1,5 @@
-@import '~assets/_variables.scss';
-@import '~assets/mixins';
+@import '~sass/_variables.scss';
+@import '~sass/mixins';
 
 .mat-drawer-container {
   display: flex;
@@ -17,7 +17,7 @@
 .base-drawer {
   width: 378px;
   min-width: 378px;
-  background-color: map-get($logger-blue, 500);
+  background-color: $primary;
 
   @include mobile-and-down {
     margin-bottom: 4em;
