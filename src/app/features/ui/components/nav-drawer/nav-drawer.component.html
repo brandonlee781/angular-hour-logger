@@ -4,12 +4,14 @@
     [opened]="isOpened"
     class="base-drawer"
   >
-    <div class="drawer-header">
+    <div *ngIf="headerTitle" class="drawer-header">
       <span>{{ headerTitle }}</span>
       <button *ngIf="headerIcon" mat-icon-button (click)="headerButtonClicked()">
         <mat-icon>{{ headerIcon }}</mat-icon>
       </button>
     </div>
+
+    <ng-content *ngIf="!headerTitle" select=".nav-header" ngProjectAs="div"></ng-content>
 
     <mat-progress-spinner
       *ngIf="loading"
