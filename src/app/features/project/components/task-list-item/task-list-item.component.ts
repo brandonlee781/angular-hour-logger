@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
-import { DELETE_TASK, EDIT_TASK, TOGGLE_TASK, EditTaskQuery } from 'features/project/schema/mutations';
+import { DELETE_TASK, EDIT_TASK, EditTaskQuery, TOGGLE_TASK } from 'features/project/schema/mutations';
 import { GET_PROJECT_TASK, GetProjectTasksQuery } from 'features/project/schema/queries';
 import Task from 'features/project/Task';
 
