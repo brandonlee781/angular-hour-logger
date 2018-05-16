@@ -28,6 +28,7 @@
     <button
       *ngIf="!confirmDelete && !showCompleted && (task?.children && task?.children?.length >= 0)"
       mat-icon-button
+      matTooltip="Create Child Task"
       class="task-add"
       (click)="this.showNewTask = !this.showNewTask">
       <mat-icon *ngIf="!showNewTask" color="primary">add_circle_outline</mat-icon>
@@ -38,6 +39,7 @@
       *ngIf="!confirmDelete"
       mat-icon-button
       class="task-delete"
+      matTooltip="Delete Task"
       (click)="handleDelete()">
       <mat-icon color="warn">delete</mat-icon>
     </button>
@@ -62,7 +64,12 @@
       <input matInput #editInput placeholder="Task Text" [(ngModel)]="editText">
     </mat-form-field>
 
-    <bl-duration-picker [showLabel]="false" class="task-estimate"></bl-duration-picker>
+    <bl-duration-picker
+      [showLabel]="false"
+      class="task-estimate"
+      [estimate]="this.task.estimate"
+      (handleDuration)="editDuration($event)">
+    </bl-duration-picker>
 
     <button mat-icon-button
       class="task-edit"

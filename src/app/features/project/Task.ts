@@ -6,7 +6,7 @@ export default class Task {
   text: string;
   completed: boolean;
   estimate: number;
-  priority: number;
+  // priority: number;
   project: Project;
   parent?: Task;
   children?: Task[];

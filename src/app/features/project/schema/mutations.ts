@@ -38,43 +38,36 @@ export const NEW_TASK = gql`
         text
         completed
         estimate
-        priority
         children {
           id
           text
           completed
           estimate
-          priority
           children {
             id
             text
             completed
             estimate
-            priority
             children {
               id
               text
               completed
               estimate
-              priority
               children {
                 id
                 text
                 completed
                 estimate
-                priority
                 children {
                   id
                   text
                   completed
                   estimate
-                  priority
                   children {
                     id
                     text
                     completed
                     estimate
-                    priority
                   }
                 }
               }
@@ -127,16 +120,67 @@ export interface DeleteTaskQuery {
 }
 
 export const EDIT_TASK = gql`
-  mutation EditTask($id: ID!, $text: String) {
-    updateTask(input: { id: $id, patch: { text: $text } }){
+  mutation EditTask($id: ID!, $text: String, $estimate: Float) {
+    updateTask(input: {
+      id: $id,
+      patch: { text: $text, estimate: $estimate }
+    }){
       task {
         id
         text
+        estimate
         completed
+        children {
+          id
+          text
+          completed
+          estimate
+          children {
+            id
+            text
+            completed
+            estimate
+            children {
+              id
+              text
+              completed
+              estimate
+              children {
+                id
+                text
+                completed
+                estimate
+                children {
+                  id
+                  text
+                  completed
+                  estimate
+                  children {
+                    id
+                    text
+                    completed
+                    estimate
+                  }
+                }
+              }
+            }
+          }
+        }
+        project {
+          id
+          name
+          color
+        }
       }
     }
   }
 `;
+
+export interface EditTaskQuery {
+  updateTask: {
+    task: Task;
+  };
+}
 
 export const UPDATE_PROJECT_COLOR = gql`
   mutation UpdateProject($id: ID!, $color: String) {

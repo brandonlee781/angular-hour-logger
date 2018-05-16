@@ -31,43 +31,36 @@ export const GET_PROJECT_TASK = gql`
         text
         completed
         estimate
-        priority
         children {
           id
           text
           completed
           estimate
-          priority
           children {
             id
             text
             completed
             estimate
-            priority
             children {
               id
               text
               completed
               estimate
-              priority
               children {
                 id
                 text
                 completed
                 estimate
-                priority
                 children {
                   id
                   text
                   completed
                   estimate
-                  priority
                   children {
                     id
                     text
                     completed
                     estimate
-                    priority
                   }
                 }
               }

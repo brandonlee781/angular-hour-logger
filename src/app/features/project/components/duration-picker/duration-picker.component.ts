@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class DurationPickerComponent implements OnInit {
   @Input() showLabel = true;
+  @Input() estimate: number;
   hours: number[];
   selectedHour: number;
   minutes: string[];
@@ -47,7 +48,29 @@ export class DurationPickerComponent implements OnInit {
     this.selectedMinutes = '00';
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.estimate) {
+      const decimal: number = +(this.estimate % 1).toFixed(2);
+      this.selectedHour = Math.floor(this.estimate);
+      switch (decimal) {
+        case 0:
+          this.selectedMinutes = '00';
+          break;
+        case 0.25:
+          this.selectedMinutes = '15';
+          break;
+        case 0.5:
+          this.selectedMinutes = '30';
+          break;
+        case 0.75:
+          this.selectedMinutes = '45';
+          break;
+        default:
+          this.selectedMinutes = '00';
+          break;
+      }
+    }
+  }
 
   reset() {
     this.selectedHour = 0;

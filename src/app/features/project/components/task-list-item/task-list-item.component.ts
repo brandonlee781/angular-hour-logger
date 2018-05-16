@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
-import { DELETE_TASK, TOGGLE_TASK, EDIT_TASK } from 'features/project/schema/mutations';
+import { DELETE_TASK, EDIT_TASK, TOGGLE_TASK, EditTaskQuery } from 'features/project/schema/mutations';
 import { GET_PROJECT_TASK, GetProjectTasksQuery } from 'features/project/schema/queries';
 import Task from 'features/project/Task';
 
@@ -16,7 +16,10 @@ export class TaskListItemComponent implements OnInit {
   @Input() parent: string;
   @Input() showCompleted;
   @ViewChild('editInput') editInputEl: ElementRef;
+
   editText: string;
+  editEstimate: number;
+
   showNewTask = false;
   showChildren = true;
   confirmDelete = false;
@@ -93,15 +96,21 @@ export class TaskListItemComponent implements OnInit {
       }, 1);
     }
   }
+
+  editDuration(event) {
+    this.editEstimate = event;
+  }
+
   confirmEditTask() {
     const newText = this.editText;
-    const newEstimate = this.task.estimate;
+    const newEstimate = this.editEstimate;
 
-    this.apollo.mutate({
+    this.apollo.mutate<EditTaskQuery>({
       mutation: EDIT_TASK,
       variables: {
         id: this.task.id,
-        text: newText,
+        text: newText || null,
+        estimate: this.editEstimate || null,
       },
       optimisticResponse: {
         __typename: 'Mutation',
@@ -110,12 +119,24 @@ export class TaskListItemComponent implements OnInit {
           task: {
             __typename: 'Task',
             id: this.task.id,
-            text: newText,
+            text: newText || this.task.text,
+            estimate: newEstimate || this.task.estimate,
             completed: this.task.completed,
+            project: this.task.project,
+            children: this.task.children,
           },
         },
       },
-      update: (proxy, { updateTask }) => {
+      refetchQueries: [
+        {
+          query: GET_PROJECT_TASK,
+          variables: {
+            project: this.project.id,
+            limit: 500,
+          },
+        },
+      ],
+      update: (proxy, { data: { updateTask } }) => {
         const tasksQuery = {
           query: GET_PROJECT_TASK,
           variables: {
