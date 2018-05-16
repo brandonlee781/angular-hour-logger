@@ -6,8 +6,7 @@
 
 $logger-app-primary: mat-palette($logger-blue, 700, 500, 800);
 $logger-app-accent: mat-palette($mat-blue-grey, 500);
-$logger-app-warn: mat-palette($mat-red);
-
+$logger-app-warn: mat-palette($mat-red, 900);
 $logger-app-theme: mat-light-theme(
   $logger-app-primary,
   $logger-app-accent,
