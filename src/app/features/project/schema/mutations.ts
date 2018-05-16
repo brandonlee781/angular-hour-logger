@@ -126,6 +126,18 @@ export interface DeleteTaskQuery {
   };
 }
 
+export const EDIT_TASK = gql`
+  mutation EditTask($id: ID!, $text: String) {
+    updateTask(input: { id: $id, patch: { text: $text } }){
+      task {
+        id
+        text
+        completed
+      }
+    }
+  }
+`;
+
 export const UPDATE_PROJECT_COLOR = gql`
   mutation UpdateProject($id: ID!, $color: String) {
     updateProject(input: { id: $id, patch: { color: $color } }) {

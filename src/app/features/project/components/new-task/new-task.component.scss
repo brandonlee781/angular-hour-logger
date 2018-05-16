@@ -1,19 +1,30 @@
 .new-task-panel {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 5rem;
+  grid-template-columns: auto 104px 40px 40px;
+  grid-gap: 8px;
   height: 5rem;
   // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0 16px;
 
   .new-task-input {
-    width: 100%;
-    margin-left: 16px;
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    align-self: center;
+  }
+
+  .duration-picker {
+    grid-row: 1 / 2;
+    grid-column: 2 / span 1;
+    align-self: center;
+    padding-bottom: 20px;
   }
 
   button {
     height: 36px;
-    margin-left: 16px;
+    grid-row: 1 / 2;
+    grid-column: 3 / span 2;
+    align-self: center;
   }
 }
 

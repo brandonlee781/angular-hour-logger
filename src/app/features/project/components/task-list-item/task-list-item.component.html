@@ -1,5 +1,5 @@
 <div class="task-item">
-  <div class="task-details">
+  <div *ngIf="!isEditing" class="task-details">
     <button *ngIf="task?.children.length" mat-icon-button class="task-show" (click)="showChildren = !showChildren">
       <mat-icon
         class="toggle-children-button"
@@ -14,11 +14,13 @@
       <mat-icon *ngIf="task.completed" color="primary">check_box</mat-icon>
     </button>
 
-    <span class="task-text" [ngStyle]="{ 'text-decoration': task.completed ? 'line-through' : 'none' }">
+    <span [ngClass]="{ 'task-text': true, 'editable': !task.completed }"
+      [ngStyle]="{ 'text-decoration': task.completed ? 'line-through' : '' }"
+      (click)="editTask()">
       {{ task.text }}
+      <span class="task-edit-label">Click To Edit</span>
     </span>
 
-    <!-- <div class="task-controls"> -->
     <span class="task-estimate">
       <mat-icon>access_time</mat-icon>{{ getTotalEstimate() }}
     </span>
@@ -43,9 +45,38 @@
     <button *ngIf="confirmDelete" mat-button color="warn" (click)="deleteTask()" class="task-confirm-delete">
       Confirm? <mat-icon color="white">delete</mat-icon>
     </button>
-    <!-- </div> -->
+  </div>
 
+  <div *ngIf="isEditing" class="task-edit-wrapper">
+    <button mat-icon-button class="task-show" disabled>
+      <mat-icon class="toggle-children-button show-children">
+        keyboard_arrow_right
+      </mat-icon>
+    </button>
 
+    <button mat-icon-button class="task-check" disabled>
+      <mat-icon>check_box_outline_blank</mat-icon>
+    </button>
+
+    <mat-form-field appearance="standard" class="task-edit-text">
+      <input matInput #editInput placeholder="Task Text" [(ngModel)]="editText">
+    </mat-form-field>
+
+    <bl-duration-picker [showLabel]="false" class="task-estimate"></bl-duration-picker>
+
+    <button mat-icon-button
+      class="task-edit"
+      color="primary"
+      (click)="confirmEditTask()">
+      <mat-icon color="primary">check</mat-icon>
+    </button>
+
+    <button mat-icon-button
+      class="task-cancel-edit"
+      color="warn"
+      (click)="isEditing = !isEditing">
+      <mat-icon color="warn">close</mat-icon>
+    </button>
   </div>
 
   <div class="new-task" *ngIf="showNewTask">

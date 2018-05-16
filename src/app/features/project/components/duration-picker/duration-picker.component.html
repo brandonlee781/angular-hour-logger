@@ -1,5 +1,5 @@
-<div class="wrapper">
-  <label class="label">Estimate</label>
+<div [ngClass]="{ 'wrapper': true, 'withLabel': showLabel}">
+  <label *ngIf="showLabel" class="label">Estimate</label>
   <mat-icon class="icon">access_time</mat-icon>
   <div class="hour-wrapper" [matMenuTriggerFor]="hourMenu">
     {{ selectedHour }}

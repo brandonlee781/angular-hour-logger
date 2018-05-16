@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'bl-duration-picker',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./duration-picker.component.scss'],
 })
 export class DurationPickerComponent implements OnInit {
+  @Input() showLabel = true;
   hours: number[];
   selectedHour: number;
   minutes: string[];
