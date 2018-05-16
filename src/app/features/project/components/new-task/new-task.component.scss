@@ -4,8 +4,7 @@
   grid-template-columns: auto 104px 40px 40px;
   grid-gap: 8px;
   height: 5rem;
-  // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 0 16px;
+  padding: 0 16px 0 28px;
 
   .new-task-input {
     grid-row: 1 / span 1;
