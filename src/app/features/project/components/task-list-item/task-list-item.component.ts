@@ -30,6 +30,10 @@ export class TaskListItemComponent implements OnInit {
 
   ngOnInit() {
     this.editText = this.task.text;
+    if (this.task.children) {
+      const completedChildren = this.task.children.filter(child => child.completed);
+      this.showChildren = completedChildren.length === this.task.children.length ? false : true;
+    }
   }
 
   getTotalEstimate() {
