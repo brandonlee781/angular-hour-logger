@@ -8,7 +8,7 @@
   </mat-form-field> -->
 
   <mat-form-field class="new-task-input">
-    <input matInput [formControl]="taskText" required placeholder="Task Text">
+    <input matInput [formControl]="taskText" required placeholder="Task Text" (keyup.enter)="createTask()">
     <mat-error *ngIf="taskText.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
 
