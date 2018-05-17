@@ -1,5 +1,3 @@
-import { map } from 'rxjs/operators';
-
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -10,13 +8,17 @@ import { NEW_LOG, UPDATE_LOG } from 'features/log/schema/mutations';
 import { LOG_LIST_QUERY, LogListQuery } from 'features/log/schema/queries';
 import Project from 'features/project/Project';
 import {
+  GET_ALL_PROJECT_TASKS,
   GET_PROJECT_NAMES,
+  GetAllProjectTasksQuery,
   GetProjectNameQuery,
 } from 'features/project/schema/queries';
-import { Observable } from 'rxjs';
+import Task from 'features/project/Task';
+import { map } from 'rxjs/operators';
 import { logTimeValidator } from 'shared/directives/log-time-validator.directive';
 
 import { LogErrorStateMatcher } from './LogErrorStateMatcher';
+import { TOGGLE_TASK } from 'features/project/schema/mutations';
 
 interface DialogData extends Log {
   header: string;
@@ -31,6 +33,7 @@ export class NewLogDialogComponent implements OnInit {
   projects: Project[];
   newLogForm: FormGroup;
   endTimeMatcher = new LogErrorStateMatcher();
+  projectTasks: Task[];
   duration = 0;
 
   editProject: string;
@@ -69,6 +72,7 @@ export class NewLogDialogComponent implements OnInit {
         ],
         startTime: [parse(data.start), Validators.required],
         endTime: [parse(data.end), Validators.required],
+        tasks: [{ value: '', disabled: true }, null],
         note: [
           data.note || null,
           Validators.compose([Validators.required, Validators.maxLength(255)]),
@@ -79,6 +83,17 @@ export class NewLogDialogComponent implements OnInit {
       },
     );
     this.durationChange();
+    this.newLogForm.get('project').valueChanges.subscribe(project => {
+      this.newLogForm.get('tasks').enable();
+      this.apollo.watchQuery<GetAllProjectTasksQuery>({
+        query: GET_ALL_PROJECT_TASKS,
+        variables: {
+          project,
+        },
+      }).valueChanges.subscribe(q => {
+        this.projectTasks = q.data.allProjectTasks.tasks.filter(task => !task.completed);
+      });
+    });
   }
 
   durationChange(): void {
@@ -104,7 +119,7 @@ export class NewLogDialogComponent implements OnInit {
     if (this.newLogForm.valid) {
       const self = this;
 
-      const { startTime, endTime, date, project, note } = this.newLogForm.value;
+      const { startTime, endTime, date, project, note, tasks } = this.newLogForm.value;
       const formatDate = format(date, 'YYYY-MM-DD');
       const formatStart = format(startTime, 'HH:mm:ssZ');
       const formatEnd = format(endTime, 'HH:mm:ssZ');
@@ -158,6 +173,14 @@ export class NewLogDialogComponent implements OnInit {
         })
         .subscribe(q => {
           this.dialogRef.close();
+          tasks.forEach(task => {
+            this.apollo.mutate({
+              mutation: TOGGLE_TASK,
+              variables: {
+                id: task,
+              },
+            }).subscribe();
+          });
         });
     }
   }

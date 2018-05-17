@@ -64,9 +64,22 @@
       <mat-hint align="end">Duration: {{ duration }} hours</mat-hint>
     </mat-form-field>
 
+    <mat-form-field appearance="fill" [hideRequiredMarker]="true" class="tasks-field">
+      <mat-label>Select Task(s)</mat-label>
+      <mat-select #taskSelect formControlName="tasks" multiple>
+        <mat-option *ngFor="let task of projectTasks" [value]="task.id">
+          {{ task.text }}: {{ task.estimate }} hours
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="newLogForm?.errors?.tasks">
+          {{ newLogForm.errors.tasks }}
+      </mat-error>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
     <mat-form-field appearance="fill" [hideRequiredMarker]="true" class="notes-field">
       <mat-label>Notes</mat-label>
-      <textarea #notes formControlName="note" matInput maxlength="255" required></textarea>
+      <input #notes formControlName="note" matInput maxlength="255" required/>
       <mat-hint>Required *</mat-hint>
       <mat-hint align="end">{{ notes.value.length}} / 255</mat-hint>
     </mat-form-field>

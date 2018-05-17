@@ -82,3 +82,30 @@ export interface GetProjectTasksQuery {
     tasks: Task[];
   };
 }
+
+export const GET_ALL_PROJECT_TASKS = gql`
+  query AllProjectTasks($project: String!, $limit: Int, $offset: Int) {
+    allProjectTasks(
+      input: { project: $project }
+      options: { limit: $limit, offset: $offset }
+    ) {
+      tasks {
+        id
+        text
+        completed
+        estimate
+        project {
+          id
+          name
+          color
+        }
+      }
+    }
+  }
+`;
+
+export interface GetAllProjectTasksQuery {
+  allProjectTasks: {
+    tasks: Task[];
+  };
+}

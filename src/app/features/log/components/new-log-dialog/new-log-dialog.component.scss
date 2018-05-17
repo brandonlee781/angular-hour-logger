@@ -32,6 +32,7 @@
     'date'
     'start'
     'end'
+    'tasks'
     'note';
   width: 328px;
 
@@ -39,6 +40,7 @@
     grid-template-areas:
       'project date'
       'start end'
+      'tasks tasks'
       'note note';
     width: 672px;
   }
@@ -58,6 +60,10 @@
 
 .endTime-field {
   grid-area: end;
+}
+
+.tasks-field {
+  grid-area: tasks;
 }
 
 .notes-field {
