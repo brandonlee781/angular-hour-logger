@@ -26,6 +26,7 @@
   </eco-fab-speed-dial>
 </div>
 <bl-log-list
+  [selectedProject]="project.id"
   [hidden]="currentView === 'calendar'"
   [logs]="logs"
   (editLog)="editLog($event)"

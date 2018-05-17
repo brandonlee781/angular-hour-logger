@@ -18,6 +18,7 @@ import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 })
 export class LogListComponent implements OnInit {
   @Input() logs: Log[];
+  @Input() selectedProject: string = null;
   @Output() editLog = new EventEmitter<Log>();
   @Output() newLog = new EventEmitter<any>();
   @Output() loadMore = new EventEmitter<any>();

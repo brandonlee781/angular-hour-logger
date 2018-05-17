@@ -6,6 +6,7 @@
   <bl-log-list-item
     *ngFor="let log of logs"
     [log]="log"
+    [selectedProject]="selectedProject"
     (editLog)="editLog.emit($event)">
   </bl-log-list-item>
   <button

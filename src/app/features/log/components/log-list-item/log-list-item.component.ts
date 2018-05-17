@@ -12,6 +12,7 @@ import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
 })
 export class LogListItemComponent implements OnInit {
   @Input() log: Log;
+  @Input() selectedProject: string;
   @Output() editLog = new EventEmitter<Log>();
   confirmDelete = false;
   confirmDeleteTimeout;
@@ -39,7 +40,7 @@ export class LogListItemComponent implements OnInit {
           const listQuery = {
             query: LOG_LIST_QUERY,
             variables: {
-              project: this.log.project.id,
+              project: this.selectedProject || null,
             },
           };
           const data: LogListQuery = proxy.readQuery(listQuery);
