@@ -84,14 +84,17 @@ export class NewLogDialogComponent implements OnInit {
     );
     this.durationChange();
     this.newLogForm.get('project').valueChanges.subscribe(project => {
-      this.newLogForm.get('tasks').enable();
       this.apollo.watchQuery<GetAllProjectTasksQuery>({
         query: GET_ALL_PROJECT_TASKS,
         variables: {
           project,
         },
       }).valueChanges.subscribe(q => {
-        this.projectTasks = q.data.allProjectTasks.tasks.filter(task => !task.completed);
+        const openTasks = q.data.allProjectTasks.tasks.filter(task => !task.completed);
+        this.projectTasks = openTasks;
+        if (openTasks.length) {
+          this.newLogForm.get('tasks').enable();
+        }
       });
     });
   }
