@@ -11,13 +11,13 @@
       </button>
     </div>
 
+    <ng-content *ngIf="!headerTitle" select=".nav-header" ngProjectAs="div"></ng-content>
+
     <mat-progress-spinner
       *ngIf="loading"
       class="spinner"
       mode="indeterminate">
     </mat-progress-spinner>
-
-    <ng-content *ngIf="!headerTitle" select=".nav-header" ngProjectAs="div"></ng-content>
 
     <ng-content select=".nav-links" ngProjectAs="div"></ng-content>
   </mat-drawer>
