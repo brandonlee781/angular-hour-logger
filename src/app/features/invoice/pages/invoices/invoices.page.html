@@ -4,7 +4,7 @@
     [loading]="loading"
     headerTitle="Invoices"
     #drawer>
-      <div class="nav-links">
+      <div *ngIf="!loading" class="nav-links">
         <bl-nav-drawer-link [link]="{ path:'/invoices', text: 'Create a New Invoice', route: '' }"></bl-nav-drawer-link>
         <bl-nav-drawer-link
           *ngFor="let link of links"

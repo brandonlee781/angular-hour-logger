@@ -11,25 +11,15 @@
       </button>
     </div>
 
-    <ng-content *ngIf="!headerTitle" select=".nav-header" ngProjectAs="div"></ng-content>
-
     <mat-progress-spinner
       *ngIf="loading"
       class="spinner"
-      color="accent"
       mode="indeterminate">
     </mat-progress-spinner>
 
+    <ng-content *ngIf="!headerTitle" select=".nav-header" ngProjectAs="div"></ng-content>
+
     <ng-content select=".nav-links" ngProjectAs="div"></ng-content>
-    <!-- <mat-list *ngIf="!loading" class="link-list">
-      <bl-nav-drawer-item
-        *ngFor="let link of links"
-        icon="{{ link.icon }}"
-        text="{{ link.text }}"
-        [isSelected]="link.isSelected"
-        (click)="changeSelected(link)"
-      ></bl-nav-drawer-item>
-    </mat-list> -->
   </mat-drawer>
 
   <mat-drawer-content>
