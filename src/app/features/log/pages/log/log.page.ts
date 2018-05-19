@@ -2,7 +2,7 @@ import { map } from 'rxjs/operators';
 // tslint:disable:component-class-suffix
 
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { differenceInMinutes, format } from 'date-fns';
@@ -17,6 +17,7 @@ import {
 
 import { NEW_LOG, UPDATE_LOG } from '../../schema/mutations';
 import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
+import { InfiniteScrollLoadingSnackbarComponent } from 'features/ui/components/infinite-scroll-loading-snackbar/infinite-scroll-loading-snackbar.component';
 
 interface ProjectQuery {
   allProjects: {
@@ -50,6 +51,7 @@ export class LogPage implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private logViewService: LogViewService,
+    private snackBar: MatSnackBar,
   ) {
     this.route.params.subscribe(params => {
       this.apollo
@@ -86,17 +88,16 @@ export class LogPage implements OnInit {
   }
 
   loadMoreLogs() {
-    this.loading = true;
+    const snack = this.snackBar.openFromComponent(InfiniteScrollLoadingSnackbarComponent);
     this.logQuery.fetchMore({
       variables: {
         offset: this.logs.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        this.loading = false;
         if (!fetchMoreResult) {
           return prev;
         }
-
+        snack.dismiss();
         return {
           allLogsByProjectId: {
             __typename: prev.allLogsByProjectId.__typename,

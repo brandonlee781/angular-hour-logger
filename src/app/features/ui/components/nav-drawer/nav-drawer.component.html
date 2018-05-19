@@ -22,7 +22,13 @@
     <ng-content select=".nav-links" ngProjectAs="div"></ng-content>
   </mat-drawer>
 
-  <mat-drawer-content>
-      <ng-content></ng-content>
+  <mat-drawer-content
+    style="height: 100%;"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false">
+    <ng-content></ng-content>
   </mat-drawer-content>
 </mat-drawer-container>

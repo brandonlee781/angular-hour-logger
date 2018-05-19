@@ -10,6 +10,7 @@ import {
 import { Apollo, QueryRef } from 'apollo-angular';
 import Log from 'features/log/Log';
 import { LOG_LIST_QUERY, LogListQuery } from '../../schema/queries';
+import { InfiniteScrollService } from 'features/ui/services/infinite-scroll.service';
 
 @Component({
   selector: 'bl-log-list',
@@ -25,9 +26,13 @@ export class LogListComponent implements OnInit, OnChanges {
   @Output() loadMore = new EventEmitter<any>();
   showEmptyState = false;
 
-  constructor() {}
+  constructor(private infiniteScrollService: InfiniteScrollService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.infiniteScrollService.scrollAnnounced$.subscribe(scroll => {
+      this.loadMore.emit();
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!this.loading && (!this.logs || !this.logs.length)) {

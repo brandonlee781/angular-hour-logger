@@ -1,9 +1,6 @@
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { InfiniteScrollService } from 'features/ui/services/infinite-scroll.service';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
@@ -24,6 +21,7 @@ export class NavDrawerComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private navDrawerService: NavDrawerService,
+    private infiniteScrollService: InfiniteScrollService,
   ) {
     navDrawerService.isNavDrawerOpen$.subscribe(isOpened => {
       this.isOpened = isOpened;
@@ -58,5 +56,9 @@ export class NavDrawerComponent implements OnInit {
 
   headerButtonClicked() {
     this.headerAction.emit();
+  }
+
+  onScroll() {
+    this.infiniteScrollService.announceScroll('scrolled');
   }
 }

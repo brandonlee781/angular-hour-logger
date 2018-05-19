@@ -9,12 +9,12 @@
     [selectedProject]="selectedProject"
     (editLog)="editLog.emit($event)">
   </bl-log-list-item>
-  <button
+  <!-- <button
     mat-flat-button
     color="primary"
     class="more-btn"
     (click)="loadMore.emit()"
-  >More Logs</button>
+  >More Logs</button> -->
 </div>
 
 <div *ngIf="showEmptyState" class="empty-state" fxLayout="column" fxLayoutAlign="center center">

@@ -1,9 +1,6 @@
 @import '~sass/mixins';
 
 .list-wrapper {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
   width: 100%;
 
   @include mobile-and-down {

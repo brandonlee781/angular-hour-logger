@@ -12,12 +12,15 @@ import { NavDrawerComponent } from './components/nav-drawer/nav-drawer.component
 import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 import { SideNavBtnComponent } from './components/side-nav-btn/side-nav-btn.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollLoadingSnackbarComponent } from './components/infinite-scroll-loading-snackbar/infinite-scroll-loading-snackbar.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
+    InfiniteScrollModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
@@ -30,6 +33,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
     NavDrawerItemComponent,
     NavDrawerLinkComponent,
     ProfileDialogComponent,
+    InfiniteScrollLoadingSnackbarComponent,
   ],
   exports: [
     SideNavComponent,
