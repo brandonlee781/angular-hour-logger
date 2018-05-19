@@ -61,3 +61,24 @@ button {
 .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
   margin-top: 0 !important;
 }
+
+.nav-header {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  height: $sidenav-width;
+  min-height: $sidenav-width;
+  width: calc(378px - 4rem);
+  padding: 0 2rem;
+  margin: 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 2.15rem;
+  font-weight: 100;
+  color: #fff;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+
+  button span {
+    margin-right: 6px;
+  }
+}
