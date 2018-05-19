@@ -40,7 +40,7 @@ export const UPDATE_LOG = gql`
     $id: ID!
     $start: String
     $end: String
-    $duration: Int
+    $duration: Float
     $project: String
     $note: String
   ) {
