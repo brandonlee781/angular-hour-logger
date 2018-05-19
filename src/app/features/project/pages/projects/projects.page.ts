@@ -19,36 +19,30 @@ import { Link } from 'shared/types';
   styleUrls: ['./projects.page.scss'],
 })
 export class ProjectsPage implements OnInit {
-  links$: Observable<Link[]>;
-  projects$: Observable<Project[]>;
+  links: Link[];
   headerTitle: string;
-  selectedProject: string;
   showNewProject = false;
   open = false;
-
-  taskText = new FormControl('', [Validators.required]);
-  taskPriority = 0;
-  taskEstimate = 0;
+  loading: boolean;
 
   constructor(private apollo: Apollo, private location: Location) {}
 
   ngOnInit() {
+    this.loading = true;
     this.headerTitle = 'Select a Project';
-    this.links$ = this.apollo
+    this.apollo
       .watchQuery<GetProjectNameQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.pipe(
-        map(p => p.data.allProjects.projects),
-        map((arr: Project[], index: number) =>
-          arr.map((proj: Project) => ({
-            icon: 'folder_open',
-            path: '/projects',
-            route: proj.name,
-            text: proj.name,
-            id: proj.id,
-          })),
-        ),
-      );
+      .valueChanges
+      .subscribe(q => {
+        const projects = q.data.allProjects.projects;
+        this.links = projects.map((proj: Project) => ({
+          icon: 'folder_open',
+          path: '/projects',
+          route: proj.name,
+          text: proj.name,
+          id: proj.id,
+        }));
+        this.loading = false;
+      });
   }
-
-  createNewProject(event) {}
 }
