@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: RecentLogsPage,
+        component: LogPage,
       },
       {
         path: ':project',

@@ -43,6 +43,7 @@ export class LogPage implements OnInit {
   isDesktop: boolean;
   open = false;
   currentView;
+  loading = false;
 
   constructor(
     private apollo: Apollo,
@@ -58,7 +59,8 @@ export class LogPage implements OnInit {
           this.project = projects.find(
             proj => proj.name === params.project || proj.name === '',
           );
-          this.getLogs(this.project.id);
+          const projectId = this.project ? this.project.id : null;
+          this.getLogs(projectId);
         });
     });
   }
@@ -69,7 +71,8 @@ export class LogPage implements OnInit {
     });
   }
 
-  getLogs(id) {
+  getLogs(id = null) {
+    this.loading = true;
     this.logQuery = this.apollo.watchQuery<LogListQuery>({
       query: LOG_LIST_QUERY,
       variables: {
@@ -78,15 +81,18 @@ export class LogPage implements OnInit {
     });
     this.logQuery.valueChanges.subscribe(q => {
       this.logs = q.data.allLogsByProjectId.logs;
+      this.loading = false;
     });
   }
 
   loadMoreLogs() {
+    this.loading = true;
     this.logQuery.fetchMore({
       variables: {
         offset: this.logs.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
+        this.loading = false;
         if (!fetchMoreResult) {
           return prev;
         }
