@@ -6,10 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./side-nav-btn.component.scss'],
 })
 export class SideNavBtnComponent implements OnInit {
-  @Input() icon: string;
-  @Input() label: string;
-  @Input() link: string;
-  @Input() position: string;
+  @Input() icon?: string;
+  @Input() label?: string;
+  @Input() link?: string;
+  @Input() position?: string;
 
   constructor() {}
 

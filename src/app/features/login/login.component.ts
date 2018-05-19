@@ -46,6 +46,6 @@ export class LoginComponent implements OnInit {
       }),
     );
     this.userService.getUser();
-    this.router.navigate(['home']);
+    this.router.navigate(['/']);
   }
 }

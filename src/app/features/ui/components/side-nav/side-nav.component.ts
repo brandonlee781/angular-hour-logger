@@ -1,12 +1,9 @@
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material';
+import { MatDialog, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ProfileDialogComponent } from 'features/ui/components/profile-dialog/profile-dialog.component';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
 
 @Component({
@@ -18,6 +15,7 @@ export class SideNavComponent implements OnInit {
   @Input() user;
   isDesktop: boolean;
   isNavDrawerOpen: boolean;
+  isProfileOpen: boolean;
 
   constructor(
     public breakpointObserver: BreakpointObserver,
@@ -25,6 +23,7 @@ export class SideNavComponent implements OnInit {
     public router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
+    public dialog: MatDialog,
   ) {
     iconRegistry.addSvgIcon(
       'hamburger',
@@ -51,5 +50,18 @@ export class SideNavComponent implements OnInit {
 
   toggleMenu() {
     this.navDrawerService.setValue(!this.isNavDrawerOpen);
+  }
+
+  openProfile() {
+    if (!this.isProfileOpen) {
+      this.isProfileOpen = true;
+      const profileSettingsDialog = this.dialog.open(ProfileDialogComponent, {
+        panelClass: 'profile-settings-dialog',
+      });
+
+      profileSettingsDialog.afterClosed().subscribe(result => {
+        this.isProfileOpen = false;
+      });
+    }
   }
 }
