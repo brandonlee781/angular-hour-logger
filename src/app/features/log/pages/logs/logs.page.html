@@ -1,5 +1,5 @@
 <div class="log-wrapper">
-  <bl-nav-drawer #drawer>
+  <bl-nav-drawer #drawer [loading]="loading">
 
     <div class="nav-header">
       <span>Log Entries</span>
@@ -9,10 +9,10 @@
       </button>
     </div>
 
-    <div class="nav-links">
+    <div *ngIf="!loading" class="nav-links">
       <bl-nav-drawer-link [link]="{ path:'/logs', text: 'Recent Log Entries', route: '' }"></bl-nav-drawer-link>
       <bl-nav-drawer-link
-        *ngFor="let link of links$ | async"
+        *ngFor="let link of links"
         [link]="link"
       ></bl-nav-drawer-link>
     </div>

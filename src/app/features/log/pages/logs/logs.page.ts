@@ -1,19 +1,13 @@
-import { map } from 'rxjs/operators';
-// tslint:disable:component-class-suffix
-
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { LogViewService } from 'features/log/services/log-view.service';
 import Project from 'features/project/Project';
 import { GET_PROJECT_NAMES } from 'features/project/schema/queries';
-import { Observable } from 'rxjs';
 import { NavDrawerService } from 'shared/services/nav-drawer.service';
+
+// tslint:disable:component-class-suffix
 
 interface ProjectQuery {
   allProjects: {
@@ -34,10 +28,10 @@ interface Link {
   styleUrls: ['./logs.page.scss'],
 })
 export class LogsPage implements OnInit {
-  links$: Observable<Link[]>;
-  projects$: Observable<Project[]>;
+  links: Link[];
   currentView;
   isDesktop: boolean;
+  loading: boolean;
 
   constructor(
     private apollo: Apollo,
@@ -48,23 +42,24 @@ export class LogsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.logViewService.view$.subscribe(v => {
       this.currentView = v;
     });
-    this.links$ = this.apollo
+    this.apollo
       .watchQuery<ProjectQuery>({ query: GET_PROJECT_NAMES })
-      .valueChanges.pipe(
-        map(p => p.data.allProjects.projects),
-        map((arr: Project[]) =>
-          arr.map((proj: Project) => ({
-            icon: proj.id === '' ? '' : 'folder_open',
-            path: '/logs',
-            route: proj.name,
-            text: proj.name,
-            id: proj.id,
-          })),
-        ),
-      );
+      .valueChanges
+      .subscribe(q => {
+        const projects = q.data.allProjects.projects;
+        this.links = projects.map((proj: Project) => ({
+          icon: proj.id === '' ? '' : 'folder_open',
+          path: '/logs',
+          route: proj.name,
+          text: proj.name,
+          id: proj.id,
+        }));
+        this.loading = false;
+      });
     this.breakpointObserver
       .observe([Breakpoints.Large, Breakpoints.XLarge])
       .subscribe((state: BreakpointState) => {
