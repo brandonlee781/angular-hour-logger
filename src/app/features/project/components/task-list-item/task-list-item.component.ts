@@ -1,9 +1,14 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import Project from 'features/project/Project';
-import { DELETE_TASK, EDIT_TASK, EditTaskQuery, TOGGLE_TASK } from 'features/project/schema/mutations';
+import { DELETE_TASK, EDIT_TASK, EditTaskQuery, TOGGLE_TASK, UPDATE_TASK_PARENT } from 'features/project/schema/mutations';
 import { GET_PROJECT_TASK, GetProjectTasksQuery } from 'features/project/schema/queries';
 import Task from 'features/project/Task';
+
+interface DropEvent {
+  dragData: Task;
+  nativeElement: any;
+}
 
 @Component({
   selector: 'bl-task-list-item',
@@ -156,5 +161,69 @@ export class TaskListItemComponent implements OnInit {
       },
     }).subscribe();
     this.isEditing = !this.isEditing;
+  }
+
+  isDropAllowed = (data: Task) => {
+    const children = this.task.children;
+    if (this.task.completed) {
+      return false;
+    }
+    if (data.id === this.task.id) {
+      return false;
+    }
+    if (children.find(c => c.id === data.id)) {
+      return false;
+    }
+    return true;
+  }
+
+  onDrop(event: DropEvent) {
+    const dropped = event.dragData;
+
+    this.apollo.mutate({
+      mutation: UPDATE_TASK_PARENT,
+      variables: {
+        id: dropped.id,
+        parent: this.task.id,
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updateTaskParent: {
+          __typename: 'updateTaskParent',
+          task: {
+            __typename: 'Task',
+            id: dropped.id,
+            text: dropped.text,
+            estimate: dropped.estimate,
+            completed: dropped.completed,
+            project: dropped.project,
+            children: dropped.children,
+          },
+        },
+      },
+      refetchQueries: [
+        {
+          query: GET_PROJECT_TASK,
+          variables: {
+            project: this.project.id,
+            limit: 500,
+          },
+        },
+      ],
+      update: (proxy, { data: { updateTaskParent } }) => {
+        const tasksQuery = {
+          query: GET_PROJECT_TASK,
+          variables: {
+            project: this.project.id,
+            limit: 500,
+          },
+        };
+        const data: GetProjectTasksQuery = proxy.readQuery(tasksQuery);
+        const taskInd = data.projectTasks.tasks.findIndex(t => t.id === dropped.id);
+        data.projectTasks.tasks[taskInd] = updateTaskParent.task;
+
+        proxy.writeQuery({ ...tasksQuery, data });
+      },
+    }).subscribe();
   }
 }

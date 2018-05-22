@@ -10,17 +10,32 @@
 .task-details,
 .task-edit-wrapper {
   display: grid;
+  grid-template-areas: 'drag show check text estimate add remove';
   grid-template-rows: 3rem;
-  grid-template-columns: 40px 48px auto 104px 40px 40px;
+  grid-template-columns: 16px 40px 48px auto 104px 40px 40px;
   grid-gap: 8px;
   grid-row: 1 / 2;
   grid-column: 1 / 2;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.task-details:hover > .task-drag {
+  display: block;
+}
+
+.task-drag {
+  display: none;
+  grid-area: drag;
+  align-self: center;
+  justify-self: center;
+  color: rgba(0, 0, 0, 0.36);
+  cursor: grab;
+}
+
 .task-show {
-  grid-row: 1 / 2;
-  grid-column: 1 / span 1;
+  grid-area: show;
+  // grid-row: 1 / 2;
+  // grid-column: 2 / span 1;
   align-self: center;
   justify-self: center;
 }
@@ -35,8 +50,9 @@
 
 .task-check {
   cursor: pointer;
-  grid-row: 1 / 2;
-  grid-column: 2 / span 1;
+  grid-area: check;
+  // grid-row: 1 / 2;
+  // grid-column: 3 / span 1;
   align-self: center;
   justify-self: center;
 }
@@ -44,8 +60,9 @@
 .task-text,
 .task-edit-text {
   position: relative;
-  grid-row: 1 / 2;
-  grid-column: 3 / span 1;
+  grid-area: text;
+  // grid-row: 1 / 2;
+  // grid-column: 4 / span 1;
   align-self: center;
 }
 
@@ -77,8 +94,9 @@
 }
 
 .task-estimate {
-  grid-row: 1 / 2;
-  grid-column: 4 / span 1;
+  grid-area: estimate;
+  // grid-row: 1 / 2;
+  // grid-column: 5 / span 1;
   align-self: center;
   display: flex;
   flex-flow: row nowrap;
@@ -94,23 +112,25 @@
 
 .task-add,
 .task-edit {
-  grid-row: 1 / 2;
-  grid-column: 5 / span 1;
+  grid-area: add;
+  // grid-row: 1 / 2;
+  // grid-column: 6 / span 1;
   align-self: center;
   justify-self: center;
 }
 
 .task-delete,
 .task-cancel-edit {
-  grid-row: 1 / 2;
-  grid-column: 6 / span 1;
+  grid-area: remove;
+  // grid-row: 1 / 2;
+  // grid-column: 7 / span 1;
   align-self: center;
   justify-self: center;
 }
 
 .task-confirm-delete {
   grid-row: 1 / 2;
-  grid-column: 5 / span 2;
+  grid-column: 6 / span 2;
   align-self: center;
   justify-self: flex-end;
   padding-right: 8px;
@@ -128,4 +148,28 @@
   height: 5em;
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.being-dragged {
+  background-color: #ddd;
+
+  .task-details,
+  .task-edit-wrapper,
+  .new-task,
+  .task-item-chidren {
+    display: none;
+  }
+}
+
+.drag-clone {
+  opacity: 0.6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.allowed-drop {
+  border-left: 5px solid #43A047;
+}
+
+.drag-hover {
+  background-color: rgba($primary, 0.12);
 }

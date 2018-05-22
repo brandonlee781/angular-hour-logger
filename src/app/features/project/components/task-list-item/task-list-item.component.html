@@ -1,5 +1,18 @@
-<div class="task-item">
+<div class="task-item"
+  draggable
+  droppable
+  [dragData]="task"
+  [dragHandle]="'.task-drag'"
+  [dropScope]="isDropAllowed"
+  [dragClass]="'being-dragged'"
+  [dragTransitClass]="'drag-clone'"
+  [dragOverClass]="'drag-hover'"
+  [dragHintClass]="'allowed-drop'"
+  (onDrop)="onDrop($event)"
+>
   <div *ngIf="!isEditing" class="task-details">
+    <mat-icon *ngIf="!task?.completed" class="task-drag">drag_indicator</mat-icon>
+
     <button *ngIf="task?.children.length" mat-icon-button class="task-show" (click)="showChildren = !showChildren">
       <mat-icon
         class="toggle-children-button"

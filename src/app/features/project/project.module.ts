@@ -8,6 +8,7 @@ import { ProjectsPage } from 'features/project/pages/projects/projects.page';
 import { ProjectRoutingModule } from 'features/project/project-routing.module';
 import { UIModule } from 'features/ui/ui.module';
 import { MccColorPickerModule } from 'material-community-components';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import { DurationPickerComponent } from './components/duration-picker/duration-picker.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
@@ -27,6 +28,7 @@ import { CompletedTaskPipe } from './pipes/completed-task.pipe';
     MccColorPickerModule,
     ProjectRoutingModule,
     UIModule,
+    NgDragDropModule.forRoot(),
   ],
   declarations: [
     ProjectPage,

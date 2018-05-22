@@ -218,3 +218,57 @@ export interface ToggleProjectFavoriteQuery {
     project: Project;
   };
 }
+
+export const UPDATE_TASK_PARENT = gql`
+  mutation UpdateTaskParent($id: ID!, $parent: ID!) {
+    updateTaskParent(input: { id: $id, parent: $parent }) {
+      task {
+        id
+        text
+        estimate
+        completed
+        children {
+          id
+          text
+          completed
+          estimate
+          children {
+            id
+            text
+            completed
+            estimate
+            children {
+              id
+              text
+              completed
+              estimate
+              children {
+                id
+                text
+                completed
+                estimate
+                children {
+                  id
+                  text
+                  completed
+                  estimate
+                  children {
+                    id
+                    text
+                    completed
+                    estimate
+                  }
+                }
+              }
+            }
+          }
+        }
+        project {
+          id
+          name
+          color
+        }
+      }
+    }
+  }
+`;
